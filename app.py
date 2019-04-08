@@ -47,7 +47,8 @@ def upload_file():
             prob = ""
             elapsed = ""
 
-        return render_template('show.html', result=result, prob=prob, elapsed=elapsed)
+        return render_template('show.html', result=result, filename_1=filename_1, filename_2=filename_2, prob=prob,
+                               elapsed=elapsed)
 
 
 @app.route('/solution')
