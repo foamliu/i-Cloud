@@ -13,9 +13,14 @@ app = Flask(__name__, static_url_path="", static_folder="static")
 Bootstrap(app)
 
 
+@app.route('/detect')
+def detect():
+    return render_template('face-detect.html')
+
+
 @app.route('/')
-def upload():
-    return render_template('upload.html')
+def verify():
+    return render_template('face-verify.html')
 
 
 @app.route('/uploader', methods=['GET', 'POST'])
@@ -50,6 +55,16 @@ def upload_file():
 
         return render_template('show.html', result=result, filename_1=filename_1, filename_2=filename_2, prob=prob,
                                elapsed=elapsed)
+
+
+@app.route('/search')
+def search():
+    return render_template('face-search.html')
+
+
+@app.route('/emotion')
+def search():
+    return render_template('emotion.html')
 
 
 @app.route('/sdk')
