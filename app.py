@@ -43,6 +43,16 @@ def upload_file():
         return render_template('show.html', message=message, filename_1=filename_1, filename_2=filename_2)
 
 
+@app.route('/solution')
+def solution():
+    return render_template('solution.html')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
 if __name__ == '__main__':
     bootstrap = Bootstrap(app)
     app.run(host='0.0.0.0', port=8080, threaded=True)
