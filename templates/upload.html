@@ -3,14 +3,17 @@
 {% block page_content %}
 <h1>人脸</h1>
 
-<ul class="list-group">
-    <li class="list-group-item">检测并比较人脸</li>
-    <li class="list-group-item">基于相似度将图像组织成组</li>
-    <li class="list-group-item">识别图像中先前标记的人物</li>
-    <li class="list-group-item">在本地或在云中运行</li>
+<ul>
+    <li>检测并比较人脸</li>
+    <li>基于相似度将图像组织成组</li>
+    <li>识别图像中先前标记的人物</li>
+    <li>在本地或在云中运行</li>
 </ul>
 
-<h4>人脸验证</h4>
+<h3>人脸验证</h3>
+
+<p>检查两张人脸属于同一人的可能性。API 将返回一个可信度评分，用于说明这两张脸属于同一人的可能性为多大。</p>
+
 <form action="http://47.101.196.204:8080/uploader" method="POST" enctype="multipart/form-data">
     <table class="table">
         <tr>

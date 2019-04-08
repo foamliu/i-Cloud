@@ -36,11 +36,18 @@ def upload_file():
         try:
             prob, is_same = compare(full_path_1, full_path_2)
             elapsed = time.time() - start
-            message = '是否同一个人: {}, 置信度为 {:.4f}, 耗时: {:.4f} 秒。'.format(is_same, prob, elapsed)
+            if is_same:
+                result = "验证结果：两张脸属于同一个人。"
+            else:
+                result = "验证结果：两张脸属于不同的人。"
+            prob = "置信度为 {:.5f}".format(prob)
+            elapsed = "耗时: {:.2f} 秒".format(elapsed)
         except FaceNotFoundError as err:
-            message = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
+            result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
+            prob = ""
+            elapsed = ""
 
-        return render_template('show.html', message=message, filename_1=filename_1, filename_2=filename_2)
+        return render_template('show.html', result=result, prob=prob, elapsed=elapsed)
 
 
 @app.route('/solution')
