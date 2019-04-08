@@ -22,7 +22,18 @@
             <th scope="col">图片2：</th>
         </tr>
         <tr>
-            <td><input type="file" name="file1" class="form-control-file"/></td>
+            <td>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">上传</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file1"
+                               aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="file1">图像 URL</label>
+                    </div>
+                </div>
+            </td>
             <td><input type="file" name="file2" class="form-control-file"/></td>
         </tr>
         <tr>
