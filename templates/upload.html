@@ -22,7 +22,25 @@
             <th scope="col">图片2：</th>
         </tr>
         <tr>
-            <td><input type="file" name="file1" class="form-control-file"/></td>
+            <td>
+                <!--<input type="file" name="file1" class="form-control-file"/>-->
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Upload Image</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file">
+                                        Browse… <input type="file" name="file1">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload'/>
+                        </div>
+                    </div>
+                </div>
+            </td>
             <td><input type="file" name="file2" class="form-control-file"/></td>
         </tr>
         <tr>
