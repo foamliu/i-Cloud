@@ -29,10 +29,10 @@ transformer = data_transforms['val']
 
 checkpoint = 'BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
-checkpoint = torch.load(checkpoint)
-model = checkpoint['model']
-model = model.to(device)
-model.eval()
+# checkpoint = torch.load(checkpoint)
+# model = checkpoint['model']
+# model = model.to(device)
+# model.eval()
 
 # model params
 threshold = 73.18799151798612

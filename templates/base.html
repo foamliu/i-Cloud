@@ -11,12 +11,12 @@
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles.css') }}">
-{% endblock %}
+{% endblock styles %}
 
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript" src="{{ url_for('static', filename = 'my-script.js') }}"></script>
-{% endblock %}
+{% endblock scripts %}
 
 {% block navbar %}
 <div class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -55,10 +55,12 @@
         </li>
     </ul>
 </div>
-{% endblock %}
+{% endblock navbar %}
 
 {% block content %}
-<div class="container dark-background">
+{{super()}}
+<div class="container">
     {% block page_content %}{% endblock %}
 </div>
-{% endblock %}
+<footer>&copy; 2019 Stars, Inc.</footer>
+{% endblock content %}
