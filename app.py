@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 from utils import compare, ensure_folder, FaceNotFoundError, resize
 
 app = Flask(__name__, static_url_path="", static_folder="static")
+Bootstrap(app)
 
 
 @app.route('/')
@@ -77,5 +78,4 @@ def contact():
 
 
 if __name__ == '__main__':
-    bootstrap = Bootstrap(app)
     app.run(host='0.0.0.0', port=8080, debug=True)
