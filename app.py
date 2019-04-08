@@ -63,7 +63,7 @@ def search():
 
 
 @app.route('/emotion')
-def search():
+def emotion():
     return render_template('emotion.html')
 
 
