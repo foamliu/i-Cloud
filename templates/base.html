@@ -3,27 +3,29 @@
 {% block title %} MyFlaskApp {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle"
-                    data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">MyFlaskApp</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="nav-item active"><a class="nav-link" href="/">产品</a></li>
-                <li class="nav-item"><a class="nav-link" href="/solution">解决方案</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contact">联系我们</a></li>
-            </ul>
-        </div>
-    </div>
+<div class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">Logo</a>
+
+    <!-- Links -->
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbar_product" data-toggle="dropdown">
+                产品
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">人脸</a>
+                <a class="dropdown-item" href="#">语音</a>
+                <a class="dropdown-item" href="#">聊天机器人</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/solution">解决方案</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/contact">联系我们</a>
+        </li>
+    </ul>
 </div>
 {% endblock %}
 
