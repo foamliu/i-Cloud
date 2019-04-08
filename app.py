@@ -4,11 +4,10 @@ import time
 
 from flask import Flask
 from flask import render_template, request
+from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 
 from utils import compare, ensure_folder, FaceNotFoundError, resize
-
-app = Flask(__name__, static_url_path="", static_folder="static")
 
 
 @app.route('/')
@@ -43,4 +42,6 @@ def upload_file():
 
 
 if __name__ == '__main__':
+    app = Flask(__name__, static_url_path="", static_folder="static")
+    bootstrap = Bootstrap(app)
     app.run(host='0.0.0.0', port=8080, threaded=True)
