@@ -9,8 +9,16 @@ from werkzeug.utils import secure_filename
 
 from utils import compare, ensure_folder, FaceNotFoundError, resize
 
-app = Flask(__name__, static_url_path="", static_folder="static")
-Bootstrap(app)
+
+def create_app(config_name):
+    _app = Flask(config_name, static_url_path="", static_folder="static")
+    from .api import api as api_blueprint
+    _app.register_blueprint(api_blueprint, url_prefix='/api/v1')
+    Bootstrap(_app)
+    return _app
+
+
+app = create_app(__name__)
 
 
 @app.route('/detect')
