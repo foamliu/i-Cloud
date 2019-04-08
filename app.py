@@ -52,7 +52,7 @@ def upload_file():
 
 
 @app.route('/sdk')
-def solution():
+def sdk():
     return render_template('sdk.html')
 
 
@@ -62,12 +62,12 @@ def solution():
 
 
 @app.route('/price')
-def solution():
+def price():
     return render_template('price.html')
 
 
 @app.route('/developer')
-def solution():
+def developer():
     return render_template('developer.html')
 
 
