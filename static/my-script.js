@@ -17,19 +17,23 @@ $(document).ready( function() {
 		    }
 
 		});
-		function readURL(input) {
+		function readURL(input, img_id) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
 
 		        reader.onload = function (e) {
-		            $('#img-upload').attr('src', e.target.result);
+		            $(img_id).attr('src', e.target.result);
 		        }
 
 		        reader.readAsDataURL(input.files[0]);
 		    }
 		}
 
-		$("#imgInp").change(function(){
-		    readURL(this);
+		$("#imgInp1").change(function(){
+		    readURL(this, '#img-upload-1');
+		});
+
+	    $("#imgInp2").change(function(){
+		    readURL(this, '#img-upload-2');
 		});
 	});

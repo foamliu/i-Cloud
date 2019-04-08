@@ -22,12 +22,12 @@ def upload_file():
     if request.method == 'POST':
         start = time.time()
         ensure_folder('static')
-        file1 = request.files['file1']
+        file1 = request.files['imgInp1']
         filename_1 = secure_filename(file1.filename)
         full_path_1 = os.path.join('static', filename_1)
         file1.save(full_path_1)
         resize(full_path_1)
-        file2 = request.files['file2']
+        file2 = request.files['imgInp2']
         filename_2 = secure_filename(file2.filename)
         full_path_2 = os.path.join('static', filename_2)
         file2.save(full_path_2)
