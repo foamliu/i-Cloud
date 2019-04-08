@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
 <table class="table">
     <tr>
         <th scope="col">图片1：</th>
@@ -14,10 +13,9 @@
                                           style="max-height: 500px; max-width: 500px;"></td>
     </tr>
     <tr>
-        <td colspan="2">{{ message }} <a href="/">返回</a>
+        <td colspan="2">{{ message }} <a href="/" class="btn btn-primary">返回</a>
             <p>注：可信度评分，用于说明这两张脸属于同一人的可能性为多大。</p>
         </td>
     </tr>
 </table>
-
 {% endblock %}

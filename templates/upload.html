@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
 <form action="http://47.101.196.204:8080/uploader" method="POST" enctype="multipart/form-data">
-    <h1>测试人脸相似度</h1>
-    <font color="navy">本网站"阅后即毁"，不收集照片。</font>
+    <p>测试人脸相似度</p>
+    <p>本网站"阅后即毁"，不收集照片。</p>
 
     <table class="table">
         <tr>
@@ -16,10 +15,8 @@
             <td><input type="file" name="file2"/></td>
         </tr>
         <tr>
-            <td><input type="submit"/></td>
-            <td></td>
+            <td colspan="2"><input type="submit" class="btn btn-primary"/></td>
         </tr>
     </table>
 </form>
-
 {% endblock %}
