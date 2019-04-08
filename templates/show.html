@@ -15,8 +15,14 @@
             <div class="card w-75">
                 <div class="card-body">
                     <h5 class="card-title">比对结果</h5>
-                    <p class="card-text">{{ result }}{{ prob }}{{ elapsed }}</p>
+                    <p class="card-text">
+                        {{ result }}
+                        <font style="font-weight: bold;">
+                            {{ prob }}
+                        </font>
+                    </p>
                     <p>注：可信度评分，用于说明这两张脸属于同一人的可能性为多大。</p>
+                    <p>{{ elapsed }}</p>
                 </div>
             </div>
         </td>
