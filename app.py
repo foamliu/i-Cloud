@@ -51,9 +51,24 @@ def upload_file():
                                elapsed=elapsed)
 
 
+@app.route('/sdk')
+def solution():
+    return render_template('sdk.html')
+
+
 @app.route('/solution')
 def solution():
     return render_template('solution.html')
+
+
+@app.route('/price')
+def solution():
+    return render_template('price.html')
+
+
+@app.route('/developer')
+def solution():
+    return render_template('developer.html')
 
 
 @app.route('/contact')
