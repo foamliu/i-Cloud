@@ -41,7 +41,7 @@ def upload_file():
             else:
                 result = "验证结果：两张脸属于不同的人。"
             prob = "置信度为 {:.5f}".format(prob)
-            elapsed = "耗时: {:.2f} 秒".format(elapsed)
+            elapsed = "耗时: {:.4f} 秒".format(elapsed)
         except FaceNotFoundError as err:
             result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
             prob = ""
