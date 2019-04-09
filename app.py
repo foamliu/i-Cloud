@@ -1,10 +1,20 @@
 # flask_web/app.py
 
+from flask import Flask
 from flask import render_template
+from flask_bootstrap import Bootstrap
 
 from .face_utils import face_verify
 from .utils import FaceNotFoundError
-from app import create_app
+
+
+def create_app(config_name):
+    app = Flask(config_name, static_url_path="", static_folder="static")
+    from api import api as api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/api/v1')
+    Bootstrap(app)
+    return app
+
 
 app = create_app(__name__)
 

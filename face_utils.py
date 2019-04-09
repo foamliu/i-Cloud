@@ -4,7 +4,7 @@ import time
 from flask import request
 from werkzeug.utils import secure_filename
 
-from app.utils import compare, ensure_folder, resize
+from utils import compare, ensure_folder, resize
 
 
 def face_verify():

@@ -7,10 +7,10 @@ from PIL import Image
 from scipy.stats import norm
 from torchvision import transforms
 
-from app.align_faces import get_reference_facial_points, warp_and_crop_face
-from app.config import device
-from app.config import image_h, image_w
-from app.mtcnn.detector import detect_faces
+from align_faces import get_reference_facial_points, warp_and_crop_face
+from config import device
+from config import image_h, image_w
+from mtcnn.detector import detect_faces
 
 data_transforms = {
     'train': transforms.Compose([

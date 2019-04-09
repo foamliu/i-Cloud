@@ -2,8 +2,8 @@ import cv2 as cv
 import numpy as np
 from PIL import Image
 
-from app.mtcnn.detector import detect_faces
-from app.mtcnn.visualization_utils import show_bboxes
+from mtcnn.detector import detect_faces
+from mtcnn.visualization_utils import show_bboxes
 
 if __name__ == '__main__':
     img = Image.open('images/office1.jpg')
