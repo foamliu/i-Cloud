@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-from . import faces
-
 api = Blueprint('api', __name__)
+
+from . import faces
