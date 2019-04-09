@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from api import api
-from ..face_utils import face_verify
+from face_utils import face_verify
 
 
 @api.route('/faces/verify', methods=['POST'])
