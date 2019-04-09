@@ -4,8 +4,8 @@ from flask import Flask
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
-from .face_utils import face_verify
-from .utils import FaceNotFoundError
+from face_utils import face_verify
+from utils import FaceNotFoundError
 
 
 def create_app(config_name):
