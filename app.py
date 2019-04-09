@@ -4,7 +4,7 @@ from flask import render_template
 
 from face_utils import face_verify
 from utils import FaceNotFoundError
-from . import create_app
+from __init__ import create_app
 
 app = create_app(__name__)
 
