@@ -1,7 +1,7 @@
 # flask_web/app.py
 
 from flask import Flask
-from flask import render_template, request
+from flask import render_template
 from flask_bootstrap import Bootstrap
 
 from api import api as api_blueprint
@@ -25,12 +25,17 @@ def detect():
 
 
 @app.route('/', methods=['GET'])
+def home():
+    return render_template('face-verify.html')
+
+
+@app.route('/verify', methods=['GET'])
 def verify():
     return render_template('face-verify.html')
 
 
-@app.route('/verify', methods=['POST'])
-def verify():
+@app.route('/process_verify', methods=['POST'])
+def process_verify():
     try:
         is_same, prob, elapsed, fn_1, fn_2 = face_verify()
         if is_same:
