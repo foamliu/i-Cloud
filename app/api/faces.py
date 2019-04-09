@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from face_utils import face_verify
+from app.face_utils import face_verify
 from . import api
 
 

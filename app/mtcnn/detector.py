@@ -2,9 +2,9 @@ import numpy as np
 import torch
 from torch.autograd import Variable
 
-from mtcnn.box_utils import nms, calibrate_box, get_image_boxes, convert_to_square
-from mtcnn.first_stage import run_first_stage
-from mtcnn.models import PNet, RNet, ONet
+from app.mtcnn import nms, calibrate_box, get_image_boxes, convert_to_square
+from app.mtcnn import run_first_stage
+from app.mtcnn.models import PNet, RNet, ONet
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

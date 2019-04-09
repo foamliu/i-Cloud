@@ -6,7 +6,7 @@ import torch.utils.model_zoo as model_zoo
 from torch import nn
 from torch.nn import Parameter
 
-from config import device, num_classes
+from app.config import device, num_classes
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152']

@@ -2,8 +2,8 @@
 
 from flask import render_template
 
-from face_utils import face_verify
-from utils import FaceNotFoundError
+from app.face_utils import face_verify
+from app.utils import FaceNotFoundError
 from __init__ import create_app
 
 app = create_app(__name__)
