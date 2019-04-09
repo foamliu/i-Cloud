@@ -31,20 +31,19 @@ def verify():
 
 @app.route('/verify', methods=['POST'])
 def verify():
-    if request.method == 'POST':
-        try:
-            is_same, prob, elapsed, fn_1, fn_2 = face_verify()
-            if is_same:
-                result = "验证结果：两张脸属于同一个人。"
-            else:
-                result = "验证结果：两张脸属于不同的人。"
-            prob = "置信度为 {:.5f}".format(prob)
-            elapsed = "耗时: {:.4f} 秒".format(elapsed)
-        except FaceNotFoundError as err:
-            result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
-            prob = elapsed = fn_1 = fn_2 = ""
+    try:
+        is_same, prob, elapsed, fn_1, fn_2 = face_verify()
+        if is_same:
+            result = "验证结果：两张脸属于同一个人。"
+        else:
+            result = "验证结果：两张脸属于不同的人。"
+        prob = "置信度为 {:.5f}".format(prob)
+        elapsed = "耗时: {:.4f} 秒".format(elapsed)
+    except FaceNotFoundError as err:
+        result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
+        prob = elapsed = fn_1 = fn_2 = ""
 
-        return render_template('show.html', result=result, fn_1=fn_1, fn_2=fn_2, prob=prob, elapsed=elapsed)
+    return render_template('verify_result.html', result=result, fn_1=fn_1, fn_2=fn_2, prob=prob, elapsed=elapsed)
 
 
 @app.route('/search')
