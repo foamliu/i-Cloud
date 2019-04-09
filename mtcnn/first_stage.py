@@ -5,7 +5,7 @@ import torch
 from PIL import Image
 from torch.autograd import Variable
 
-from mtcnn import nms, _preprocess
+from mtcnn.box_utils import nms, _preprocess
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
