@@ -8,7 +8,7 @@ if __name__ == '__main__':
            'scale': {'x': 1.0, 'y': 1.0, 'z': 1.0}}
     r = requests.post(url, json=obj)
     print(r.status_code)
-    print(r.text())
+    print(r.text)
     obj = r.json()
     print(obj)
 
@@ -17,7 +17,9 @@ if __name__ == '__main__':
     print(r.text)
 
     obj['location']['altitude'] = 10.0
-    requests.put(url, data=obj)
+    r = requests.put(url, data=obj)
+    print(r.status_code)
+    print(r.text)
 
     r = requests.get(url)
     print(r.status_code)
