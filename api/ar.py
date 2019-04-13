@@ -12,7 +12,6 @@ ID2OBJ = dict()
 @api.route('/ar/objects', methods=['POST'])
 def post():
     obj = request.get_json()
-    print(type(obj))
     next_id = len(ID2OBJ)
     obj['id'] = next_id
     ID2OBJ[next_id] = obj
@@ -35,8 +34,8 @@ def process(id):
     elif request.method == 'PUT':
         data = request.data
         obj = json.loads(data)
-        print(type(obj))
-        ID2OBJ[id] = obj
+        # print(type(obj))
+        # ID2OBJ[id] = obj
         return {
                    "message": "Object {} updated successfully".format(id)
                }, 200
