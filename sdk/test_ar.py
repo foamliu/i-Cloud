@@ -1,7 +1,8 @@
 import requests
 
 if __name__ == '__main__':
-    url = 'http://47.101.196.204:8080/api/v1/ar/objects'
+    # url = 'http://47.101.196.204:8080/api/v1/ar/objects'
+    url = 'http://127.0.0.1:8080/api/v1/ar/objects'
 
     # POST
     obj = {'location': {'latitude': 1.0, 'longitude': 1.0, 'altitude': 1.0},

@@ -23,6 +23,7 @@ def get():
 
 @api.route('/ar/objects/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def process(id, **kwargs):
+    print(id)
     if request.method == 'DELETE':
         if id in ID2OBJ:
             del ID2OBJ[id]
