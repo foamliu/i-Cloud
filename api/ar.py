@@ -13,7 +13,7 @@ def post():
     next_id = len(ID2OBJ)
     obj['id'] = next_id
     ID2OBJ[next_id] = obj
-    return make_response(jsonify(obj), 201)
+    return make_response(jsonify({'id': next_id}), 201)
 
 
 @api.route('/ar/objects', methods=['GET'])
@@ -21,19 +21,22 @@ def get():
     return jsonify(list(ID2OBJ.values()))
 
 
-@api.route('/ar/objects', methods=['DELETE'])
-def delete():
-    id_dict = request.get_json()
-    id = id_dict['id']
-    if id in ID2OBJ:
-        del ID2OBJ[id]
-    return make_response(jsonify(message='Object deleted'), 200)
-
-
-@api.route('/ar/objects', methods=['PUT'])
-def put():
-    obj = request.get_json()
-    print(obj)
-    id = obj['id']
-    ID2OBJ[id] = obj
-    return make_response(jsonify(message='Object updated'), 200)
+@api.route('/ar/objects/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+def process(id, **kwargs):
+    if request.method == 'DELETE':
+        if id in ID2OBJ:
+            del ID2OBJ[id]
+        return {
+                   "message": "Object {} deleted successfully".format(id)
+               }, 200
+    elif request.method == 'PUT':
+        obj = request.data
+        print(obj)
+        response = jsonify(obj)
+        response.status_code = 200
+        return response
+    else:
+        # GET
+        response = jsonify(ID2OBJ[id])
+        response.status_code = 200
+        return response
