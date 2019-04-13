@@ -26,19 +26,16 @@ def get():
 @api.route('/ar/objects/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def process(id):
     if request.method == 'DELETE':
+        # DELETE
         if id in ID2OBJ:
             del ID2OBJ[id]
-        return {
-                   "message": "Object {} deleted successfully".format(id)
-               }, 200
+        return jsonify({"message": "Object {} deleted successfully".format(id)}), 200
     elif request.method == 'PUT':
+        # PUT
         data = request.data
         obj = json.loads(data)
-        # print(type(obj))
-        # ID2OBJ[id] = obj
-        return {
-                   "message": "Object {} updated successfully".format(id)
-               }, 200
+        ID2OBJ[id] = obj
+        return jsonify({"message": "Object {} updated successfully".format(id)}), 200
     else:
         # GET
         return jsonify(ID2OBJ[id]), 200
