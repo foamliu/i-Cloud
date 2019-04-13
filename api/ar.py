@@ -1,7 +1,9 @@
+import json
+
 from flask import jsonify
 from flask import make_response
 from flask import request
-import json
+
 from . import api
 
 ID2OBJ = dict()
@@ -23,7 +25,6 @@ def get():
 
 @api.route('/ar/objects/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def process(id):
-    print(type(id))
     if request.method == 'DELETE':
         if id in ID2OBJ:
             del ID2OBJ[id]
@@ -32,10 +33,9 @@ def process(id):
                }, 200
     elif request.method == 'PUT':
         data = request.data
-        print(data)
         obj = json.loads(data)
-        print(obj)
-        ID2OBJ[int(id)] = obj
+        print(type(obj))
+        ID2OBJ[id] = obj
         return {
                    "message": "Object {} updated successfully".format(id)
                }, 200
