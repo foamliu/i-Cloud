@@ -23,6 +23,7 @@ def get():
 
 @api.route('/ar/objects/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def process(id):
+    print(type(id))
     if request.method == 'DELETE':
         if id in ID2OBJ:
             del ID2OBJ[id]
@@ -34,7 +35,7 @@ def process(id):
         print(data)
         obj = json.loads(data)
         print(obj)
-        ID2OBJ[id] = obj
+        ID2OBJ[int(id)] = obj
         return {
                    "message": "Object {} updated successfully".format(id)
                }, 200
