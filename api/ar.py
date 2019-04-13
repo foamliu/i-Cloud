@@ -12,6 +12,7 @@ ID2OBJ = dict()
 @api.route('/ar/objects', methods=['POST'])
 def post():
     obj = request.get_json()
+    print(type(obj))
     next_id = len(ID2OBJ)
     obj['id'] = next_id
     ID2OBJ[next_id] = obj
