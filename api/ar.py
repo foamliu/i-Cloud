@@ -32,7 +32,9 @@ def process(id, **kwargs):
     elif request.method == 'PUT':
         obj = request.data
         print(obj)
-        response = jsonify(obj)
+        response = jsonify({
+            "message": "Object {} updated successfully".format(id)
+        })
         response.status_code = 200
         return response
     else:
