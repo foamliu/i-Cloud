@@ -1,5 +1,7 @@
 from flask import jsonify
+from flask import make_response
 from flask import request
+
 from . import api
 
 ID2OBJ = dict()
@@ -11,6 +13,7 @@ def post():
     next_id = len(ID2OBJ)
     obj['id'] = next_id
     ID2OBJ[next_id] = obj
+    return make_response(jsonify(message='Chain created'), 201)
 
 
 @api.route('/ar/objects', methods=['GET'])
