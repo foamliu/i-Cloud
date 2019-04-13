@@ -33,5 +33,7 @@ def delete():
 @api.route('/ar/objects', methods=['PUT'])
 def put():
     obj = request.get_json()
-    ID2OBJ[obj['id']] = obj
+    print(obj)
+    id = obj['id']
+    ID2OBJ[id] = obj
     return make_response(jsonify(message='Object updated'), 200)
