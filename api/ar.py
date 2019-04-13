@@ -1,19 +1,18 @@
 from flask import jsonify
-
+from flask import request
 from . import api
 
-objects = []
+ID2OBJ = dict()
 
 
 @api.route('/ar/objects', methods=['POST'])
 def post():
-    return jsonify(objects)
+    obj = request.get_json()
+    next_id = len(ID2OBJ)
+    obj['id'] = next_id
+    ID2OBJ[next_id] = obj
 
 
 @api.route('/ar/objects', methods=['GET'])
 def get():
-    objects.clear()
-    objects.append({'location': {'latitude': 1.0, 'longitude': 1.0, 'altitude': 1.0},
-                    'rotate': {'x': 0.0, 'y': 0.0, 'z': 0.0},
-                    'scale': {'x': 1.0, 'y': 1.0, 'z': 1.0}})
-    return jsonify(objects)
+    return jsonify(list(ID2OBJ.values()))
