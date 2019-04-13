@@ -13,7 +13,7 @@ def post():
     next_id = len(ID2OBJ)
     obj['id'] = next_id
     ID2OBJ[next_id] = obj
-    return make_response(jsonify(message='Chain created'), 201)
+    return make_response(jsonify(message='Object created'), 201)
 
 
 @api.route('/ar/objects', methods=['GET'])
