@@ -13,7 +13,7 @@ def post():
     next_id = len(ID2OBJ)
     obj['id'] = next_id
     ID2OBJ[next_id] = obj
-    return make_response(jsonify(message='Object created'), 201)
+    return make_response(jsonify(obj), 201)
 
 
 @api.route('/ar/objects', methods=['GET'])
@@ -28,3 +28,10 @@ def delete():
     if id in ID2OBJ:
         del ID2OBJ[id]
     return make_response(jsonify(message='Object deleted'), 200)
+
+
+@api.route('/ar/objects', methods=['PUT'])
+def put():
+    obj = request.get_json()
+    ID2OBJ[obj['id']] = obj
+    return make_response(jsonify(message='Object updated'), 200)
