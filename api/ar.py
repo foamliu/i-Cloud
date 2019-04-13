@@ -19,3 +19,12 @@ def post():
 @api.route('/ar/objects', methods=['GET'])
 def get():
     return jsonify(list(ID2OBJ.values()))
+
+
+@api.route('/ar/objects', methods=['DELETE'])
+def delete():
+    id_dict = request.get_json()
+    id = id_dict['id']
+    if id in ID2OBJ:
+        del ID2OBJ[id]
+    return make_response(jsonify(message='Object deleted'), 200)

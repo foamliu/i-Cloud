@@ -13,3 +13,11 @@ if __name__ == '__main__':
     r = requests.get(url)
     print(r.status_code)
     print(r.text)
+
+    r = requests.delete(url, json={'id': 0})
+    print(r.status_code)
+    print(r.text)
+
+    r = requests.get(url)
+    print(r.status_code)
+    print(r.text)
