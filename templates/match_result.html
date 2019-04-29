@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<table class="table">
+    <tr>
+        <td><img src="{{ url_for('static', filename = fn) }}" class="img-responsive"></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="card w-75">
+                <div class="card-body">
+                    <h5 class="card-title">比对结果</h5>
+                    <p class="card-text">
+                        {{ result }}
+                        <font style="font-weight: bold;">
+                            {{ frame_index }}
+                        </font>
+                        <font style="font-weight: bold;">
+                            {{ time_in_video }}
+                        </font>
+                    </p>
+                    <p>{{ elapsed }}</p>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+{% endblock %}
