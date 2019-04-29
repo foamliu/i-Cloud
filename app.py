@@ -64,6 +64,11 @@ def emotion():
     return render_template('emotion.html')
 
 
+@app.route('/match')
+def emotion():
+    return render_template('video_match.html')
+
+
 @app.route('/sdk')
 def sdk():
     return render_template('sdk.html')
