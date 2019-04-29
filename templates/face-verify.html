@@ -53,3 +53,8 @@
 </form>
 
 {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename = 'face_verify.js') }}"></script>
+{% endblock scripts %}

@@ -13,11 +13,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename = 'styles.css') }}">
 {% endblock styles %}
 
-{% block scripts %}
-{{ super() }}
-<script type="text/javascript" src="{{ url_for('static', filename = 'my-script.js') }}"></script>
-{% endblock scripts %}
-
 {% block navbar %}
 <div class="navbar navbar-expand-sm bg-dark navbar-dark">
     <!-- Brand -->
