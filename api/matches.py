@@ -1,10 +1,10 @@
 from flask import jsonify
 
-from face_utils import face_verify
+from utils_match import video_match
 from . import api
 
 
 @api.route('/matches/recognize', methods=['POST'])
 def verify():
-    is_same, prob, elapsed, fn_1, fn_2 = face_verify()
-    return jsonify({'is_same': is_same, 'prob': prob, 'elapsed': elapsed})
+    is_match, index, time_in_video, elapsed, fn = video_match()
+    return jsonify({'is_match': is_match, 'index': index, 'time_in_video': time_in_video, 'elapsed': elapsed})

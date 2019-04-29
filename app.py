@@ -4,8 +4,8 @@ from flask import Flask
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
-from face_utils import face_verify
-from match_utils import video_match
+from utils_face import face_verify
+from utils_match import video_match
 from utils import FaceNotFoundError
 
 bootstrap = Bootstrap()
@@ -78,7 +78,7 @@ def process_match():
     else:
         result = "验证结果：图片在视频中无法找到。"
     frame_index = "第几帧: {}".format(index)
-    time_in_video = "第几秒: {:.4f} 秒".format(time_in_video)
+    time_in_video = "第几秒: {:.2f} 秒".format(time_in_video)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
     return render_template('match_result.html', result=result, frame_index=frame_index, time_in_video=time_in_video,
