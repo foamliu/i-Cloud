@@ -10,9 +10,8 @@ from flask import request
 from torchvision import transforms
 from werkzeug.utils import secure_filename
 
-from config import device
-from config import image_h, image_w
-from utils import compare, ensure_folder, resize
+from config import device, im_size
+from utils import ensure_folder, resize
 
 data_transforms = {
     'train': transforms.Compose([
@@ -52,7 +51,8 @@ def get_image(img, transformer):
 
 def gen_feature(filename):
     img = cv.imread(filename)
-    imgs = torch.zeros([1, 3, image_h, image_w], dtype=torch.float)
+    img = cv.resize(img, (im_size, im_size))
+    imgs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float)
     imgs[0] = get_image(img, transformer)
     features = model(imgs.to(device)).cpu().numpy()
     feature = features[0]
@@ -88,5 +88,3 @@ def video_match():
     elapsed = time.time() - start
 
     return theta < threshold, max_index, time_in_video, elapsed, fn
-
-
