@@ -87,4 +87,4 @@ def video_match():
     time_in_video = 1 / fps * max_index
     elapsed = time.time() - start
 
-    return theta < threshold, max_index, time_in_video, elapsed, fn
+    return theta < threshold, int(max_index), float(time_in_video), float(elapsed), str(fn)
