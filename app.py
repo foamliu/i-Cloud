@@ -65,7 +65,7 @@ def emotion():
 
 
 @app.route('/match')
-def emotion():
+def match():
     return render_template('video_match.html')
 
 
