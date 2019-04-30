@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 
 from utils import FaceNotFoundError
 from utils_face import face_detect, face_verify
-from utils_match import image_match, video_match
+from utils_match import match_image, match_video
 
 bootstrap = Bootstrap()
 
@@ -84,7 +84,7 @@ def image_match():
 
 @app.route('/process_image_match', methods=['POST'])
 def process_image_match():
-    is_match, elapsed, fn_1, fn_2 = image_match()
+    is_match, elapsed, fn_1, fn_2 = match_image()
     if is_match:
         result = "两幅图片完全匹配。"
     else:
@@ -99,7 +99,7 @@ def video_match():
 
 @app.route('/process_video_match', methods=['POST'])
 def process_video_match():
-    is_match, index, time_in_video, elapsed, fn = video_match()
+    is_match, index, time_in_video, elapsed, fn = match_video()
     if is_match:
         result = "验证结果：图片在视频中已定位。"
     else:

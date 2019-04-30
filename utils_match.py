@@ -57,7 +57,7 @@ def gen_feature(filename):
     return feature
 
 
-def video_match():
+def match_video():
     start = time.time()
     ensure_folder('static')
     file = request.files['file']
@@ -107,7 +107,7 @@ def compare(full_path_1, full_path_2):
     return is_match
 
 
-def image_match():
+def match_image():
     start = time.time()
     ensure_folder('static')
     file1 = request.files['file1']
