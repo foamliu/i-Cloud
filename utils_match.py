@@ -36,9 +36,6 @@ model = model.to(device)
 model.eval()
 
 # model params
-threshold = 50
-fps = 25.
-
 mat = np.load('static/video.npy')
 
 
@@ -84,7 +81,47 @@ def video_match():
     theta = math.acos(max_value)
     theta = theta * 180 / math.pi
 
+    fps = 25.
     time_in_video = 1 / fps * max_index
     elapsed = time.time() - start
 
+    threshold = 50
     return theta < threshold, int(max_index), float(time_in_video), float(elapsed), str(fn)
+
+
+def compare(full_path_1, full_path_2):
+    with torch.no_grad():
+        feature_1 = gen_feature(full_path_1)
+        feature_2 = gen_feature(full_path_2)
+
+    x0 = feature_1 / np.linalg.norm(feature_1)
+    x1 = feature_2 / np.linalg.norm(feature_2)
+    cosine = np.dot(x0, x1)
+    cosine = np.clip(cosine, -1, 1)
+    theta = math.acos(cosine)
+    theta = theta * 180 / math.pi
+
+    threshold = 43.12986168973048
+    is_match = theta < threshold
+
+    return is_match
+
+
+def image_match():
+    start = time.time()
+    ensure_folder('static')
+    file1 = request.files['file1']
+    fn_1 = secure_filename(file1.filename)
+    full_path_1 = os.path.join('static', fn_1)
+    file1.save(full_path_1)
+    resize(full_path_1)
+    file2 = request.files['file2']
+    fn_2 = secure_filename(file2.filename)
+    full_path_2 = os.path.join('static', fn_2)
+    file2.save(full_path_2)
+    resize(full_path_2)
+
+    is_match = compare(full_path_1, full_path_2)
+    elapsed = time.time() - start
+
+    return is_match, elapsed, fn_1, fn_2
