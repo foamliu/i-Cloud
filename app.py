@@ -4,7 +4,7 @@ from flask import Flask
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
-from utils_face import face_verify
+from utils_face import face_detect, face_verify
 from utils_match import video_match
 from utils import FaceNotFoundError
 
@@ -25,17 +25,34 @@ app = create_app(__name__)
 
 @app.route('/detect')
 def detect():
-    return render_template('face-detect.html')
+    return render_template('face_detect.html')
+
+
+@app.route('/process_detect', methods=['POST'])
+def process_detect():
+    try:
+        num_faces, elapsed, fn = face_detect()
+        if num_faces > 0:
+            result = "验证结果：两张脸属于同一个人。"
+        else:
+            result = "验证结果：两张脸属于不同的人。"
+        num_faces = "人脸数量: {}".format(num_faces)
+        elapsed = "耗时: {:.4f} 秒".format(elapsed)
+    except FaceNotFoundError as err:
+        result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
+        num_faces = elapsed = fn = ""
+
+    return render_template('detect_result.html', result=result, num_faces=num_faces, fn=fn, elapsed=elapsed)
 
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template('face-verify.html')
+    return render_template('face_verify.html')
 
 
 @app.route('/verify', methods=['GET'])
 def verify():
-    return render_template('face-verify.html')
+    return render_template('face_verify.html')
 
 
 @app.route('/process_verify', methods=['POST'])
@@ -52,12 +69,12 @@ def process_verify():
         result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
         prob = elapsed = fn_1 = fn_2 = ""
 
-    return render_template('verify_result.html', result=result, fn_1=fn_1, fn_2=fn_2, prob=prob, elapsed=elapsed)
+    return render_template('result_verify.html', result=result, fn_1=fn_1, fn_2=fn_2, prob=prob, elapsed=elapsed)
 
 
 @app.route('/search')
 def search():
-    return render_template('face-search.html')
+    return render_template('face_search.html')
 
 
 @app.route('/emotion')
@@ -81,7 +98,7 @@ def process_match():
     time_in_video = "第几秒: {:.2f} 秒".format(time_in_video)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
-    return render_template('match_result.html', result=result, frame_index=frame_index, time_in_video=time_in_video,
+    return render_template('result_match.html', result=result, frame_index=frame_index, time_in_video=time_in_video,
                            elapsed=elapsed, fn=fn)
 
 
