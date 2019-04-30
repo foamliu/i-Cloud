@@ -47,7 +47,6 @@ def face_detect():
     if num_faces > 0:
         img = cv.imread(full_path)
         draw_bboxes(img, bboxes, landmarks)
-        img = img[..., ::-1]  # BGR
         cv.imwrite(full_path, img)
 
     elapsed = time.time() - start
