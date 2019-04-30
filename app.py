@@ -83,9 +83,9 @@ def image_match():
 
 
 @app.route('/process_image_match', methods=['POST'])
-def process_video_match():
-
+def process_image_match():
     return render_template('result_match_image.html')
+
 
 @app.route('/video-match')
 def video_match():
