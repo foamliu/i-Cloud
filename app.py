@@ -89,6 +89,7 @@ def process_image_match():
         result = "两幅图片完全匹配。"
     else:
         result = "两幅图片不匹配。"
+    elapsed = "耗时: {:.4f} 秒".format(elapsed)
     return render_template('result_match_image.html', result=result, elapsed=elapsed)
 
 
