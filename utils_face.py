@@ -41,11 +41,12 @@ def face_detect():
     print('full_path: ' + full_path)
 
     img = Image.open(full_path).convert('RGB')
-    bounding_boxes, landmarks = detect_faces(img)
-    num_faces = len(bounding_boxes)
+    bboxes, landmarks = detect_faces(img)
+    num_faces = len(bboxes)
 
     if num_faces > 0:
-        draw_bboxes(img, bounding_boxes, landmarks)
+        img = cv.imread(full_path)
+        draw_bboxes(img, bboxes, landmarks)
         img = img[..., ::-1]  # BGR
         cv.imwrite(full_path, img)
 
