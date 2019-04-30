@@ -42,7 +42,7 @@ def process_detect():
         result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
         num_faces = elapsed = fn = ""
 
-    return render_template('detect_result.html', result=result, num_faces=num_faces, fn=fn, elapsed=elapsed)
+    return render_template('result_detect.html', result=result, num_faces=num_faces, fn=fn, elapsed=elapsed)
 
 
 @app.route('/', methods=['GET'])
