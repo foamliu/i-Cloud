@@ -30,18 +30,13 @@ def detect():
 
 @app.route('/process_detect', methods=['POST'])
 def process_detect():
-    try:
-        num_faces, elapsed, fn = face_detect()
-        if num_faces > 0:
-            result = "验证结果：两张脸属于同一个人。"
-        else:
-            result = "验证结果：两张脸属于不同的人。"
-        num_faces = "人脸数量: {}".format(num_faces)
-        elapsed = "耗时: {:.4f} 秒".format(elapsed)
-    except FaceNotFoundError as err:
-        result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
-        num_faces = elapsed = fn = ""
-
+    num_faces, elapsed, fn = face_detect()
+    if num_faces > 0:
+        result = "图片中已检测到人脸。"
+    else:
+        result = "图片中没有检测到人类的脸。"
+    num_faces = "人脸数量: {}".format(num_faces)
+    elapsed = "耗时: {:.4f} 秒".format(elapsed)
     return render_template('result_detect.html', result=result, num_faces=num_faces, fn=fn, elapsed=elapsed)
 
 
