@@ -4,9 +4,9 @@ from flask import Flask
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
+from utils import FaceNotFoundError
 from utils_face import face_detect, face_verify
 from utils_match import video_match
-from utils import FaceNotFoundError
 
 bootstrap = Bootstrap()
 
@@ -77,13 +77,23 @@ def emotion():
     return render_template('emotion.html')
 
 
-@app.route('/match')
-def match():
-    return render_template('video_match.html')
+@app.route('/image-match')
+def image_match():
+    return render_template('match_image.html')
 
 
-@app.route('/process_match', methods=['POST'])
-def process_match():
+@app.route('/process_image_match', methods=['POST'])
+def process_video_match():
+
+    return render_template('result_match_image.html')
+
+@app.route('/video-match')
+def video_match():
+    return render_template('match_video.html')
+
+
+@app.route('/process_video_match', methods=['POST'])
+def process_video_match():
     is_match, index, time_in_video, elapsed, fn = video_match()
     if is_match:
         result = "验证结果：图片在视频中已定位。"
@@ -93,8 +103,8 @@ def process_match():
     time_in_video = "第几秒: {:.2f} 秒".format(time_in_video)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
-    return render_template('result_match.html', result=result, frame_index=frame_index, time_in_video=time_in_video,
-                           elapsed=elapsed, fn=fn)
+    return render_template('result_match_video.html', result=result, frame_index=frame_index,
+                           time_in_video=time_in_video, elapsed=elapsed, fn=fn)
 
 
 @app.route('/sdk')
