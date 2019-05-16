@@ -76,11 +76,10 @@ def match_video():
     print(cosine.shape)
     max_index = np.argmax(cosine)
     max_value = cosine[max_index]
-    print(max_index)
-    print(max_value)
 
     theta = math.acos(max_value)
     theta = theta * 180 / math.pi
+    print('theta: ' + str(theta))
 
     fps = 25.
     time_in_video = 1 / fps * max_index
