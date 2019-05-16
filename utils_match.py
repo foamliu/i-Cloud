@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from PIL import Image
 from flask import request
+from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
 
@@ -85,8 +86,9 @@ def match_video():
     time_in_video = 1 / fps * max_index
     elapsed = time.time() - start
 
-    threshold = 50
-    return theta < threshold, int(max_index), float(time_in_video), float(elapsed), str(fn)
+    threshold = 43.12986168973048
+    prob = get_prob(theta)
+    return theta < threshold, prob, int(max_index), float(time_in_video), float(elapsed), str(fn)
 
 
 def compare(full_path_1, full_path_2):
@@ -103,8 +105,19 @@ def compare(full_path_1, full_path_2):
 
     threshold = 43.12986168973048
     is_match = theta < threshold
+    prob = get_prob(theta)
+    return is_match, prob
 
-    return is_match
+
+def get_prob(theta):
+    mu_0 = 88.7952
+    sigma_0 = 15.5666
+    mu_1 = 12.5701
+    sigma_1 = 7.22
+    prob_0 = norm.pdf(theta, mu_0, sigma_0)
+    prob_1 = norm.pdf(theta, mu_1, sigma_1)
+    total = prob_0 + prob_1
+    return prob_1 / total
 
 
 def match_image():
