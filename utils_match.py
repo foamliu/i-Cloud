@@ -84,7 +84,9 @@ def match_video():
     time_in_video = 1 / fps * max_index
     elapsed = time.time() - start
 
-    threshold = 43.12986168973048
+    # threshold = 43.12986168973048
+    threshold = 50
+
     prob = get_prob(theta)
     return theta < threshold, prob, int(max_index), float(time_in_video), float(elapsed), str(fn)
 
