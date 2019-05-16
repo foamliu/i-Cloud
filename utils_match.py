@@ -73,7 +73,6 @@ def match_video():
 
     cosine = np.dot(mat, feature)
     cosine = np.clip(cosine, -1, 1)
-    print(cosine.shape)
     max_index = np.argmax(cosine)
     max_value = cosine[max_index]
 
