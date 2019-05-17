@@ -100,17 +100,18 @@ def video_match():
 
 @app.route('/process_video_match', methods=['POST'])
 def process_video_match():
-    is_match, index, time_in_video, elapsed, fn = match_video()
+    is_match, prob, index, time_in_video, elapsed, fn = match_video()
     if is_match:
         result = "验证结果：图片在视频中已定位。"
     else:
         result = "验证结果：图片在视频中无法找到。"
     frame_index = "第几帧: {}".format(index)
     time_in_video = "第几秒: {:.2f} 秒".format(time_in_video)
+    prob = '置信度: {:.4f}'.format(prob)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
     return render_template('result_match_video.html', result=result, frame_index=frame_index,
-                           time_in_video=time_in_video, elapsed=elapsed, fn=fn)
+                           time_in_video=time_in_video, prob=prob, elapsed=elapsed, fn=fn)
 
 
 @app.route('/sdk')
