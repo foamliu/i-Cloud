@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-<table class="table">
+<p>MAC 地址 {{ mac }} 的用户标签:</p>
+<table class="table table-striped table-bordered">
+    <thead>
     <tr>
-        <td>性别</td><td>{{ gender }}</td>
+        <th>标签名</th>
+        <th>标签值</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>性别</td>
+        <td>{{ gender }}</td>
     </tr>
     <tr>
-        <td>年龄</td><td>{{ age }}</td>
+        <td>年龄</td>
+        <td>{{ age }}</td>
     </tr>
     <tr>
-        <td>资产等级</td><td>{{ zcdj }}</td>
+        <td>资产等级</td>
+        <td>{{ zcdj }}</td>
     </tr>
     <tr>
-        <td>有房</td><td>{{ yf }}</td>
+        <td>有房</td>
+        <td>{{ yf }}</td>
     </tr>
     <tr>
-        <td>有车</td><td>{{ yc }}</td>
+        <td>有车</td>
+        <td>{{ yc }}</td>
     </tr>
     <tr>
-        <td>商业兴趣</td><td>{{ intr }}</td>
+        <td>商业兴趣</td>
+        <td>{{ intr }}</td>
     </tr>
+    </tbody>
 </table>
 {% endblock %}

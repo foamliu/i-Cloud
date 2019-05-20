@@ -3,7 +3,7 @@ import json
 import redis
 from flask import request
 
-from utils import md5_hash
+from utils import md5_hash, normalize_mac
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -40,6 +40,7 @@ def search_tag():
     mac = str(request.form.get('macAddress'))
     mac = mac.replace(':', '')
     md5 = md5_hash(mac)
+    mac = normalize_mac(mac)
     ret = r.get(md5)
     if ret:
         ret = ret.decode()
@@ -57,4 +58,4 @@ def search_tag():
         if 'intr' in ret:
             intr = translate(ret['intr'])
 
-    return gender, age, zcdj, yf, yc, intr
+    return mac, gender, age, zcdj, yf, yc, intr

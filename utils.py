@@ -18,12 +18,10 @@ data_transforms = {
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        # transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
     ]),
     'val': transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-        # transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
     ]),
 }
 transformer = data_transforms['val']
@@ -199,6 +197,12 @@ def md5_hash(mac):
     m.update(mac)
     md5 = m.hexdigest()
     return md5
+
+
+def normalize_mac(mac):
+    mac = mac.upper()
+    mac = ':'.join(mac[i:i + 2] for i in range(0, 12, 2))
+    return mac
 
 
 if __name__ == "__main__":

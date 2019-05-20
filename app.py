@@ -122,8 +122,9 @@ def tag_search():
 
 @app.route('/process_tag_search', methods=['POST'])
 def process_tag_search():
-    gender, age, zcdj, yf, yc, intr = search_tag()
-    return render_template('result_tag_search.html', gender=gender, age=age, zcdj=zcdj, yf=yf, yc=yc, intr=intr)
+    mac, gender, age, zcdj, yf, yc, intr = search_tag()
+    return render_template('result_tag_search.html', mac=mac, gender=gender, age=age, zcdj=zcdj, yf=yf, yc=yc,
+                           intr=intr)
 
 
 @app.route('/sdk')
