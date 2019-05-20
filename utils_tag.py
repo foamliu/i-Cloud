@@ -32,7 +32,7 @@ def translate(en_list):
     for item in en_list:
         if item in en2zh:
             zh_list.append(en2zh[item])
-    return '、'.join()
+    return '、'.join(zh_list)
 
 
 def search_tag():
