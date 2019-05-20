@@ -7,12 +7,13 @@
 <p class="pt-1 pb-1">通过MAC地址查询用户标签。</p>
 
 <form action="http://47.101.196.204:8080/process_tag_search" method="POST">
-  <div class="form-group">
-    <label for="macAddress">MAC地址</label>
-    <input type="text" class="form-control" id="macAddress" aria-describedby="macHelp" placeholder="MAC地址">
-    <small id="macHelp" class="form-text text-muted">格式: 04:4f:4c:b4:09:e7</small>
-  </div>
-  <button type="submit" class="btn btn-primary">查询</button>
+    <div class="form-group">
+        <label for="macAddress">MAC地址</label>
+        <input type="text" class="form-control" id="macAddress" name="macAddress" aria-describedby="macHelp"
+               placeholder="MAC地址">
+        <small id="macHelp" class="form-text text-muted">格式: 04:4f:4c:b4:09:e7</small>
+    </div>
+    <button type="submit" class="btn btn-primary">查询</button>
 </form>
 
 {% endblock %}
