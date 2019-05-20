@@ -105,17 +105,17 @@ def compare(full_path_1, full_path_2):
     theta = math.acos(cosine)
     theta = theta * 180 / math.pi
 
-    threshold = 43.12986168973048
+    threshold = 25.50393648495902
     is_match = theta < threshold
     prob = get_prob(theta)
     return is_match, prob
 
 
 def get_prob(theta):
-    mu_0 = 88.7952
-    sigma_0 = 15.5666
-    mu_1 = 12.5701
-    sigma_1 = 7.22
+    mu_0 = 46.1028
+    sigma_0 = 6.4981
+    mu_1 = 9.6851
+    sigma_1 = 3.060
     prob_0 = norm.pdf(theta, mu_0, sigma_0)
     prob_1 = norm.pdf(theta, mu_1, sigma_1)
     total = prob_0 + prob_1
