@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<h1 class="mt-5 mb-2">标签查询</h1>
+
+<p class="pt-1 pb-1">通过MAC地址查询用户标签。</p>
+
+<form>
+  <div class="form-group">
+    <label for="macAddress">MAC地址</label>
+    <input type="text" class="form-control" id="macAddress" aria-describedby="macHelp" placeholder="MAC地址">
+    <small id="macHelp" class="form-text text-muted">格式: 04:4f:4c:b4:09:e7</small>
+  </div>
+  <button type="submit" class="btn btn-primary">查询</button>
+</form>
+
+{% endblock %}

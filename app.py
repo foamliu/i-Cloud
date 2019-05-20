@@ -114,6 +114,11 @@ def process_video_match():
                            time_in_video=time_in_video, prob=prob, elapsed=elapsed, fn=fn)
 
 
+@app.route('/search_tag')
+def search_tag():
+    return render_template('search_tag.html')
+
+
 @app.route('/sdk')
 def sdk():
     return render_template('sdk.html')
