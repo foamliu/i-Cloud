@@ -11,7 +11,7 @@ from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
 
-from config import device, im_size
+from config import device
 from utils import ensure_folder, resize
 
 im_size = 224
