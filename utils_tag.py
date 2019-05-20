@@ -24,7 +24,7 @@ en2zh = {'boy': '男', 'girl': '女', 'age0114': '0-14', 'age1519': '15-19', 'ag
          'intr0202_edu_junior': '教育培训-小学教育', 'intr0201_car_secondhand': '汽车-二手车', 'intr0201_wear_bag': '服装服饰-箱包',
          'intr0202_ca_len': '汽车-租车', 'intr0202_dig_mobi': '数码科技-手机及配件', 'intr0202_edu_bflear': '教育培训-学前教育',
          'intr0202_edu_ot': '教育培训-出国教育', 'intr0214_ca_rih': '汽车-豪华', 'intr0214_dig_mdl': '数码科技-航模车模',
-         'intr0214_dig_pto': '数码科技-摄影摄像', 'NA': '未知'}
+         'intr0214_dig_pto': '数码科技-摄影摄像'}
 
 
 def translate(en_list):
@@ -36,7 +36,7 @@ def translate(en_list):
 
 
 def search_tag():
-    gender = age = zcdj = yf = yc = intr = 'NA'
+    gender = age = zcdj = yf = yc = intr = '未知'
     mac = str(request.form.get('macAddress'))
     mac = mac.replace(':', '')
     md5 = md5_hash(mac)
