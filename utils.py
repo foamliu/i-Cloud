@@ -1,3 +1,4 @@
+import hashlib
 import math
 
 import cv2 as cv
@@ -188,6 +189,16 @@ def ensure_folder(folder):
     import os
     if not os.path.isdir(folder):
         os.mkdir(folder)
+
+
+def md5_hash(mac):
+    mac = mac.upper()
+    mac = ':'.join(mac[i:i + 2] for i in range(0, 12, 2))
+    mac = mac.encode('utf-8')
+    m = hashlib.md5()
+    m.update(mac)
+    md5 = m.hexdigest()
+    return md5
 
 
 if __name__ == "__main__":
