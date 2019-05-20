@@ -115,13 +115,13 @@ def process_video_match():
                            time_in_video=time_in_video, prob=prob, elapsed=elapsed, fn=fn)
 
 
-@app.route('/search_tag')
+@app.route('/tag_search')
 def search_tag():
-    return render_template('search_tag.html')
+    return render_template('tag_search.html')
 
 
-@app.route('/process_search_tag', methods=['POST'])
-def process_search_tag():
+@app.route('/process_tag_search', methods=['POST'])
+def process_tag_search():
     gender, age, zcdj, intr = search_tag()
     return render_template('result_search_tag.html', gender=gender, age=age, zcdj=zcdj, intr=intr)
 
