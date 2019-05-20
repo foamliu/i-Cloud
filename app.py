@@ -120,7 +120,7 @@ def search_tag():
     return render_template('search_tag.html')
 
 
-@app.route('/process_search_tag')
+@app.route('/process_search_tag', methods=['POST'])
 def process_search_tag():
     gender, age, zcdj, intr = search_tag()
     return render_template('result_search_tag.html', gender=gender, age=age, zcdj=zcdj, intr=intr)

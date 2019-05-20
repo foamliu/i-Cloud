@@ -1,5 +1,8 @@
+from flask import request
+
 def search_tag():
-    gender = ''
+    mac = request.form['macAddress']
+    gender = mac
     age = ''
     zcdj = ''
     intr = ''
