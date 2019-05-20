@@ -14,6 +14,8 @@ from werkzeug.utils import secure_filename
 from config import device, im_size
 from utils import ensure_folder, resize
 
+im_size = 224
+
 data_transforms = {
     'train': transforms.Compose([
         transforms.RandomHorizontalFlip(),
