@@ -35,3 +35,8 @@
 </form>
 
 {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename = 'image_upload.js') }}"></script>
+{% endblock scripts %}

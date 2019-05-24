@@ -73,7 +73,7 @@ def search():
     return render_template('face_search.html')
 
 
-@app.route('/process_search')
+@app.route('/process_search', methods=['POST'])
 def process_search():
     name, prob, file, elapsed = face_search()
     result = '最像的明星: {}'.format(name)
