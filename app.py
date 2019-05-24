@@ -76,7 +76,7 @@ def search():
 @app.route('/process_search', methods=['POST'])
 def process_search():
     name, prob, file, elapsed = face_search()
-    file = file.replace('data', 'static')
+    file = file.replace('data', '')
     result = '最像的明星: {}'.format(name)
     prob = "置信度为 {:.5f}".format(prob)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
