@@ -7,7 +7,7 @@ from flask import request
 from werkzeug.utils import secure_filename
 
 from mtcnn.detector import detect_faces
-from utils import compare, ensure_folder, resize, draw_bboxes
+from utils import compare, ensure_folder, resize, draw_bboxes, search
 
 
 def face_verify():
@@ -52,3 +52,17 @@ def face_detect():
     elapsed = time.time() - start
 
     return num_faces, float(elapsed), str(fn)
+
+
+def face_search():
+    start = time.time()
+    ensure_folder('static')
+    file = request.files['file']
+    fn = secure_filename(file.filename)
+    full_path = os.path.join('static', fn)
+    file.save(full_path)
+    resize(full_path)
+    print('full_path: ' + full_path)
+    name, prob, file = search(full_path)
+    elapsed = time.time() - start
+    return name, prob, file, float(elapsed)

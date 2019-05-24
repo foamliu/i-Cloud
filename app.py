@@ -5,7 +5,7 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 
 from utils import FaceNotFoundError
-from utils_face import face_detect, face_verify
+from utils_face import face_detect, face_verify, face_search
 from utils_match import match_image, match_video
 from utils_tag import search_tag
 
@@ -71,6 +71,15 @@ def process_verify():
 @app.route('/search')
 def search():
     return render_template('face_search.html')
+
+
+@app.route('/process_search')
+def process_search():
+    name, prob, file, elapsed = face_search()
+    result = '最像的明星: {}'.format(name)
+    prob = "置信度为 {:.5f}".format(prob)
+    elapsed = "耗时: {:.4f} 秒".format(elapsed)
+    return render_template('result_search.html', result=result, prob=prob, file=file, elapsed=elapsed)
 
 
 @app.route('/emotion')

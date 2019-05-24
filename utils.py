@@ -1,5 +1,6 @@
 import hashlib
 import math
+import pickle
 
 import cv2 as cv
 import numpy as np
@@ -9,8 +10,7 @@ from scipy.stats import norm
 from torchvision import transforms
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
-from config import device
-from config import image_h, image_w
+from config import image_h, image_w, device
 from mtcnn.detector import detect_faces
 
 data_transforms = {
@@ -181,6 +181,42 @@ def get_prob(theta):
     prob_1 = norm.pdf(theta, mu_1, sigma_1)
     total = prob_0 + prob_1
     return prob_1 / total
+
+
+def search(full_path):
+    img = get_image(full_path)
+    imgs = torch.zeros([1, 3, 112, 112], dtype=torch.float)
+    imgs[0] = img
+
+    with torch.no_grad():
+        output = model(imgs)
+
+        feature = output[0].cpu().numpy()
+        x = feature / np.linalg.norm(feature)
+
+    with open('static/stars.pkl', 'rb') as file:
+        data = pickle.load(file)
+
+    names = data['names']
+    files = data['files']
+    features = data['features']
+
+    cosine = np.dot(features, x)
+    cosine = np.clip(cosine, -1, 1)
+    print('cosine.shape: ' + str(cosine.shape))
+    max_index = int(np.argmax(cosine))
+    max_value = cosine[max_index]
+    print('max_index: ' + str(max_index))
+    print('max_value: ' + str(max_value))
+    print('name: ' + names[max_index])
+    print('file: ' + files[max_index])
+    theta = math.acos(max_value)
+    theta = theta * 180 / math.pi
+    print('theta: ' + str(theta))
+    prob = get_prob(theta)
+    print('prob: ' + str(prob))
+
+    return names[max_index], prob, files[max_index]
 
 
 def ensure_folder(folder):

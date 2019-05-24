@@ -5,3 +5,6 @@ image_w = 112
 image_h = 112
 
 num_classes = 85164
+
+STATIC_DIR = 'static'
+pickle_file = STATIC_DIR + '/' + 'weiweiimage.pkl'

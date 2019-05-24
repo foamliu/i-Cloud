@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<table class="table">
+    <tr>
+        <td colspan="2">
+            <div class="card w-75">
+                <div class="card-body">
+                    <h5 class="card-title">检测结果</h5>
+                    <p class="card-text">
+                        {{ result }}
+                        <font style="font-weight: bold;">
+                            {{ prob }}
+                        </font>
+                    </p>
+                    <p>{{ file }}</p>
+                    <p>{{ elapsed }}</p>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+{% endblock %}

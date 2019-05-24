@@ -6,4 +6,32 @@
 
 <p class="pt-1 pb-1">轻松查找相似的人脸。给定一组人脸和一张新脸作为查询，该 API 将返回一组相似的人脸。</p>
 
+<form action="http://47.101.196.204:8080/process_search" method="POST" enctype="multipart/form-data">
+    <table class="table">
+        <tr>
+            <td>
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>上传图片</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn btn-primary btn-file">
+                                        浏览...<input type="file" id="imgInp" name="file">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload' class="img-responsive"/>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-success"/></td>
+        </tr>
+    </table>
+</form>
+
 {% endblock %}
