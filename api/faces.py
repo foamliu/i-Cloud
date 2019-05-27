@@ -18,5 +18,5 @@ def detect():
 
 @api.route('/faces/search', methods=['POST'])
 def search():
-    name, prob, file, elapsed = face_search()
-    return jsonify({'name': name, 'prob': prob, 'elapsed': elapsed})
+    name, prob, file_star, file_upload, elapsed = face_search()
+    return jsonify({'name': name, 'prob': prob, 'elapsed': elapsed, 'file_star': file_star, 'file_upload': file_upload})
