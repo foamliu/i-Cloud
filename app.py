@@ -75,12 +75,15 @@ def search():
 
 @app.route('/process_search', methods=['POST'])
 def process_search():
-    name, prob, file_star, file_upload, elapsed = face_search()
-    file_star = file_star.replace('data', '')
-    file_upload = file_upload.replace('static', '')
-    result = '最相似的明星: {}'.format(name)
-    prob = "置信度为 {:.5f}".format(prob)
-    elapsed = "耗时: {:.4f} 秒".format(elapsed)
+    try:
+        name, prob, file_star, file_upload, elapsed = face_search()
+        file_star = file_star.replace('data', '')
+        file_upload = file_upload.replace('static', '')
+        result = '最相似的明星: {}'.format(name)
+        prob = "置信度为 {:.5f}".format(prob)
+    except FaceNotFoundError as err:
+        result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(err)
+        prob = file_star = file_upload = elapsed = ""
     return render_template('result_search.html', result=result, prob=prob, file_star=file_star, file_upload=file_upload,
                            elapsed=elapsed)
 
