@@ -82,7 +82,7 @@ def process_search():
         result = '最相似的明星: {}'.format(name)
         prob = "置信度为 {:.5f}".format(prob)
     except FaceNotFoundError as err:
-        file_upload = err
+        file_upload = str(err)
         file_upload = file_upload.replace('static', '')
         result = '对不起，[{}] 图片中没有检测到人类的脸。'.format(file_upload)
         prob = file_star = elapsed = ""
