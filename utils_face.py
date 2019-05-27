@@ -59,10 +59,10 @@ def face_search():
     ensure_folder('static')
     file = request.files['file']
     fn = secure_filename(file.filename)
-    full_path = os.path.join('static', fn)
-    file.save(full_path)
-    resize(full_path)
-    print('full_path: ' + full_path)
-    name, prob, file = search(full_path)
+    file_upload = os.path.join('static', fn)
+    file.save(file_upload)
+    resize(file_upload)
+    print('file_upload: ' + file_upload)
+    name, prob, file_star = search(file_upload)
     elapsed = time.time() - start
-    return name, prob, file, float(elapsed)
+    return name, prob, file_star, file_upload, float(elapsed)
