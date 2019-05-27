@@ -81,6 +81,7 @@ def process_search():
         file_upload = file_upload.replace('static', '')
         result = '最相似的明星: {}'.format(name)
         prob = "置信度为 {:.5f}".format(prob)
+        elapsed = "耗时: {:.4f} 秒".format(elapsed)
     except FaceNotFoundError as err:
         file_upload = str(err)
         file_upload = file_upload.replace('static', '')
