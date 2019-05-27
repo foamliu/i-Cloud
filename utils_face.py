@@ -1,4 +1,5 @@
 import os
+import random
 import time
 
 import cv2 as cv
@@ -58,8 +59,11 @@ def face_search():
     start = time.time()
     ensure_folder('static')
     file = request.files['file']
-    fn = secure_filename(file.filename)
-    file_upload = os.path.join('static', fn)
+    filename = secure_filename(file.filename)
+    filename = filename.lower()
+    if filename in ['jpg', 'jpeg', 'png', 'gif']:
+        filename = str(random.randint(0, 101)) + '.' + filename
+    file_upload = os.path.join('static', filename)
     file.save(file_upload)
     resize(file_upload)
     print('file_upload: ' + file_upload)
