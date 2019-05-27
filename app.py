@@ -77,7 +77,7 @@ def search():
 def process_search():
     name, prob, file_star, file_upload, elapsed = face_search()
     file_star = file_star.replace('data', '')
-    file_upload = file_upload.replace('/static', '')
+    file_upload = file_upload.replace('static', '')
     result = '最相似的明星: {}'.format(name)
     prob = "置信度为 {:.5f}".format(prob)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
