@@ -125,7 +125,7 @@ def match_video():
 
     prob = get_prob(theta)
     elapsed = time.time() - start
-    return name, prob, int(max_index), float(time_in_video), float(elapsed), str(fn)
+    return name, prob, idx, float(time_in_video), float(elapsed), str(fn)
 
 
 def compare(full_path_1, full_path_2):
