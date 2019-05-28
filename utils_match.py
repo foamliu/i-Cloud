@@ -10,7 +10,7 @@ from flask import request
 from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
-
+import pickle
 from config import device
 from utils import ensure_folder, resize
 
@@ -39,10 +39,38 @@ model = model.to(device)
 model.eval()
 
 # model params
-mat = np.load('static/video.npy')
+pickle_file = 'data/video_index.pkl'
+
+threshold = 25.50393648495902
+mu_0 = 46.1028
+sigma_0 = 6.4981
+mu_1 = 9.6851
+sigma_1 = 3.060
+
+with open(pickle_file, 'rb') as file:
+    frames = pickle.load(file)
+
+num_frames = len(frames)
+features = np.empty((num_frames, 512), dtype=np.float32)
+name_list = []
+idx_list = []
+fps_list = []
+
+for i, frame in enumerate(frames):
+    name = frame['name']
+    feature = frame['feature']
+    fps = frame['fps']
+    idx = frame['idx']
+    features[i] = feature
+    name_list.append(name)
+    idx_list.append(idx)
+    fps_list.append(fps)
+
+print(features.shape)
+assert (len(name_list) == num_frames)
 
 
-def get_image(img, transformer):
+def get_image(img):
     img = img[..., ::-1]  # RGB
     img = Image.fromarray(img, 'RGB')  # RGB
     img = transformer(img)
@@ -53,7 +81,7 @@ def gen_feature(filename):
     img = cv.imread(filename)
     img = cv.resize(img, (im_size, im_size))
     imgs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float)
-    imgs[0] = get_image(img, transformer)
+    imgs[0] = get_image(img)
     features = model(imgs.to(device)).cpu().numpy()
     feature = features[0]
     feature = feature / np.linalg.norm(feature)
@@ -71,24 +99,29 @@ def match_video():
     print('full_path: ' + full_path)
 
     with torch.no_grad():
-        feature = gen_feature(full_path)
+        x = gen_feature(full_path)
 
-    cosine = np.dot(mat, feature)
+    cosine = np.dot(features, x)
     cosine = np.clip(cosine, -1, 1)
-    max_index = np.argmax(cosine)
+    print('cosine.shape: ' + str(cosine.shape))
+    max_index = int(np.argmax(cosine))
     max_value = cosine[max_index]
-
+    print('max_index: ' + str(max_index))
+    print('max_value: ' + str(max_value))
+    print('name: ' + name_list[max_index])
+    print('fps: ' + str(fps_list[max_index]))
+    print('idx: ' + str(idx_list[max_index]))
     theta = math.acos(max_value)
     theta = theta * 180 / math.pi
+
     print('theta: ' + str(theta))
-
-    fps = 25.
-    time_in_video = 1 / fps * max_index
-    elapsed = time.time() - start
-
-    threshold = 25.50393648495902
+    prob = get_prob(theta)
+    print('prob: ' + str(prob))
+    time_in_video = idx / fps
+    print('time_in_video: ' + str(time_in_video))
 
     prob = get_prob(theta)
+    elapsed = time.time() - start
     return theta < threshold, prob, int(max_index), float(time_in_video), float(elapsed), str(fn)
 
 
@@ -104,17 +137,12 @@ def compare(full_path_1, full_path_2):
     theta = math.acos(cosine)
     theta = theta * 180 / math.pi
 
-    threshold = 25.50393648495902
     is_match = theta < threshold
     prob = get_prob(theta)
     return is_match, prob
 
 
 def get_prob(theta):
-    mu_0 = 46.1028
-    sigma_0 = 6.4981
-    mu_1 = 9.6851
-    sigma_1 = 3.060
     prob_0 = norm.pdf(theta, mu_0, sigma_0)
     prob_1 = norm.pdf(theta, mu_1, sigma_1)
     total = prob_0 + prob_1
