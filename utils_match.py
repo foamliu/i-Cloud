@@ -106,11 +106,14 @@ def match_video():
     print('cosine.shape: ' + str(cosine.shape))
     max_index = int(np.argmax(cosine))
     max_value = cosine[max_index]
+    name = name_list[max_index]
+    fps = fps_list[max_index]
+    idx = idx_list[max_index]
     print('max_index: ' + str(max_index))
     print('max_value: ' + str(max_value))
-    print('name: ' + name_list[max_index])
-    print('fps: ' + str(fps_list[max_index]))
-    print('idx: ' + str(idx_list[max_index]))
+    print('name: ' + name)
+    print('fps: ' + str(fps))
+    print('idx: ' + str(idx))
     theta = math.acos(max_value)
     theta = theta * 180 / math.pi
 
@@ -122,7 +125,7 @@ def match_video():
 
     prob = get_prob(theta)
     elapsed = time.time() - start
-    return theta < threshold, prob, int(max_index), float(time_in_video), float(elapsed), str(fn)
+    return name, prob, int(max_index), float(time_in_video), float(elapsed), str(fn)
 
 
 def compare(full_path_1, full_path_2):
