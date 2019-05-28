@@ -119,7 +119,7 @@ def video_match():
 
 @app.route('/process_video_match', methods=['POST'])
 def process_video_match():
-    name, prob, index, time_in_video, elapsed, upload_file = match_video()
+    name, prob, index, time_in_video, elapsed, upload_file, image_fn = match_video()
     result = "匹配度最高的广告：{}。".format(name)
     frame_index = "帧数: {}".format(index)
     time_in_video = "秒数: {:.2f} 秒".format(time_in_video)
@@ -127,7 +127,8 @@ def process_video_match():
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
     return render_template('result_match_video.html', result=result, frame_index=frame_index,
-                           time_in_video=time_in_video, prob=prob, elapsed=elapsed, upload_file=upload_file)
+                           time_in_video=time_in_video, prob=prob, elapsed=elapsed, upload_file=upload_file,
+                           screenshot=image_fn)
 
 
 @app.route('/tag_search')

@@ -57,16 +57,19 @@ features = np.empty((num_frames, 512), dtype=np.float32)
 name_list = []
 idx_list = []
 fps_list = []
+image_fn_list = []
 
 for i, frame in enumerate(frames):
     name = frame['name']
     feature = frame['feature']
     fps = frame['fps']
     idx = frame['idx']
+    image_fn = frame['image_fn']
     features[i] = feature
     name_list.append(name)
     idx_list.append(idx)
     fps_list.append(fps)
+    image_fn_list.append(image_fn)
 
 # print(features.shape)
 assert (len(name_list) == num_frames)
@@ -94,8 +97,8 @@ def match_video():
     start = time.time()
     ensure_folder('static')
     file = request.files['file']
-    fn = secure_filename(file.filename)
-    full_path = os.path.join('static', fn)
+    upload_file = secure_filename(file.filename)
+    full_path = os.path.join('static', upload_file)
     file.save(full_path)
     resize(full_path)
     print('full_path: ' + full_path)
@@ -111,6 +114,7 @@ def match_video():
     name = name_list[max_index]
     fps = fps_list[max_index]
     idx = idx_list[max_index]
+    image_fn = image_fn_list[max_index]
     print('max_index: ' + str(max_index))
     print('max_value: ' + str(max_value))
     print('name: ' + name)
@@ -127,7 +131,7 @@ def match_video():
 
     prob = get_prob(theta)
     elapsed = time.time() - start
-    return name, prob, idx, float(time_in_video), float(elapsed), str(fn)
+    return name, prob, idx, float(time_in_video), float(elapsed), str(upload_file), image_fn
 
 
 def compare(full_path_1, full_path_2):
