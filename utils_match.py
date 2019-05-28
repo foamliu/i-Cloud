@@ -14,6 +14,7 @@ import pickle
 from config import device
 from utils import ensure_folder, resize
 
+# image params
 im_size = 224
 
 data_transforms = {
@@ -31,6 +32,7 @@ data_transforms = {
 }
 transformer = data_transforms['val']
 
+# model params
 checkpoint = 'models/match/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
@@ -38,7 +40,7 @@ model = checkpoint['model']
 model = model.to(device)
 model.eval()
 
-# model params
+# data params
 pickle_file = 'data/video_index.pkl'
 
 threshold = 25.50393648495902
@@ -66,7 +68,7 @@ for i, frame in enumerate(frames):
     idx_list.append(idx)
     fps_list.append(fps)
 
-print(features.shape)
+# print(features.shape)
 assert (len(name_list) == num_frames)
 
 
