@@ -121,8 +121,8 @@ def video_match():
 def process_video_match():
     name, prob, index, time_in_video, elapsed, upload_file = match_video()
     result = "匹配度最高的广告：{}。".format(name)
-    frame_index = "第几帧: {}".format(index)
-    time_in_video = "第几秒: {:.2f} 秒".format(time_in_video)
+    frame_index = "帧数: {}".format(index)
+    time_in_video = "秒数: {:.2f} 秒".format(time_in_video)
     prob = '置信度: {:.4f}'.format(prob)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
