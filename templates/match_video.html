@@ -4,17 +4,14 @@
 
 <h1 class="mt-5 mb-2">视频匹配</h1>
 
-<p class="pt-1 pb-1">一段视频与图片做匹配，找到视频中相似的帧。</p>
+<p class="pt-1 pb-1">一段视频与图片做匹配。上传照片，找到与之匹配的分众广告（精确到帧）。</p>
 
 
 <form action="http://47.101.196.204:8080/process_video_match" method="POST" enctype="multipart/form-data">
     <table class="table">
         <tr>
             <td>
-                <video width="960" height="540" controls>
-                    <source src="{{ url_for('static', filename = 'FM190311-10.webm') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+                点击下载已索引的视频列表。
             </td>
         </tr>
         <tr>
