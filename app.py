@@ -31,7 +31,7 @@ def detect():
 
 @app.route('/process_detect', methods=['POST'])
 def process_detect():
-    num_faces, elapsed, fn = face_detect()
+    num_faces, elapsed, fn, _ = face_detect()
     if num_faces > 0:
         result = "图片中已检测到人脸。"
     else:

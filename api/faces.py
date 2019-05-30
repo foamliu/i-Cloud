@@ -12,7 +12,7 @@ def verify():
 
 @api.route('/faces/detect', methods=['POST'])
 def detect():
-    num_faces, elapsed, fn = face_detect()
+    num_faces, elapsed, fn, _ = face_detect()
     return jsonify({'num_faces': num_faces, 'elapsed': elapsed})
 
 
