@@ -6,6 +6,7 @@ from . import api
 
 @api.route('/matches/recognize', methods=['POST'])
 def recognize():
-    is_match, prob, index, time_in_video, elapsed, fn = match_video()
+    name, prob, idx, time_in_video, elapsed, upload_file, image_fn = match_video()
     return jsonify(
-        {'is_match': is_match, 'prob': prob, 'index': index, 'time_in_video': time_in_video, 'elapsed': elapsed})
+        {'name': name, 'prob': prob, 'index': idx, 'time_in_video': time_in_video, 'elapsed': elapsed,
+         'upload_file': upload_file, 'image_fn': image_fn})
