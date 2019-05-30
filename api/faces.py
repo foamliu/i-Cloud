@@ -12,8 +12,8 @@ def verify():
 
 @api.route('/faces/detect', methods=['POST'])
 def detect():
-    num_faces, elapsed, fn, _ = face_detect()
-    return jsonify({'num_faces': num_faces, 'elapsed': elapsed})
+    num_faces, elapsed, fn, bboxes = face_detect()
+    return jsonify({'num_faces': num_faces, 'bboxes': bboxes, 'elapsed': elapsed})
 
 
 @api.route('/faces/search', methods=['POST'])
