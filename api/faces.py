@@ -12,8 +12,11 @@ def verify():
 
 @api.route('/faces/detect', methods=['POST'])
 def detect():
-    num_faces, elapsed, fn, bboxes = face_detect()
-    return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'elapsed': elapsed})
+    try:
+        num_faces, elapsed, fn, bboxes = face_detect()
+        return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'elapsed': elapsed})
+    except:
+        return jsonify({'num_faces': 0})
 
 
 @api.route('/faces/search', methods=['POST'])
