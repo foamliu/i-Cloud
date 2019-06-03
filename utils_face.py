@@ -38,7 +38,7 @@ def face_detect():
     fn = secure_filename(file.filename)
     full_path = os.path.join('static', fn)
     file.save(full_path)
-    resize(full_path)
+    # resize(full_path)
     print('full_path: ' + full_path)
 
     img = Image.open(full_path).convert('RGB')
