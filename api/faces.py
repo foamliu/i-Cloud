@@ -15,7 +15,8 @@ def detect():
     try:
         num_faces, elapsed, fn, bboxes = face_detect()
         return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'elapsed': elapsed})
-    except:
+    except Exception as err:
+        print(err)
         return jsonify({'num_faces': 0})
 
 
