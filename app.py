@@ -3,12 +3,12 @@
 from flask import Flask
 from flask import render_template
 from flask_bootstrap import Bootstrap
-
+import os
 from utils import FaceNotFoundError
 from utils_face import face_detect, face_verify, face_search
 from utils_match import match_image, match_video
 from utils_tag import search_tag
-
+from config import UPLOAD_FOLDER
 bootstrap = Bootstrap()
 
 
@@ -32,6 +32,7 @@ def detect():
 @app.route('/process_detect', methods=['POST'])
 def process_detect():
     num_faces, elapsed, fn, _ = face_detect()
+    fn = os.path.join(UPLOAD_FOLDER, fn)
     if num_faces > 0:
         result = "图片中已检测到人脸。"
     else:
@@ -55,6 +56,8 @@ def verify():
 def process_verify():
     try:
         is_same, prob, elapsed, fn_1, fn_2 = face_verify()
+        fn_1 = os.path.join(UPLOAD_FOLDER, fn_1)
+        fn_2 = os.path.join(UPLOAD_FOLDER, fn_2)
         if is_same:
             result = "验证结果：两张脸属于同一个人。"
         else:
@@ -104,6 +107,8 @@ def image_match():
 @app.route('/process_image_match', methods=['POST'])
 def process_image_match():
     is_match, elapsed, fn_1, fn_2 = match_image()
+    fn_1 = os.path.join(UPLOAD_FOLDER, fn_1)
+    fn_2 = os.path.join(UPLOAD_FOLDER, fn_2)
     if is_match:
         result = "两幅图片完全匹配。"
     else:
@@ -120,6 +125,7 @@ def video_match():
 @app.route('/process_video_match', methods=['POST'])
 def process_video_match():
     name, prob, index, time_in_video, elapsed, upload_file, image_fn = match_video()
+    upload_file = os.path.join(UPLOAD_FOLDER, upload_file)
     result = "匹配度最高的广告：{}。".format(name)
     frame_index = "帧数: {}".format(index)
     time_in_video = "秒数: {:.2f} 秒".format(time_in_video)

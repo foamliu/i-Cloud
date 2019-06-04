@@ -8,5 +8,6 @@ image_h = 112
 num_classes = 85164
 
 STATIC_DIR = 'static'
-UPLOAD_DIR = os.path.join(STATIC_DIR, 'upload')
+UPLOAD_FOLDER = 'upload'
+UPLOAD_DIR = os.path.join(STATIC_DIR, UPLOAD_FOLDER)
 pickle_file = STATIC_DIR + '/' + 'weiweiimage.pkl'
