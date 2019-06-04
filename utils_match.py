@@ -1,5 +1,6 @@
 import math
 import os
+import pickle
 import time
 
 import cv2 as cv
@@ -10,8 +11,8 @@ from flask import request
 from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
-import pickle
-from config import device
+
+from config import device, STATIC_DIR, UPLOAD_DIR
 from utils import ensure_folder, resize
 
 # image params
@@ -95,10 +96,11 @@ def gen_feature(filename):
 
 def match_video():
     start = time.time()
-    ensure_folder('static')
+    ensure_folder(STATIC_DIR)
+    ensure_folder(UPLOAD_DIR)
     file = request.files['file']
     upload_file = secure_filename(file.filename)
-    full_path = os.path.join('static', upload_file)
+    full_path = os.path.join(UPLOAD_DIR, upload_file)
     file.save(full_path)
     resize(full_path)
     print('full_path: ' + full_path)
@@ -160,15 +162,16 @@ def get_prob(theta):
 
 def match_image():
     start = time.time()
-    ensure_folder('static')
+    ensure_folder(STATIC_DIR)
+    ensure_folder(UPLOAD_DIR)
     file1 = request.files['file1']
     fn_1 = secure_filename(file1.filename)
-    full_path_1 = os.path.join('static', fn_1)
+    full_path_1 = os.path.join(UPLOAD_DIR, fn_1)
     file1.save(full_path_1)
     resize(full_path_1)
     file2 = request.files['file2']
     fn_2 = secure_filename(file2.filename)
-    full_path_2 = os.path.join('static', fn_2)
+    full_path_2 = os.path.join(UPLOAD_DIR, fn_2)
     file2.save(full_path_2)
     resize(full_path_2)
 
