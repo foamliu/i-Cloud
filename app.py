@@ -48,7 +48,7 @@ def process_detect():
 
 @app.route('/attributes')
 def attributes():
-    return render_template('attributes.html')
+    return render_template('face_attributes.html')
 
 
 @app.route('/process_attributes', methods=['POST'])
