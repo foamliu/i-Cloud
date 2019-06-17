@@ -57,11 +57,7 @@ def process_attributes():
     fn = os.path.join(UPLOAD_FOLDER, fn)
     age_out, pitch_out, roll_out, yaw_out, beauty_out = result
     if result:
-        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(int(age_out * 100),
-                                                              float('{0:.2f}'.format(pitch_out * 360 - 180)),
-                                                              float('{0:.2f}'.format(roll_out * 360 - 180)),
-                                                              float('{0:.2f}'.format(yaw_out * 360 - 180)),
-                                                              float('{0:.2f}'.format(beauty_out * 100)))
+        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(age_out, pitch_out, roll_out, yaw_out, beauty_out)
     else:
         result = '抱歉没有检测到人类的脸。'
 

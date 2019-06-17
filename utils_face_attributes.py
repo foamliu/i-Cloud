@@ -64,6 +64,12 @@ def face_attributes():
         yaw_out = out[0, 3]
         beauty_out = out[0, 4]
 
+        age_out = int(age_out * 100),
+        pitch_out = float('{0:.2f}'.format(pitch_out * 360 - 180))
+        roll_out = float('{0:.2f}'.format(roll_out * 360 - 180))
+        yaw_out = float('{0:.2f}'.format(yaw_out * 360 - 180))
+        beauty_out = float('{0:.2f}'.format(beauty_out * 100))
+
         result = (age_out, pitch_out, roll_out, yaw_out, beauty_out)
 
     elapsed = time.time() - start
