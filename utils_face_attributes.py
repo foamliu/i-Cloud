@@ -37,11 +37,13 @@ def face_attributes():
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
 
+    result = None
+
     if len(bboxes) > 0:
         i = select_central_face(im_size, bboxes)
         bbox = bboxes[i]
         img = cv.imread(full_path)
-        boxed = draw_bboxes(img, [bboxes[i]], [landmarks[i]])
+        boxed = draw_bboxes(img, [bbox], [landmarks[i]])
         cv.imwrite(full_path, boxed)
         img = crop_image(img, bbox)
         img = cv.resize(img, (im_size, im_size))
@@ -49,19 +51,21 @@ def face_attributes():
         img = transformer(img)
         img = img.to(device)
 
-    inputs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float)
-    inputs[0] = img
+        inputs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float)
+        inputs[0] = img
 
-    with torch.no_grad():
-        output = model(inputs)
+        with torch.no_grad():
+            output = model(inputs)
 
-    out = output.cpu().numpy()
-    age_out = out[0, 0]
-    pitch_out = out[0, 1]
-    roll_out = out[0, 2]
-    yaw_out = out[0, 3]
-    beauty_out = out[0, 4]
+        out = output.cpu().numpy()
+        age_out = out[0, 0]
+        pitch_out = out[0, 1]
+        roll_out = out[0, 2]
+        yaw_out = out[0, 3]
+        beauty_out = out[0, 4]
+
+        result = (age_out, pitch_out, roll_out, yaw_out, beauty_out)
 
     elapsed = time.time() - start
 
-    return (age_out, pitch_out, roll_out, yaw_out, beauty_out), float(elapsed), str(fn)
+    return result, float(elapsed), str(fn)

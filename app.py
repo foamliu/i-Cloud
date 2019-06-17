@@ -56,11 +56,14 @@ def process_attributes():
     result, elapsed, fn = face_attributes()
     fn = os.path.join(UPLOAD_FOLDER, fn)
     age_out, pitch_out, roll_out, yaw_out, beauty_out = result
-    result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(int(age_out * 100),
-                                                          float('{0:.2f}'.format(pitch_out * 360 - 180)),
-                                                          float('{0:.2f}'.format(roll_out * 360 - 180)),
-                                                          float('{0:.2f}'.format(yaw_out * 360 - 180)),
-                                                          float('{0:.2f}'.format(beauty_out * 100)))
+    if result:
+        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(int(age_out * 100),
+                                                              float('{0:.2f}'.format(pitch_out * 360 - 180)),
+                                                              float('{0:.2f}'.format(roll_out * 360 - 180)),
+                                                              float('{0:.2f}'.format(yaw_out * 360 - 180)),
+                                                              float('{0:.2f}'.format(beauty_out * 100)))
+    else:
+        result = '抱歉没有检测到人类的脸。'
 
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
     return render_template('result_attributes.html', result=result, fn=fn, elapsed=elapsed)
