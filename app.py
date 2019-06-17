@@ -52,7 +52,7 @@ def attributes():
 
 
 @app.route('/process_attributes', methods=['POST'])
-def process_detect():
+def process_attributes():
     result, elapsed, fn = face_attributes()
     age_out, pitch_out, roll_out, yaw_out, beauty_out = result
     result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(int(age_out * 100),
