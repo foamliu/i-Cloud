@@ -11,11 +11,12 @@ from werkzeug.utils import secure_filename
 from config import STATIC_DIR, UPLOAD_DIR
 from config import device
 from mtcnn.detector import detect_faces
-from utils import ensure_folder, draw_bboxes, crop_image, transformer
+from utils import ensure_folder, crop_image, transformer
 
 im_size = 224
 
 checkpoint = 'models/attributes/BEST_checkpoint.tar'
+print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model']
 model = model.to(device)
