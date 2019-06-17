@@ -29,8 +29,8 @@ function initWebGL() {
         //cube.rotation.z += 0.01;
 
       	this.cube.rotation.x = this.pitch * 3.14 / 180;
-		this.cube.rotation.y = -this.roll * 3.14 / 180;
-		this.cube.rotation.z = -this.yaw * 3.14 / 180;
+		this.cube.rotation.y = -this.yaw * 3.14 / 180;
+		this.cube.rotation.z = -this.roll * 3.14 / 180;
 
         renderer.render(scene, camera);
     };
