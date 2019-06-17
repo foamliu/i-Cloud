@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 from config import STATIC_DIR, UPLOAD_DIR
 from config import device
 from mtcnn.detector import detect_faces
-from utils import ensure_folder, crop_image, transformer
+from utils import ensure_folder, crop_image, transformer, select_central_face, draw_bboxes
 
 im_size = 224
 
@@ -37,13 +37,17 @@ def face_attributes():
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
 
-    bbox = bboxes[0]
-    img = cv.imread(full_path)
-    img = crop_image(img, bbox)
-    img = cv.resize(img, (im_size, im_size))
-    img = transforms.ToPILImage()(img)
-    img = transformer(img)
-    img = img.to(device)
+    if len(bboxes) > 0:
+        i = select_central_face(im_size, bboxes)
+        bbox = bboxes[i]
+        img = cv.imread(full_path)
+        boxed = draw_bboxes(img, [bboxes[i]], [landmarks[i]])
+        cv.imwrite(full_path, boxed)
+        img = crop_image(img, bbox)
+        img = cv.resize(img, (im_size, im_size))
+        img = transforms.ToPILImage()(img)
+        img = transformer(img)
+        img = img.to(device)
 
     inputs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float)
     inputs[0] = img
