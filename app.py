@@ -55,9 +55,10 @@ def attributes():
 def process_attributes():
     result, elapsed, fn = face_attributes()
     fn = os.path.join(UPLOAD_FOLDER, fn)
-    age_out, pitch_out, roll_out, yaw_out, beauty_out = result
+
     if result:
-        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(age_out, pitch_out, roll_out, yaw_out, beauty_out)
+        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(result['age'], result['pitch'], result['roll'],
+                                                              result['yaw'], result['beauty'])
     else:
         result = '抱歉没有检测到人类的脸。'
 

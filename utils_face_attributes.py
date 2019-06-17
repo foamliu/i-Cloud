@@ -70,7 +70,7 @@ def face_attributes():
         yaw_out = float('{0:.2f}'.format(yaw_out * 360 - 180))
         beauty_out = float('{0:.2f}'.format(beauty_out * 100))
 
-        result = (age_out, pitch_out, roll_out, yaw_out, beauty_out)
+        result = {'age': age_out, 'pitch': pitch_out, 'roll': roll_out, 'yaw': yaw_out, 'beauty': beauty_out}
 
     elapsed = time.time() - start
 
