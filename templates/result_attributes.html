@@ -6,6 +6,13 @@
         <td><img src="{{ url_for('static', filename = fn) }}" class="img-responsive"></td>
     </tr>
     <tr>
+        <td>
+            <div>
+                <canvas id="canvas" width="544" height="960"></canvas>
+            </div>
+        </td>
+    </tr>
+    <tr>
         <td colspan="2">
             <div class="card w-75">
                 <div class="card-body">
@@ -19,4 +26,13 @@
         </td>
     </tr>
 </table>
+<script>
+    doLoad();
+</script>
 {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename = 'three.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'main.js') }}"></script>
+{% endblock scripts %}
