@@ -56,14 +56,21 @@ def process_attributes():
     result, elapsed, fn = face_attributes()
     fn = os.path.join(UPLOAD_FOLDER, fn)
 
+    pitch = 0.0
+    roll = 0.0
+    yaw = 0.0
+
     if result:
-        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(result['age'], result['pitch'], result['roll'],
-                                                              result['yaw'], result['beauty'])
+        pitch = result['pitch']
+        roll = result['roll']
+        yaw = result['yaw']
+        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(result['age'], pitch, roll, yaw, result['beauty'])
     else:
         result = '抱歉没有检测到人类的脸。'
 
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
-    return render_template('result_attributes.html', result=result, fn=fn, elapsed=elapsed)
+    return render_template('result_attributes.html', result=result, pitch=pitch, roll=roll, yaw=yaw, fn=fn,
+                           elapsed=elapsed)
 
 
 @app.route('/', methods=['GET'])

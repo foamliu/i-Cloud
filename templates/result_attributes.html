@@ -21,7 +21,7 @@
     <tr>
         <td>
             <div>
-                <canvas id="canvas" width="544" height="960"></canvas>
+                <canvas id="canvas" width="544" height="544"></canvas>
             </div>
         </td>
     </tr>
@@ -33,4 +33,9 @@
 {{ super() }}
 <script type="text/javascript" src="{{ url_for('static', filename = 'three.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'main.js') }}"></script>
+<script type="text/javascript">
+    this.pitch = {{ pitch }}
+    this.roll = {{ roll }}
+    this.yaw = {{ yaw }}
+</script>
 {% endblock scripts %}
