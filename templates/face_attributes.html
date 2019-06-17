@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<h1 class="mt-5 mb-2">人脸属性</h1>
+
+<p class="pt-1 pb-1">人脸属性指的是根据给定的人脸判断其年龄、姿态和颜值等。</p>
+
+<form action="http://47.101.196.204:8080/process_attributes" method="POST" enctype="multipart/form-data">
+    <table class="table">
+        <tr>
+            <td>
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>上传图片</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn btn-primary btn-file">
+                                        浏览...<input type="file" id="imgInp" name="file">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload' class="img-responsive"/>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-success"/></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename = 'image_upload.js') }}"></script>
+{% endblock scripts %}

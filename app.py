@@ -1,14 +1,18 @@
 # flask_web/app.py
 
+import os
+
 from flask import Flask
 from flask import render_template
 from flask_bootstrap import Bootstrap
-import os
+
+from config import UPLOAD_FOLDER
 from utils import FaceNotFoundError
 from utils_face import face_detect, face_verify, face_search
+from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
 from utils_tag import search_tag
-from config import UPLOAD_FOLDER
+
 bootstrap = Bootstrap()
 
 
@@ -40,6 +44,24 @@ def process_detect():
     num_faces = "人脸数量: {}".format(num_faces)
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
     return render_template('result_detect.html', result=result, num_faces=num_faces, fn=fn, elapsed=elapsed)
+
+
+@app.route('/attributes')
+def attributes():
+    return render_template('attributes.html')
+
+
+@app.route('/process_attributes', methods=['POST'])
+def process_detect():
+    result, elapsed, fn = face_attributes()
+    age_out, pitch_out, roll_out, yaw_out, beauty_out = result
+    result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(int(age_out * 100),
+                                                          float('{0:.2f}'.format(pitch_out * 360 - 180)),
+                                                          float('{0:.2f}'.format(roll_out * 360 - 180)),
+                                                          float('{0:.2f}'.format(yaw_out * 360 - 180)),
+                                                          float('{0:.2f}'.format(beauty_out * 100)))
+
+    return render_template('result_attributes.html', result=result, fn=fn, elapsed=elapsed)
 
 
 @app.route('/', methods=['GET'])
@@ -92,11 +114,6 @@ def process_search():
         prob = file_star = elapsed = ""
     return render_template('result_search.html', result=result, prob=prob, file_star=file_star, file_upload=file_upload,
                            elapsed=elapsed)
-
-
-@app.route('/emotion')
-def emotion():
-    return render_template('emotion.html')
 
 
 @app.route('/image-match')

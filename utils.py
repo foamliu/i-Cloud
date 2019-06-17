@@ -241,6 +241,21 @@ def normalize_mac(mac):
     return mac
 
 
+def crop_image(img, bbox):
+    # print(bbox.shape)
+    x1 = int(round(bbox[0]))
+    y1 = int(round(bbox[1]))
+    x2 = int(round(bbox[2]))
+    y2 = int(round(bbox[3]))
+    w = int(abs(x2 - x1))
+    h = int(abs(y2 - y1))
+    # print(x1, y1, w, h)
+    # print(img.shape)
+    # print('x1:{} y1:{} w:{} h:{}'.format(x1, y1, w, h))
+    crop_img = img[y1:y1 + h, x1:x1 + w]
+    return crop_img
+
+
 if __name__ == "__main__":
     compare('id_card.jpg', 'photo_1.jpg')
     compare('id_card.jpg', 'photo_2.jpg')
