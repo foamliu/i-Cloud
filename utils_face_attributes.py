@@ -40,7 +40,7 @@ def face_attributes():
     result = None
 
     if len(bboxes) > 0:
-        i = select_central_face(im_size, bboxes)
+        i = select_central_face((im_size, im_size), bboxes)
         bbox = bboxes[i]
         img = cv.imread(full_path)
         boxed = draw_bboxes(img, [bbox], [landmarks[i]])
