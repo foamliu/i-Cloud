@@ -1,9 +1,9 @@
-function doLoad() {
+$(document).ready( function() {
   	this.canvas = document.getElementById('canvas');
   	this.cube = null;
 
   	initWebGL();
-}
+	});
 
 function initWebGL() {
     var scene = new THREE.Scene();
