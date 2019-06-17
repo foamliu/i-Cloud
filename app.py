@@ -61,10 +61,14 @@ def process_attributes():
     yaw = 0.0
 
     if result:
+        age = result['age']
         pitch = result['pitch']
         roll = result['roll']
         yaw = result['yaw']
-        result = '年龄={} pitch={} roll={} yaw={} 颜值={}'.format(result['age'], pitch, roll, yaw, result['beauty'])
+        beauty = result['beauty']
+        beauty_prob = result['beauty_prob']
+        result = '年龄={} pitch={} roll={} yaw={} 颜值={} '.format(age, pitch, roll, yaw, beauty)
+        result += '您的颜值超过了 {} % 的人群'.format(beauty_prob)
     else:
         result = '抱歉没有检测到人类的脸。'
 

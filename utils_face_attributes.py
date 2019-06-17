@@ -1,6 +1,6 @@
 import os
 import time
-
+from scipy.stats import norm
 import cv2 as cv
 import torch
 from PIL import Image
@@ -21,6 +21,13 @@ checkpoint = torch.load(checkpoint)
 model = checkpoint['model']
 model = model.to(device)
 model.eval()
+
+
+def get_prob(beauty):
+    mu = 49.1982
+    sigma = 14.0220
+    prob = norm.pdf(beauty, mu, sigma)
+    return prob
 
 
 def face_attributes():
@@ -64,13 +71,14 @@ def face_attributes():
         yaw_out = out[0, 3]
         beauty_out = out[0, 4]
 
-        age_out = int(age_out * 100)
-        pitch_out = float('{0:.2f}'.format(pitch_out * 360 - 180))
-        roll_out = float('{0:.2f}'.format(roll_out * 360 - 180))
-        yaw_out = float('{0:.2f}'.format(yaw_out * 360 - 180))
-        beauty_out = float('{0:.2f}'.format(beauty_out * 100))
+        age = int(age_out * 100)
+        pitch = float('{0:.2f}'.format(pitch_out * 360 - 180))
+        roll = float('{0:.2f}'.format(roll_out * 360 - 180))
+        yaw = float('{0:.2f}'.format(yaw_out * 360 - 180))
+        beauty = float('{0:.2f}'.format(beauty_out * 100))
+        beauty_prob = float('{0:.4f}'.format(get_prob(beauty)))
 
-        result = {'age': age_out, 'pitch': pitch_out, 'roll': roll_out, 'yaw': yaw_out, 'beauty': beauty_out}
+        result = {'age': age, 'pitch': pitch, 'roll': roll, 'yaw': yaw, 'beauty': beauty, 'beauty_prob': beauty_prob}
 
     elapsed = time.time() - start
 
