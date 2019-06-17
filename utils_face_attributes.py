@@ -26,7 +26,7 @@ model.eval()
 def get_prob(beauty):
     mu = 49.1982
     sigma = 14.0220
-    prob = norm.pdf(beauty, mu, sigma)
+    prob = norm.cdf(beauty, mu, sigma)
     return prob
 
 
