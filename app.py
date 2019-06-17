@@ -68,13 +68,14 @@ def process_attributes():
         beauty = result['beauty']
         beauty_prob = result['beauty_prob']
         result = '年龄={} pitch={} roll={} yaw={} 颜值={} '.format(age, pitch, roll, yaw, beauty)
-        result += '您的颜值超过了 {} % 的人群'.format(beauty_prob * 100)
+        comment = '您的颜值超过了 {0:.2f} % 的人群'.format(beauty_prob * 100)
     else:
         result = '抱歉没有检测到人类的脸。'
+        comment = ''
 
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
-    return render_template('result_attributes.html', result=result, pitch=pitch, roll=roll, yaw=yaw, fn=fn,
-                           elapsed=elapsed)
+    return render_template('result_attributes.html', result=result, comment=comment, pitch=pitch, roll=roll, yaw=yaw,
+                           fn=fn, elapsed=elapsed)
 
 
 @app.route('/', methods=['GET'])
