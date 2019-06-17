@@ -29,7 +29,7 @@ function initWebGL() {
         //cube.rotation.z += 0.01;
 
   	    this.cube.rotation.x = this.pitch;
-		this.cube.rotation.y = this.roll;
+		this.cube.rotation.y = -this.roll;
 		this.cube.rotation.z = this.yaw;
 
         renderer.render(scene, camera);
