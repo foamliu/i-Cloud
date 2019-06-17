@@ -15,7 +15,7 @@ from utils import ensure_folder, draw_bboxes, crop_image, transformer
 
 im_size = 224
 
-checkpoint = 'BEST_checkpoint.tar'
+checkpoint = 'models/attributes/BEST_checkpoint.tar'
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model']
 model = model.to(device)
