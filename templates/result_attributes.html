@@ -34,8 +34,10 @@
 <script type="text/javascript" src="{{ url_for('static', filename = 'three.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'main.js') }}"></script>
 <script type="text/javascript">
+//<![CDATA[
     this.pitch = {{ pitch }}
     this.roll = {{ roll }}
     this.yaw = {{ yaw }}
+//]]>
 </script>
 {% endblock scripts %}
