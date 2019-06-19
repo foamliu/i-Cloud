@@ -1,10 +1,11 @@
 import os
 import time
-from scipy.stats import norm
+
 import cv2 as cv
 import torch
 from PIL import Image
 from flask import request
+from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
 
@@ -28,6 +29,42 @@ def get_prob(beauty):
     sigma = 14.0220
     prob = norm.cdf(beauty, mu, sigma)
     return prob
+
+
+expression_dict = {0: 'none', 1: 'smile', 2: 'laugh'}
+face_shape_dict = {0: 'square', 1: 'oval', 2: 'heart', 3: 'round', 4: 'triangle'}
+face_type_dict = {0: 'human', 1: 'cartoon'}
+gender_dict = {0: 'female', 1: 'male'}
+glasses_dict = {0: 'none', 1: 'sun', 2: 'common'}
+race_dict = {0: 'yellow', 1: 'white', 2: 'black', 3: 'arabs'}
+
+
+def idx2name(idx, tag):
+    name = None
+    if tag == 'expression':
+        name = expression_dict[idx]
+    elif tag == 'face_shape':
+        name = face_shape_dict[idx]
+    elif tag == 'face_type':
+        name = face_type_dict[idx]
+    elif tag == 'gender':
+        name = gender_dict[idx]
+    elif tag == 'glasses':
+        name = glasses_dict[idx]
+    elif tag == 'race':
+        name = race_dict[idx]
+    return name
+
+
+def name2idx(name):
+    lookup_table = {'none': 0, 'smile': 1, 'laugh': 2,
+                    'square': 0, 'oval': 1, 'heart': 2, 'round': 3, 'triangle': 4,
+                    'human': 0, 'cartoon': 1,
+                    'female': 0, 'male': 1,
+                    'sun': 1, 'common': 2,
+                    'yellow': 0, 'white': 1, 'black': 2, 'arabs': 3}
+
+    return lookup_table[name]
 
 
 def face_attributes():
@@ -62,14 +99,14 @@ def face_attributes():
         inputs[0] = img
 
         with torch.no_grad():
-            output = model(inputs)
+            reg_out, expression_out, gender_out, glasses_out, race_out = model(inputs)
 
-        out = output.cpu().numpy()
-        age_out = out[0, 0]
-        pitch_out = out[0, 1]
-        roll_out = out[0, 2]
-        yaw_out = out[0, 3]
-        beauty_out = out[0, 4]
+        reg_out = reg_out.cpu().numpy()
+        age_out = reg_out[0, 0]
+        pitch_out = reg_out[0, 1]
+        roll_out = reg_out[0, 2]
+        yaw_out = reg_out[0, 3]
+        beauty_out = reg_out[0, 4]
 
         age = int(age_out * 100)
         pitch = float('{0:.2f}'.format(pitch_out * 360 - 180))
@@ -78,7 +115,22 @@ def face_attributes():
         beauty = float('{0:.2f}'.format(beauty_out * 100))
         beauty_prob = float('{0:.4f}'.format(get_prob(beauty)))
 
-        result = {'age': age, 'pitch': pitch, 'roll': roll, 'yaw': yaw, 'beauty': beauty, 'beauty_prob': beauty_prob}
+        _, expression_out = expression_out.topk(1, 1, True, True)
+        _, gender_out = gender_out.topk(1, 1, True, True)
+        _, glasses_out = glasses_out.topk(1, 1, True, True)
+        _, race_out = race_out.topk(1, 1, True, True)
+        expression_out = expression_out.cpu().numpy()
+        gender_out = gender_out.cpu().numpy()
+        glasses_out = glasses_out.cpu().numpy()
+        race_out = race_out.cpu().numpy()
+
+        expression = idx2name(int(expression_out[i][0]), 'expression')
+        gender = idx2name(int(gender_out[i][0]), 'gender')
+        glasses = idx2name(int(glasses_out[i][0]), 'glasses')
+        race = idx2name(int(race_out[i][0]), 'race')
+
+        result = {'age': age, 'pitch': pitch, 'roll': roll, 'yaw': yaw, 'beauty': beauty, 'beauty_prob': beauty_prob,
+                  'expression': expression, 'gender': gender, 'glasses': glasses, 'race': race}
 
     elapsed = time.time() - start
 
