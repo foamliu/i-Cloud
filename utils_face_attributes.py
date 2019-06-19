@@ -31,12 +31,12 @@ def get_prob(beauty):
     return prob
 
 
-expression_dict = {0: 'none', 1: 'smile', 2: 'laugh'}
+expression_dict = {0: '无表情', 1: '微笑', 2: '大笑'}
 face_shape_dict = {0: 'square', 1: 'oval', 2: 'heart', 3: 'round', 4: 'triangle'}
 face_type_dict = {0: 'human', 1: 'cartoon'}
-gender_dict = {0: 'female', 1: 'male'}
-glasses_dict = {0: 'none', 1: 'sun', 2: 'common'}
-race_dict = {0: 'yellow', 1: 'white', 2: 'black', 3: 'arabs'}
+gender_dict = {0: '女', 1: '男'}
+glasses_dict = {0: '无眼镜', 1: '太阳镜', 2: '一般眼镜'}
+race_dict = {0: '黄色', 1: '白色', 2: '黑色', 3: '阿拉伯人'}
 
 
 def idx2name(idx, tag):
