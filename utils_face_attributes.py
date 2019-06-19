@@ -124,8 +124,6 @@ def face_attributes():
         glasses_out = glasses_out.cpu().numpy()
         race_out = race_out.cpu().numpy()
 
-        print(expression_out.shape)
-
         expression = idx2name(int(expression_out[0, 0]), 'expression')
         gender = idx2name(int(gender_out[0, 0]), 'gender')
         glasses = idx2name(int(glasses_out[0, 0]), 'glasses')
