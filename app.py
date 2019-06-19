@@ -70,10 +70,10 @@ def process_attributes():
         expression = result['expression']
         gender = result['gender']
         glasses = result['glasses']
-        race = result['race']
-        result = '年龄={} 性别={} 颜值={} 表情={}  眼镜={} 肤色={} pitch={} roll={} yaw={}  '.format(age, gender, beauty,
-                                                                                         expression, glasses,
-                                                                                         race, pitch, roll, yaw)
+        # race = result['race']
+        result = '年龄={} 性别={} 颜值={} 表情={} 眼镜={} pitch={} roll={} yaw={}  '.format(age, gender, beauty,
+                                                                                  expression, glasses,
+                                                                                  pitch, roll, yaw)
         comment = '您的颜值超过了 {0:.2f} % 的人群'.format(beauty_prob * 100)
     else:
         result = '抱歉没有检测到人类的脸。'
