@@ -54,7 +54,7 @@ def face_detect():
 
     elapsed = time.time() - start
 
-    return num_faces, float(elapsed), str(fn), bboxes
+    return num_faces, float(elapsed), str(fn), bboxes, landmarks
 
 
 def face_search():

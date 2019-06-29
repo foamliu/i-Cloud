@@ -14,8 +14,8 @@ def verify():
 @api.route('/faces/detect', methods=['POST'])
 def detect():
     try:
-        num_faces, elapsed, fn, bboxes = face_detect()
-        return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'elapsed': elapsed})
+        num_faces, elapsed, fn, bboxes, landmarks = face_detect()
+        return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'landmarks': landmarks, 'elapsed': elapsed})
     except Exception as err:
         print(err)
         return jsonify({'num_faces': 0})
