@@ -15,7 +15,7 @@ def verify():
 def detect():
     try:
         num_faces, elapsed, fn, bboxes, landmarks = face_detect()
-        return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'landmarks': landmarks, 'elapsed': elapsed})
+        return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'landmarks': landmarks.tolist(), 'elapsed': elapsed})
     except Exception as err:
         print(err)
         return jsonify({'num_faces': 0})
