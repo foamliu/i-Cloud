@@ -1,7 +1,5 @@
 from subprocess import Popen, PIPE
 
-from utils import ensure_folder
-
 if __name__ == '__main__':
     filename = 'download.csv'
     with open(filename, 'r') as file:
@@ -10,7 +8,6 @@ if __name__ == '__main__':
     for line in data:
         folder = line.split(',')[0].strip()
         address = line.split(',')[1].strip()
-        ensure_folder(folder)
 
         process = Popen(["wget", address, "-P", folder], stdout=PIPE)
         (output, err) = process.communicate()
