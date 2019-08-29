@@ -1,0 +1,4 @@
+attributes,https://github.com/foamliu/Face-Attributes/releases/download/v1.0/BEST_checkpoint.tar
+tts-cn,
+tts-en,
+asr-cn,https://github.com/foamliu/Speech-Transformer/releases/download/v1.0/BEST_checkpoint.tar
