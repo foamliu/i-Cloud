@@ -12,6 +12,7 @@ from utils_face import face_detect, face_verify, face_search
 from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
 from utils_tag import search_tag
+from flask import jsonify
 
 bootstrap = Bootstrap()
 
@@ -159,6 +160,11 @@ def video_match():
     return render_template('match_video.html')
 
 
+@app.route('/video-match-api')
+def video_match_api():
+        return render_template('match_video_api.html')
+
+
 @app.route('/process_video_match', methods=['POST'])
 def process_video_match():
     name, prob, index, time_in_video, elapsed, upload_file, image_fn = match_video()
@@ -170,8 +176,19 @@ def process_video_match():
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
     return render_template('result_match_video.html', result=result, frame_index=frame_index,
-                           time_in_video=time_in_video, prob=prob, elapsed=elapsed, upload_file=upload_file,
+                           time_in_video=time_in_video, prob=prob, elapsed=elapsed, upload_file=upload_file.split(".")[0]+"_adjust.jpg",
                            screenshot=image_fn)
+
+
+@app.route('/process_video_match_api', methods=['POST'])
+def process_video_match_api():
+    name, prob, index, time_in_video, elapsed, upload_file, image_fn = match_video()
+    upload_file_path = "http://47.101.196.204:8080/{}".format(UPLOAD_FOLDER)
+    screen_shot_file = "http://47.101.196.204:8080/{}".format(image_fn)
+    upload_file = os.path.join(upload_file_path, upload_file.split(".")[0]+"_adjust.jpg")
+    response_result = jsonify({'ad_name': name, 'frame_number': index, 'time_in_video': time_in_video, 'match_probablity': prob, 'elapsed_time': elapsed, 'upload_file': upload_file, 'screen_shot_file': screen_shot_file})
+    response_result.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response_result
 
 
 @app.route('/tag_search')

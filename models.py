@@ -294,6 +294,23 @@ class ArcMarginModel(nn.Module):
 
 from torchvision import models
 
+class FrameDetectionModel(nn.Module):
+    def __init__(self):
+        super(FrameDetectionModel, self).__init__()
+        resnet = models.resnet50(pretrained=True)
+        # Remove linear layer (since we're not doing classification)
+        modules = list(resnet.children())[:-1]
+        self.resnet = nn.Sequential(*modules)
+        self.fc = nn.Linear(2048, 8)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, images):
+        x = self.resnet(images)  # [N, 2048, 1, 1]
+        x = x.view(-1, 2048)  # [N, 2048]
+        x = self.fc(x)
+        x = self.sigmoid(x)  # [N, 8]
+        return x
+
 
 class FaceAttributeModel(nn.Module):
     def __init__(self):
