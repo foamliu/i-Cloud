@@ -11,6 +11,7 @@ from flask import request
 from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
+import ps_demo as ps
 
 from config import device, STATIC_DIR, UPLOAD_DIR
 from utils import ensure_folder, resize
@@ -102,11 +103,16 @@ def match_video():
     upload_file = secure_filename(file.filename)
     full_path = os.path.join(UPLOAD_DIR, upload_file)
     file.save(full_path)
+    full_path_adjust = os.path.join(UPLOAD_DIR, upload_file.split(".")[0])
+    ps.cut_img(ps.model, full_path, full_path_adjust)
     resize(full_path)
+    full_path_adjust_file = os.path.join(UPLOAD_DIR,upload_file.split(".")[0]+"_adjust.jpg")
+    resize(full_path_adjust_file)
+    print('full_path_adjust: ' + full_path_adjust)
     print('full_path: ' + full_path)
-
+    print('upload_file: ' + upload_file)
     with torch.no_grad():
-        x = gen_feature(full_path)
+        x = gen_feature(full_path_adjust_file)
 
     cosine = np.dot(features, x)
     cosine = np.clip(cosine, -1, 1)
