@@ -5,6 +5,6 @@ from . import api
 
 
 @api.route('/asr/recognize', methods=['POST'])
-def recognize():
+def asr_recognize():
     text, file_upload, elapsed = do_recognize()
     return jsonify({'text': text, 'file_upload': file_upload, 'elapsed': elapsed})
