@@ -213,7 +213,6 @@ def asr():
 
 @app.route('/process_asr', methods=['POST'])
 def process_asr():
-    print('process asr')
     return render_template('result_asr.html', result='')
 
 
