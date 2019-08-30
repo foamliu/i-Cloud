@@ -12,4 +12,3 @@ if __name__ == '__main__':
         process = Popen(["wget", '-N', address, "-P", folder], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
-        print(output)
