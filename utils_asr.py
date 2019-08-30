@@ -12,7 +12,7 @@ from utils import ensure_folder
 checkpoint = 'models/asr-cn/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
-model = checkpoint['model'].module
+model = checkpoint['model']
 model = model.to(device)
 model.eval()
 
