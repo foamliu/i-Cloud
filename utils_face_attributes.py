@@ -95,7 +95,7 @@ def face_attributes():
         img = transformer(img)
         img = img.to(device)
 
-        inputs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float)
+        inputs = torch.zeros([1, 3, im_size, im_size], dtype=torch.float, device=device)
         inputs[0] = img
 
         with torch.no_grad():
