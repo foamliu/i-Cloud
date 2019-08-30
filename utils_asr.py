@@ -123,6 +123,7 @@ def recognize(audiopath):
         out = [char_list[idx] for idx in out]
         out = ''.join(out)
         out_list.append(out)
-    print('OUT_LIST: {}'.format(out_list))
+    out = out_list[0].replace('<sos>', '').replace('<eos>', '')
+    print('out: {}'.format(out))
 
-    return out_list
+    return out

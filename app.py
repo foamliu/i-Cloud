@@ -214,8 +214,9 @@ def asr():
 
 @app.route('/process_asr', methods=['POST'])
 def process_asr():
-    text = do_recognize()
-    return render_template('result_asr.html', result=text)
+    text, file_upload, elapsed = do_recognize()
+    elapsed = "耗时: {:.4f} 秒".format(elapsed)
+    return render_template('result_asr.html', result=text, elapsed=elapsed)
 
 
 @app.route('/tts', methods=['GET'])
