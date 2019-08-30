@@ -29,24 +29,6 @@ with open(filename, 'rb') as file:
     char_list = pickle.load(file)
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(
-        "End-to-End Automatic Speech Recognition Decoding.")
-    # decode
-    parser.add_argument('--beam_size', default=5, type=int,
-                        help='Beam size')
-    parser.add_argument('--nbest', default=5, type=int,
-                        help='Nbest size')
-    parser.add_argument('--decode_max_len', default=100, type=int,
-                        help='Max output length. If ==0 (default), it uses a '
-                             'end-detect function to automatically find maximum '
-                             'hypothesis lengths')
-    args = parser.parse_args()
-    return args
-
-
-args = parse_args()
-
 
 def extract_feature(input_file, feature='fbank', dim=40, cmvn=True, delta=False, delta_delta=False,
                     window_size=25, stride=10, save_feature=None):
@@ -134,7 +116,7 @@ def recognize(audiopath):
     input = torch.from_numpy(feature).to(device)
     input_length = [input[0].shape[0]]
     input_length = torch.LongTensor(input_length).to(device)
-    nbest_hyps = model.recognize(input, input_length, char_list, args)
+    nbest_hyps = model.recognize(input, input_length, char_list)
     out_list = []
     for hyp in nbest_hyps:
         out = hyp['yseq']
