@@ -14,7 +14,7 @@ from utils_face import face_detect, face_verify, face_search
 from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
 from utils_tag import search_tag
-from utils_tts import do_synthesize
+# from utils_tts import do_synthesize TODO: fix
 
 bootstrap = Bootstrap()
 
@@ -227,7 +227,8 @@ def tts():
 
 @app.route('/process_tts', methods=['POST'])
 def process_tts():
-    audiopath, elapsed = do_synthesize()
+    # audiopath, elapsed = do_synthesize()
+    audiopath = ''
     return render_template('result_tts.html', audiopath=audiopath)
 
 
