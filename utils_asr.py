@@ -1,4 +1,3 @@
-import argparse
 import os
 import pickle
 import time
@@ -27,7 +26,6 @@ LFR_n = 3
 filename = 'models/asr-cn/char_list.pkl'
 with open(filename, 'rb') as file:
     char_list = pickle.load(file)
-
 
 
 def extract_feature(input_file, feature='fbank', dim=40, cmvn=True, delta=False, delta_delta=False,
