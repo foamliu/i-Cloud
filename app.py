@@ -206,24 +206,25 @@ def process_tag_search():
                            intr=intr)
 
 
-@app.route('/asr')
+@app.route('/asr', methods=['GET'])
 def asr():
     return render_template('asr.html')
 
 
 @app.route('/process_asr', methods=['POST'])
 def process_asr():
-    return render_template('result_asr.html')
+    print('process asr')
+    return render_template('result_asr.html', result='')
 
 
-@app.route('/tts')
+@app.route('/tts', methods=['GET'])
 def tts():
     return render_template('tts.html')
 
 
 @app.route('/process_tts', methods=['POST'])
 def process_tts():
-    return render_template('result_tts.html')
+    return render_template('result_tts.html', audiopath='')
 
 
 @app.route('/sdk')
