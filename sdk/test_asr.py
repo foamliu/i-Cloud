@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 if __name__ == '__main__':
@@ -6,4 +8,5 @@ if __name__ == '__main__':
     files = {'file': open('audio_5.wav', 'rb')}
     r = requests.post(url, files=files)
     print(r.status_code)
-    print(r.text)
+    ret = json.loads(r.text)
+    print(ret)
