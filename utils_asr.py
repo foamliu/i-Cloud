@@ -26,7 +26,7 @@ LFR_n = 3
 
 filename = 'models/asr-cn/char_list.pkl'
 with open(filename, 'rb') as file:
-    char_list = pickle.load(filename)
+    char_list = pickle.load(file)
 
 
 def parse_args():
