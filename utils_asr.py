@@ -9,7 +9,7 @@ from config import STATIC_DIR, UPLOAD_DIR
 from config import device
 from utils import ensure_folder
 
-checkpoint = 'models/ars-cn/BEST_checkpoint.tar'
+checkpoint = 'models/asr-cn/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model'].module
