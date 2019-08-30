@@ -158,6 +158,7 @@ def compare(fn_0, fn_1):
     imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float)
     imgs[0] = img0
     imgs[1] = img1
+    imgs = imgs.to(device)
 
     with torch.no_grad():
         output = model(imgs)
@@ -187,6 +188,7 @@ def search(full_path):
     img = get_image(full_path)
     imgs = torch.zeros([1, 3, 112, 112], dtype=torch.float)
     imgs[0] = img
+    imgs = imgs.to(device)
 
     with torch.no_grad():
         output = model(imgs)
