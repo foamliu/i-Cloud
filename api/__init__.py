@@ -2,4 +2,4 @@ from flask import Blueprint
 
 api = Blueprint('api', __name__)
 
-from . import faces, ar, matches
+from . import faces, ar, matches, asr
