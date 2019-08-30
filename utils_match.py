@@ -38,7 +38,7 @@ transformer = data_transforms['val']
 checkpoint = 'models/match/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
-model = checkpoint['model']
+model = checkpoint['model'].module
 model = model.to(device)
 model.eval()
 
