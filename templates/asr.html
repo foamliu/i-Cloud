@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<h1 class="mt-5 mb-2">语音识别</h1>
+
+<p class="pt-1 pb-1">采用国际领先的端到端语音语言一体化建模算法，将语音识别为文字。</p>
+
+<form action="http://47.101.196.204:8080/process_ars" method="POST" enctype="multipart/form-data">
+    <table class="table">
+        <tr>
+            <td>
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>上传音频</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn btn-primary btn-file">
+                                        浏览...<input type="file" id="audioInp" name="file">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload' class="img-responsive"/>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-success"/></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
+

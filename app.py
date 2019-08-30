@@ -3,6 +3,7 @@
 import os
 
 from flask import Flask
+from flask import jsonify
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
@@ -12,7 +13,6 @@ from utils_face import face_detect, face_verify, face_search
 from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
 from utils_tag import search_tag
-from flask import jsonify
 
 bootstrap = Bootstrap()
 
@@ -162,7 +162,7 @@ def video_match():
 
 @app.route('/video-match-api')
 def video_match_api():
-        return render_template('match_video_api.html')
+    return render_template('match_video_api.html')
 
 
 @app.route('/process_video_match', methods=['POST'])
@@ -176,7 +176,8 @@ def process_video_match():
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
 
     return render_template('result_match_video.html', result=result, frame_index=frame_index,
-                           time_in_video=time_in_video, prob=prob, elapsed=elapsed, upload_file=upload_file.split(".")[0]+"_adjust.jpg",
+                           time_in_video=time_in_video, prob=prob, elapsed=elapsed,
+                           upload_file=upload_file.split(".")[0] + "_adjust.jpg",
                            screenshot=image_fn)
 
 
@@ -185,8 +186,10 @@ def process_video_match_api():
     name, prob, index, time_in_video, elapsed, upload_file, image_fn = match_video()
     upload_file_path = "http://47.101.196.204:8080/{}".format(UPLOAD_FOLDER)
     screen_shot_file = "http://47.101.196.204:8080/{}".format(image_fn)
-    upload_file = os.path.join(upload_file_path, upload_file.split(".")[0]+"_adjust.jpg")
-    response_result = jsonify({'ad_name': name, 'frame_number': index, 'time_in_video': time_in_video, 'match_probablity': prob, 'elapsed_time': elapsed, 'upload_file': upload_file, 'screen_shot_file': screen_shot_file})
+    upload_file = os.path.join(upload_file_path, upload_file.split(".")[0] + "_adjust.jpg")
+    response_result = jsonify(
+        {'ad_name': name, 'frame_number': index, 'time_in_video': time_in_video, 'match_probablity': prob,
+         'elapsed_time': elapsed, 'upload_file': upload_file, 'screen_shot_file': screen_shot_file})
     response_result.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response_result
 
@@ -201,6 +204,26 @@ def process_tag_search():
     mac, gender, age, zcdj, yf, yc, intr = search_tag()
     return render_template('result_tag_search.html', mac=mac, gender=gender, age=age, zcdj=zcdj, yf=yf, yc=yc,
                            intr=intr)
+
+
+@app.route('/asr')
+def asr():
+    return render_template('asr.html')
+
+
+@app.route('/process_asr')
+def process_asr():
+    return render_template('result_asr.html')
+
+
+@app.route('/tts')
+def tts():
+    return render_template('tts.html')
+
+
+@app.route('/process_tts')
+def process_tts():
+    return render_template('result_tts.html')
 
 
 @app.route('/sdk')
