@@ -3,27 +3,15 @@
 {% block page_content %}
 <table class="table">
     <tr>
-        <td>上传照片</td>
-        <td>匹配明星</td>
-    </tr>
-    <tr>
-        <td><img src="{{ url_for('static', filename = file_upload) }}" class="img-responsive" style="max-width:640px;">
-        </td>
-        <td><img src="{{ url_for('static', filename = file_star) }}" class="img-responsive" style="max-width:640px;">
-        </td>
-    </tr>
-    <tr>
         <td colspan="2">
             <div class="card w-75">
                 <div class="card-body">
-                    <h5 class="card-title">匹配结果</h5>
+                    <h5 class="card-title">识别结果</h5>
                     <p class="card-text">
                         <font style="font-weight: bold;">
                             {{ result }}
                         </font>
                     </p>
-                    <p>{{ prob }}</p>
-                    <p>{{ elapsed }}</p>
                 </div>
             </div>
         </td>

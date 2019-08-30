@@ -213,7 +213,8 @@ def asr():
 
 @app.route('/process_asr')
 def process_asr():
-    return render_template('result_asr.html')
+    result = '你说啥？'
+    return render_template('result_asr.html', result=result)
 
 
 @app.route('/tts')
