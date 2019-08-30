@@ -213,7 +213,7 @@ def asr():
 
 @app.route('/process_asr', methods=['POST'])
 def process_asr():
-    result = '你说啥？'
+    result = 'what?'
     return render_template('result_asr.html', result=result)
 
 
