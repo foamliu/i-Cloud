@@ -9,6 +9,7 @@ from flask_bootstrap import Bootstrap
 
 from config import UPLOAD_FOLDER
 from utils import FaceNotFoundError
+from utils_asr import do_recognize
 from utils_face import face_detect, face_verify, face_search
 from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
@@ -213,7 +214,8 @@ def asr():
 
 @app.route('/process_asr', methods=['POST'])
 def process_asr():
-    return render_template('result_asr.html', result='')
+    text = do_recognize()
+    return render_template('result_asr.html', result=text)
 
 
 @app.route('/tts', methods=['GET'])
