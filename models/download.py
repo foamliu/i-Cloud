@@ -9,7 +9,7 @@ if __name__ == '__main__':
         folder = line.split(',')[0].strip()
         address = line.split(',')[1].strip()
 
-        process = Popen(["wget", address, "-P", folder], stdout=PIPE)
+        process = Popen(["wget", '-N', address, "-P", folder], stdout=PIPE)
         (output, err) = process.communicate()
         exit_code = process.wait()
         print(output)
