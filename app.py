@@ -211,7 +211,7 @@ def asr():
     return render_template('asr.html')
 
 
-@app.route('/process_asr')
+@app.route('/process_asr', methods=['POST'])
 def process_asr():
     result = '你说啥？'
     return render_template('result_asr.html', result=result)
@@ -222,7 +222,7 @@ def tts():
     return render_template('tts.html')
 
 
-@app.route('/process_tts')
+@app.route('/process_tts', methods=['POST'])
 def process_tts():
     return render_template('result_tts.html')
 
