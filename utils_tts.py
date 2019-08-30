@@ -9,7 +9,7 @@ from flask import request
 
 from config import device
 
-checkpoint = 'models/tts-cn/BEST_checkpoint.tar'
+checkpoint = 'repo/tts-cn/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model']
@@ -18,9 +18,9 @@ model.eval()
 
 sampling_rate = 22050
 
-vacab_file = 'models/tts-cn/vacab.json'
+vocab_file = 'models/tts-cn/vocab.json'
 
-with open(vacab_file, 'r', encoding='utf-8') as file:
+with open(vocab_file, 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 VOCAB = data['VOCAB']

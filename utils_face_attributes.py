@@ -16,7 +16,7 @@ from utils import ensure_folder, crop_image, transformer, select_central_face, d
 
 im_size = 224
 
-checkpoint = 'models/attributes/BEST_checkpoint.tar'
+checkpoint = 'repo/attributes/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model'].module

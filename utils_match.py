@@ -35,7 +35,7 @@ data_transforms = {
 transformer = data_transforms['val']
 
 # model params
-checkpoint = 'models/match/BEST_checkpoint.tar'
+checkpoint = 'repo/match/BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model'].module
