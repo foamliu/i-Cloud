@@ -222,7 +222,7 @@ def process_asr():
 
 
 @app.route('/tts-cn', methods=['GET'])
-def tts():
+def tts_cn():
     return render_template('tts_cn.html')
 
 
@@ -234,7 +234,7 @@ def process_tts_cn():
 
 
 @app.route('/tts-en', methods=['GET'])
-def tts():
+def tts_en():
     return render_template('tts_en.html')
 
 
