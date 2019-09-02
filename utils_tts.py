@@ -8,7 +8,7 @@ import torch
 from flask import request
 
 from config import device
-from models.models import Tacotron2
+from tacotron2.tacotron2 import Tacotron2
 
 
 class HParams:
