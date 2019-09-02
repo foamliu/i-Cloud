@@ -1,14 +1,14 @@
 import os
 import time
-from text import symbols
+
 import numpy as np
-import pinyin
 import soundfile as sf
 import torch
 from flask import request
 
 from config import device
 from tacotron2.tacotron2 import Tacotron2
+from text import symbols
 from text import text_to_sequence
 
 
@@ -107,7 +107,6 @@ def do_synthesize_en():
 
 
 def synthesize_en(text):
-    text = pinyin.get(text, format="numerical", delimiter=" ")
     print(text)
     sequence = np.array(text_to_sequence(text, ['english_cleaners']))[None, :]
     sequence = torch.autograd.Variable(torch.from_numpy(sequence)).cuda().long()
