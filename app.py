@@ -229,7 +229,7 @@ def tts():
 def process_tts():
     audiopath, elapsed = do_synthesize()
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
-    return render_template('result_tts.html', audiopath=audiopath)
+    return render_template('result_tts.html', audiopath=audiopath, elapsed=elapsed)
 
 
 @app.route('/sdk')
