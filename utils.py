@@ -36,12 +36,12 @@ class HParams:
 
 config = HParams()
 
-checkpoint = 'repo/face/insight-face-v3.pt'
-print('loading model: {}...'.format(checkpoint))
-model = resnet101(config)
-model.load_state_dict(torch.load(checkpoint))
-model = model.to(device)
-model.eval()
+# checkpoint = 'repo/face/insight-face-v3.pt'
+# print('loading model: {}...'.format(checkpoint))
+# model = resnet101(config)
+# model.load_state_dict(torch.load(checkpoint))
+# model = model.to(device)
+# model.eval()
 
 checkpoint = 'BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))
