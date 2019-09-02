@@ -19,6 +19,7 @@ model = checkpoint['model']
 model = model.to(device)
 model.eval()
 
+sample_rate = 16000  # aishell
 input_dim = 80
 LFR_m = 4
 LFR_n = 3
@@ -30,7 +31,7 @@ with open(filename, 'rb') as file:
 
 def extract_feature(input_file, feature='fbank', dim=40, cmvn=True, delta=False, delta_delta=False,
                     window_size=25, stride=10, save_feature=None):
-    y, sr = librosa.load(input_file, sr=None)
+    y, sr = librosa.load(input_file, sr=sample_rate)
     ws = int(sr * 0.001 * window_size)
     st = int(sr * 0.001 * stride)
     if feature == 'fbank':  # log-scaled
