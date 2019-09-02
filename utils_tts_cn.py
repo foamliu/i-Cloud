@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 import numpy as np
@@ -107,18 +108,17 @@ def text_to_sequence(text):
     return result
 
 
-def do_synthesize():
+def do_synthesize_cn():
     start = time.time()
     text = request.form['text']
     print('text: ' + str(text))
-    audiopath = synthesize(text)
+    audiopath = synthesize_cn(text)
     elapsed = time.time() - start
     elapsed = float(elapsed)
     return audiopath, elapsed
 
 
-def synthesize(text):
-    # text = "相对论直接和间接的催生了量子力学的诞生 也为研究微观世界的高速运动确立了全新的数学模型"
+def synthesize_cn(text):
     text = pinyin.get(text, format="numerical", delimiter=" ")
     print(text)
     sequence = np.array(text_to_sequence(text))[None, :]
@@ -135,5 +135,9 @@ def synthesize(text):
     print('audio.shape: ' + str(audio.shape))
     print(audio)
 
-    sf.write('static/output.wav', audio, sampling_rate, 'PCM_24')
-    return 'output.wav'
+    print('audio.shape: ' + str(audio.shape))
+    print(audio)
+    filename = time.strftime("%Y%m%d-%H%M%S") + '.wav'
+    filename = os.path.join('static', filename)
+    sf.write(filename, audio, sampling_rate, 'PCM_24')
+    return filename

@@ -14,7 +14,8 @@ from utils_face import face_detect, face_verify, face_search
 from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
 from utils_tag import search_tag
-from utils_tts import do_synthesize
+from utils_tts_cn import do_synthesize_cn
+from utils_tts_en import do_synthesize_en
 
 bootstrap = Bootstrap()
 
@@ -220,15 +221,27 @@ def process_asr():
     return render_template('result_asr.html', result=text, elapsed=elapsed)
 
 
-@app.route('/tts', methods=['GET'])
+@app.route('/tts-cn', methods=['GET'])
 def tts():
-    return render_template('tts.html')
+    return render_template('tts_cn.html')
 
 
-@app.route('/process_tts', methods=['POST'])
-def process_tts():
-    audiopath, elapsed = do_synthesize()
+@app.route('/process_tts_cn', methods=['POST'])
+def process_tts_cn():
+    audiopath, elapsed = do_synthesize_cn()
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
+    return render_template('result_tts.html', audiopath=audiopath, elapsed=elapsed)
+
+
+@app.route('/tts-en', methods=['GET'])
+def tts():
+    return render_template('tts_en.html')
+
+
+@app.route('/process_tts_en', methods=['POST'])
+def process_tts_en():
+    audiopath, elapsed = do_synthesize_en()
+    elapsed = "Elapsed: {:.4f} seconds".format(elapsed)
     return render_template('result_tts.html', audiopath=audiopath, elapsed=elapsed)
 
 

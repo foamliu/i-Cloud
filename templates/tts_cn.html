@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<h1 class="mt-5 mb-2">语音合成</h1>
+
+<p class="pt-1 pb-1">基于业界领先的深度神经网络技术，提供高度拟人、流畅自然的语音合成功能。</p>
+
+<form action="http://47.101.196.204:8080/process_tts_cn" method="POST" enctype="multipart/form-data">
+    <table class="table">
+        <tr>
+            <td>
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>指定文本</label>
+                            <textarea class="form-control" id="inpText" name="text" rows="7"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-success"/></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
+

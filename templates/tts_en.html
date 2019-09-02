@@ -2,18 +2,18 @@
 
 {% block page_content %}
 
-<h1 class="mt-5 mb-2">语音合成</h1>
+<h1 class="mt-5 mb-2">Speech synthesis</h1>
 
-<p class="pt-1 pb-1">基于业界领先的深度神经网络技术，提供高度拟人、流畅自然的语音合成功能。</p>
+<p class="pt-1 pb-1">Based on industry-leading deep neural network technology, it provides highly anthropomorphic, smooth and natural speech synthesis.</p>
 
-<form action="http://47.101.196.204:8080/process_tts" method="POST" enctype="multipart/form-data">
+<form action="http://47.101.196.204:8080/process_tts_en" method="POST" enctype="multipart/form-data">
     <table class="table">
         <tr>
             <td>
                 <div class="container">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>指定文本</label>
+                            <label>Input text here</label>
                             <textarea class="form-control" id="inpText" name="text" rows="7"></textarea>
                         </div>
                     </div>
