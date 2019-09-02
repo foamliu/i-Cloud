@@ -8,14 +8,14 @@ import torch
 from flask import request
 from werkzeug.utils import secure_filename
 
-from config import STATIC_DIR, UPLOAD_DIR
-from config import device
+from config import device, STATIC_DIR, UPLOAD_DIR
+from transformer.transformer import Transformer
 from utils import ensure_folder
 
-checkpoint = 'repo/asr-cn/BEST_checkpoint.tar'
+checkpoint = 'repo/asr-cn/speech-transformer-cn.pt'
 print('loading model: {}...'.format(checkpoint))
-checkpoint = torch.load(checkpoint)
-model = checkpoint['model']
+model = Transformer()
+model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
 model.eval()
 

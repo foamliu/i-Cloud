@@ -5,14 +5,16 @@ class Transformer(nn.Module):
     """An encoder-decoder framework only includes attention.
     """
 
-    def __init__(self, encoder, decoder):
+    def __init__(self, encoder=None, decoder=None):
         super(Transformer, self).__init__()
-        self.encoder = encoder
-        self.decoder = decoder
 
-        for p in self.parameters():
-            if p.dim() > 1:
-                nn.init.xavier_uniform_(p)
+        if encoder is not None and decoder is not None:
+            self.encoder = encoder
+            self.decoder = decoder
+
+            for p in self.parameters():
+                if p.dim() > 1:
+                    nn.init.xavier_uniform_(p)
 
     def forward(self, padded_input, input_lengths, padded_target):
         """
