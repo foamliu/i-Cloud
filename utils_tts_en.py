@@ -122,6 +122,5 @@ def synthesize_en(text):
     print('audio.shape: ' + str(audio.shape))
     print(audio)
     filename = time.strftime("%Y%m%d-%H%M%S") + '.wav'
-    filename = os.path.join('static', filename)
-    sf.write(filename, audio, sampling_rate, 'PCM_24')
+    sf.write(os.path.join('static', filename), audio, sampling_rate, 'PCM_24')
     return filename

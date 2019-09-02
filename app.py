@@ -15,7 +15,7 @@ from utils_face_attributes import face_attributes
 from utils_match import match_image, match_video
 from utils_tag import search_tag
 from utils_tts_cn import do_synthesize_cn
-# from utils_tts_en import do_synthesize_en
+from utils_tts_en import do_synthesize_en
 
 bootstrap = Bootstrap()
 
@@ -240,8 +240,8 @@ def tts_en():
 
 @app.route('/process_tts_en', methods=['POST'])
 def process_tts_en():
-    # audiopath, elapsed = do_synthesize_en()
-    audiopath, elapsed = '', 0
+    audiopath, elapsed = do_synthesize_en()
+    # audiopath, elapsed = '', 0
     elapsed = "Elapsed: {:.4f} seconds".format(elapsed)
     return render_template('result_tts.html', audiopath=audiopath, elapsed=elapsed)
 
