@@ -11,6 +11,7 @@ from torchvision import transforms
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
 from config import image_h, image_w, device
+from models import resnet101
 from mtcnn.detector import detect_faces
 
 data_transforms = {
@@ -25,6 +26,22 @@ data_transforms = {
     ]),
 }
 transformer = data_transforms['val']
+
+
+class HParams:
+    def __init__(self):
+        self.pretrained = False
+        self.use_se = False
+
+
+config = HParams()
+
+checkpoint = 'repo/face/insight-face-v3.pt'
+print('loading model: {}...'.format(checkpoint))
+model = resnet101(config)
+model.load_state_dict(torch.load(checkpoint))
+model = model.to(device)
+model.eval()
 
 checkpoint = 'BEST_checkpoint.tar'
 print('loading model: {}...'.format(checkpoint))

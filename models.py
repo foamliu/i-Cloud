@@ -294,6 +294,7 @@ class ArcMarginModel(nn.Module):
 
 from torchvision import models
 
+
 class FrameDetectionModel(nn.Module):
     def __init__(self):
         super(FrameDetectionModel, self).__init__()
