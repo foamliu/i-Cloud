@@ -31,7 +31,7 @@ transformer = data_transforms['val']
 class HParams:
     def __init__(self):
         self.pretrained = False
-        self.use_se = False
+        self.use_se = True
 
 
 config = HParams()
