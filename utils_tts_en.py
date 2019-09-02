@@ -1,6 +1,6 @@
 import os
 import time
-
+from text import symbols
 import numpy as np
 import pinyin
 import soundfile as sf
@@ -14,7 +14,7 @@ from text import text_to_sequence
 
 class HParams:
     def __init__(self):
-        self.n_mel_channels = None
+        self.n_mel_channels = 80
         self.dynamic_loss_scaling = True
         self.fp16_run = False
         self.distributed_run = False
@@ -39,7 +39,7 @@ class HParams:
         ################################
         # Model Parameters             #
         ################################
-        self.n_symbols = 35
+        self.n_symbols = len(symbols)
         self.symbols_embedding_dim = 512
 
         # Encoder parameters
