@@ -27,10 +27,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import numpy as np
 import torch
 import torch.nn.functional as F
-from audio_processing import window_sumsquare
 from librosa.util import pad_center, tiny
 from scipy.signal import get_window
 from torch.autograd import Variable
+
+from .audio_processing import window_sumsquare
 
 
 class STFT(torch.nn.Module):
