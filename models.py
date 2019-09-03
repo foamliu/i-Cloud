@@ -155,7 +155,7 @@ class IRBlock(nn.Module):
 
 class ResNet(nn.Module):
 
-    def __init__(self, block, layers, use_se=True):
+    def __init__(self, block, layers, use_se=True, im_size=112):
         self.inplanes = 64
         self.use_se = use_se
         super(ResNet, self).__init__()
@@ -169,7 +169,11 @@ class ResNet(nn.Module):
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.bn2 = nn.BatchNorm2d(512)
         self.dropout = nn.Dropout()
-        self.fc = nn.Linear(512 * 7 * 7, 512)
+
+        if im_size == 112:
+            self.fc = nn.Linear(512 * 7 * 7, 512)
+        else:  # 224
+            self.fc = nn.Linear(512 * 14 * 14, 512)
         self.bn3 = nn.BatchNorm1d(512)
 
         for m in self.modules():
@@ -234,7 +238,7 @@ def resnet34(args, **kwargs):
 
 
 def resnet50(args, **kwargs):
-    model = ResNet(IRBlock, [3, 4, 6, 3], use_se=args.use_se, **kwargs)
+    model = ResNet(IRBlock, [3, 4, 6, 3], use_se=args.use_se, im_size=args.im_size, **kwargs)
     if args.pretrained:
         model.load_state_dict(model_zoo.load_url(model_urls['resnet50']))
     return model

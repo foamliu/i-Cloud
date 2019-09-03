@@ -40,6 +40,7 @@ class HParams:
     def __init__(self):
         self.pretrained = False
         self.use_se = True
+        self.im_size = 224
 
 
 config = HParams()
