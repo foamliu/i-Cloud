@@ -87,6 +87,7 @@ model = model.to(device)
 model.eval()
 
 waveglow_path = 'waveglow_256channels.pt'
+logger.info('loading model: {}...'.format(waveglow_path))
 waveglow = torch.load(waveglow_path)['model']
 waveglow.cuda().eval().half()
 for k in waveglow.convinv:
