@@ -43,13 +43,6 @@ model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
 model.eval()
 
-# checkpoint = 'BEST_checkpoint.tar'
-# print('loading model: {}...'.format(checkpoint))
-# checkpoint = torch.load(checkpoint)
-# model = checkpoint['model'].module
-# model = model.to(device)
-# model.eval()
-
 # model params
 threshold = 76.75066649278368
 mu_0 = 89.76046947988898

@@ -11,15 +11,16 @@ from werkzeug.utils import secure_filename
 
 from config import STATIC_DIR, UPLOAD_DIR
 from config import device
+from models import FaceAttributeModel
 from mtcnn.detector import detect_faces
 from utils import ensure_folder, crop_image, transformer, select_central_face, draw_bboxes
 
 im_size = 224
 
-checkpoint = 'repo/attributes/BEST_checkpoint.tar'
+checkpoint = 'repo/attributes/face-attributes.pt'
 print('loading model: {}...'.format(checkpoint))
-checkpoint = torch.load(checkpoint)
-model = checkpoint['model'].module
+model = FaceAttributeModel()
+model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
 model.eval()
 

@@ -1,6 +1,6 @@
 asr-cn    ,https://github.com/foamliu/Speech-Transformer/releases/download/v1.0/speech-transformer-cn.pt
 asr-cn    ,https://github.com/foamliu/Speech-Transformer/releases/download/v1.0/char_list.pkl
-attributes,https://github.com/foamliu/Face-Attributes/releases/download/v1.0/BEST_checkpoint.tar
+attributes,https://github.com/foamliu/Face-Attributes/releases/download/v1.0/face-attributes.pt
 face      ,https://github.com/foamliu/InsightFace-v3/releases/download/v1.0/insight-face-v3.pt
 tts-cn    ,https://github.com/foamliu/Tacotron2-CN/releases/download/v1.0/tacotron2-cn.pt
 tts-en    ,https://github.com/foamliu/Tacotron2/releases/download/v1.0/tacotron2-en.pt
