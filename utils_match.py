@@ -11,9 +11,9 @@ from flask import request
 from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
-import ps_demo as ps
 
-from config import device, STATIC_DIR, UPLOAD_DIR
+import ps_demo as ps
+from config import device, STATIC_DIR, UPLOAD_DIR, logger
 from utils import ensure_folder, resize
 
 # image params
@@ -36,7 +36,7 @@ transformer = data_transforms['val']
 
 # model params
 checkpoint = 'repo/match/BEST_checkpoint.tar'
-print('loading model: {}...'.format(checkpoint))
+logger.info('loading model: {}...'.format(checkpoint))
 checkpoint = torch.load(checkpoint)
 model = checkpoint['model'].module
 model = model.to(device)
@@ -106,7 +106,7 @@ def match_video():
     full_path_adjust = os.path.join(UPLOAD_DIR, upload_file.split(".")[0])
     ps.cut_img(ps.model, full_path, full_path_adjust)
     resize(full_path)
-    full_path_adjust_file = os.path.join(UPLOAD_DIR,upload_file.split(".")[0]+"_adjust.jpg")
+    full_path_adjust_file = os.path.join(UPLOAD_DIR, upload_file.split(".")[0] + "_adjust.jpg")
     resize(full_path_adjust_file)
     print('full_path_adjust: ' + full_path_adjust)
     print('full_path: ' + full_path)

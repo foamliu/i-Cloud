@@ -10,7 +10,7 @@ from scipy.stats import norm
 from torchvision import transforms
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
-from config import image_h, image_w, device
+from config import image_h, image_w, device, logger
 from models import resnet101
 from mtcnn.detector import detect_faces
 
@@ -37,7 +37,7 @@ class HParams:
 config = HParams()
 
 checkpoint = 'repo/face/insight-face-v3.pt'
-print('loading model: {}...'.format(checkpoint))
+logger.info('loading model: {}...'.format(checkpoint))
 model = resnet101(config)
 model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)

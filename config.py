@@ -1,3 +1,4 @@
+import logging
 import os
 
 import torch
@@ -14,3 +15,16 @@ UPLOAD_DIR = os.path.join(STATIC_DIR, UPLOAD_FOLDER)
 pickle_file = STATIC_DIR + '/' + 'weiweiimage.pkl'
 
 IGNORE_ID = -1
+
+
+def get_logger():
+    logger = logging.getLogger()
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter("%(asctime)s %(levelname)s \t%(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    return logger
+
+
+logger = get_logger()

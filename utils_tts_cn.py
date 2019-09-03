@@ -8,7 +8,7 @@ import soundfile as sf
 import torch
 from flask import request
 
-from config import device
+from config import device, logger
 from tacotron2.tacotron2 import Tacotron2
 
 
@@ -80,7 +80,7 @@ class HParams:
 
 config = HParams()
 checkpoint = 'repo/tts-cn/tacotron2-cn.pt'
-print('loading model: {}...'.format(checkpoint))
+logger.info('loading model: {}...'.format(checkpoint))
 model = Tacotron2(config)
 model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)

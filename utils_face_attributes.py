@@ -9,8 +9,7 @@ from scipy.stats import norm
 from torchvision import transforms
 from werkzeug.utils import secure_filename
 
-from config import STATIC_DIR, UPLOAD_DIR
-from config import device
+from config import STATIC_DIR, UPLOAD_DIR, device, logger
 from models import FaceAttributeModel
 from mtcnn.detector import detect_faces
 from utils import ensure_folder, crop_image, transformer, select_central_face, draw_bboxes
@@ -18,7 +17,7 @@ from utils import ensure_folder, crop_image, transformer, select_central_face, d
 im_size = 224
 
 checkpoint = 'repo/attributes/face-attributes.pt'
-print('loading model: {}...'.format(checkpoint))
+logger.info('loading model: {}...'.format(checkpoint))
 model = FaceAttributeModel()
 model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
