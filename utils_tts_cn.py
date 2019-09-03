@@ -123,6 +123,7 @@ def synthesize_cn(text):
     print(text)
     text = re.sub('[。？！，、；：]', ' ', text)
     text = re.sub('[“”（）《》〈〉]', '', text)
+    print(text)
     sequence = np.array(text_to_sequence(text))[None, :]
     sequence = torch.autograd.Variable(torch.from_numpy(sequence)).cuda().long()
 
