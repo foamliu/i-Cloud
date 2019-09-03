@@ -36,26 +36,26 @@ class HParams:
 
 config = HParams()
 
-# checkpoint = 'repo/face/insight-face-v3.pt'
-# print('loading model: {}...'.format(checkpoint))
-# model = resnet101(config)
-# model.load_state_dict(torch.load(checkpoint))
-# model = model.to(device)
-# model.eval()
-
-checkpoint = 'BEST_checkpoint.tar'
+checkpoint = 'repo/face/insight-face-v3.pt'
 print('loading model: {}...'.format(checkpoint))
-checkpoint = torch.load(checkpoint)
-model = checkpoint['model'].module
+model = resnet101(config)
+model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
 model.eval()
 
+# checkpoint = 'BEST_checkpoint.tar'
+# print('loading model: {}...'.format(checkpoint))
+# checkpoint = torch.load(checkpoint)
+# model = checkpoint['model'].module
+# model = model.to(device)
+# model.eval()
+
 # model params
-threshold = 73.18799151798612
-mu_0 = 89.6058
-sigma_0 = 4.5451
-mu_1 = 43.5357
-sigma_1 = 8.83
+threshold = 76.75066649278368
+mu_0 = 89.76046947988898
+sigma_0 = 4.498024182861556
+mu_1 = 42.66766813673472
+sigma_1 = 8.62761102672923
 
 
 class FaceNotFoundError(Exception):

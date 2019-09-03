@@ -12,11 +12,11 @@ __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152']
 
 model_urls = {
-    'resnet18': 'https://download.pytorch.org/tacotron2/resnet18-5c106cde.pth',
-    'resnet34': 'https://download.pytorch.org/tacotron2/resnet34-333f7ec4.pth',
-    'resnet50': 'https://download.pytorch.org/tacotron2/resnet50-19c8e357.pth',
-    'resnet101': 'https://download.pytorch.org/tacotron2/resnet101-5d3b4d8f.pth',
-    'resnet152': 'https://download.pytorch.org/tacotron2/resnet152-b121ed2d.pth',
+    'resnet18': 'https://download.pytorch.org/models/resnet18-5c106cde.pth',
+    'resnet34': 'https://download.pytorch.org/models/resnet34-333f7ec4.pth',
+    'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
+    'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
 }
 
 
@@ -169,7 +169,7 @@ class ResNet(nn.Module):
         self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
         self.bn2 = nn.BatchNorm2d(512)
         self.dropout = nn.Dropout()
-        self.fc = nn.Linear(512 * 14 * 14, 512)
+        self.fc = nn.Linear(512 * 7 * 7, 512)
         self.bn3 = nn.BatchNorm1d(512)
 
         for m in self.modules():
@@ -251,11 +251,6 @@ def resnet152(args, **kwargs):
     model = ResNet(IRBlock, [3, 8, 36, 3], use_se=args.use_se, **kwargs)
     if args.pretrained:
         model.load_state_dict(model_zoo.load_url(model_urls['resnet152']))
-    return model
-
-
-def resnet_face18(use_se=True, **kwargs):
-    model = ResNet(IRBlock, [2, 2, 2, 2], use_se=use_se, **kwargs)
     return model
 
 
