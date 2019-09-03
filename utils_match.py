@@ -14,6 +14,7 @@ from werkzeug.utils import secure_filename
 
 import ps_demo as ps
 from config import device, STATIC_DIR, UPLOAD_DIR, logger
+from models import resnet50
 from utils import ensure_folder, resize
 
 # image params
@@ -34,11 +35,20 @@ data_transforms = {
 }
 transformer = data_transforms['val']
 
+
+class HParams:
+    def __init__(self):
+        self.pretrained = False
+        self.use_se = True
+
+
+config = HParams()
+
 # model params
-checkpoint = 'repo/match/BEST_checkpoint.tar'
+checkpoint = 'repo/match/image-matching.pt'
 logger.info('loading model: {}...'.format(checkpoint))
-checkpoint = torch.load(checkpoint)
-model = checkpoint['model'].module
+model = resnet50(config)
+model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
 model.eval()
 
