@@ -1,7 +1,8 @@
 import json
 import os
-import time
 import re
+import time
+
 import numpy as np
 import pinyin
 import soundfile as sf
@@ -120,12 +121,13 @@ def do_synthesize_cn():
 
 
 def synthesize_cn(text):
-    text = pinyin.get(text, format="numerical", delimiter=" ")
     print(text)
     text = re.sub('[。？！，、；：]', ' ', text)
     text = re.sub('[“”（）《》〈〉]', '', text)
     text = text.replace('1', '一').replace('2', '二').replace('3', '三').replace('4', '四').replace('5', '五')
     text = text.replace('6', '六').replace('7', '七').replace('8', '八').replace('9', '九').replace('0', '零')
+    text = pinyin.get(text, format="numerical", delimiter=" ")
+
     print(text)
     sequence = np.array(text_to_sequence(text))[None, :]
     sequence = torch.autograd.Variable(torch.from_numpy(sequence)).cuda().long()
