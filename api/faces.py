@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from utils_face import face_verify, face_detect, face_search
+from utils_face import face_verify, face_detect, face_search, face_feature
 from utils_face_attributes import face_attributes
 from . import api
 
@@ -38,7 +38,7 @@ def attributes():
 
 
 @api.route('/faces/get_feature', methods=['POST'])
-def search():
-    feature, file_upload, elapsed = face_search()
+def get_feature():
+    feature, file_upload, elapsed = face_feature()
     file_upload = file_upload.replace('static', '')
     return jsonify({'feature': feature, 'elapsed': elapsed, 'file_upload': file_upload})
