@@ -231,6 +231,21 @@ def search(full_path):
     return names[max_index], prob, files[max_index]
 
 
+def get_feature(full_path):
+    img = get_image(full_path)
+    imgs = torch.zeros([1, 3, 112, 112], dtype=torch.float)
+    imgs[0] = img
+    imgs = imgs.to(device)
+
+    with torch.no_grad():
+        output = model(imgs)
+
+        feature = output[0].cpu().numpy()
+        x = feature / np.linalg.norm(feature)
+
+    return x
+
+
 def ensure_folder(folder):
     import os
     if not os.path.isdir(folder):

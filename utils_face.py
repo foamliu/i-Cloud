@@ -6,9 +6,10 @@ import cv2 as cv
 from PIL import Image
 from flask import request
 from werkzeug.utils import secure_filename
+
 from config import STATIC_DIR, UPLOAD_DIR
 from mtcnn.detector import detect_faces
-from utils import compare, ensure_folder, resize, draw_bboxes, search
+from utils import compare, ensure_folder, resize, draw_bboxes, search, get_feature
 
 
 def face_verify():
@@ -73,3 +74,21 @@ def face_search():
     name, prob, file_star = search(file_upload)
     elapsed = time.time() - start
     return name, prob, file_star, file_upload, float(elapsed)
+
+
+def face_feature():
+    start = time.time()
+    ensure_folder(STATIC_DIR)
+    ensure_folder(UPLOAD_DIR)
+    file = request.files['file']
+    filename = secure_filename(file.filename)
+    filename = filename.lower()
+    if filename in ['jpg', 'jpeg', 'png', 'gif']:
+        filename = str(random.randint(0, 101)) + '.' + filename
+    file_upload = os.path.join(UPLOAD_DIR, filename)
+    file.save(file_upload)
+    resize(file_upload)
+    print('file_upload: ' + file_upload)
+    feature = get_feature(file_upload)
+    elapsed = time.time() - start
+    return feature, file_upload, float(elapsed)

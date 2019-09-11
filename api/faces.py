@@ -15,7 +15,8 @@ def verify():
 def detect():
     try:
         num_faces, elapsed, fn, bboxes, landmarks = face_detect()
-        return jsonify({'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'landmarks': landmarks.tolist(), 'elapsed': elapsed})
+        return jsonify(
+            {'num_faces': num_faces, 'bboxes': bboxes.tolist(), 'landmarks': landmarks.tolist(), 'elapsed': elapsed})
     except Exception as err:
         print(err)
         return jsonify({'num_faces': 0})
@@ -34,3 +35,10 @@ def attributes():
     result, elapsed, file_upload = face_attributes()
     file_upload = file_upload.replace('static', '')
     return jsonify({'result': result, 'elapsed': elapsed, 'file_upload': file_upload})
+
+
+@api.route('/faces/get_feature', methods=['POST'])
+def search():
+    feature, file_upload, elapsed = face_search()
+    file_upload = file_upload.replace('static', '')
+    return jsonify({'feature': feature, 'elapsed': elapsed, 'file_upload': file_upload})
