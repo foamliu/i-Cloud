@@ -39,3 +39,5 @@ if __name__ == '__main__':
     r = requests.post(url, files=files)
     print(r.status_code)
     print(r.text)
+    d = json.loads(r.text)
+    print(d['feature'])
