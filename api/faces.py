@@ -41,4 +41,4 @@ def attributes():
 def get_feature():
     feature, file_upload, elapsed = face_feature()
     file_upload = file_upload.replace('static', '')
-    return jsonify({'feature': feature, 'elapsed': elapsed, 'file_upload': file_upload})
+    return jsonify({'feature': feature.tolist(), 'elapsed': elapsed, 'file_upload': file_upload})
