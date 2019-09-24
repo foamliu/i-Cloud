@@ -134,9 +134,9 @@ def get_image(filename, flip=False):
         raise FaceNotFoundError(filename)
 
     img = align_face(filename, landmarks)
-    img = transforms.ToPILImage()(img)
     if flip:
         img = np.flip(img, 1)
+    img = transforms.ToPILImage()(img)
     img = transformer(img)
     img = img.to(device)
 
