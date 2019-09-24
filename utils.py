@@ -136,7 +136,7 @@ def get_image(filename, flip=False):
     img = align_face(filename, landmarks)
     img = transforms.ToPILImage()(img)
     if flip:
-        img = cv.flip(img, flipCode=1)
+        img = np.flip(img, 1)
     img = transformer(img)
     img = img.to(device)
 
