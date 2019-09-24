@@ -128,7 +128,7 @@ def draw_bboxes(img, bounding_boxes, facial_landmarks=[]):
     return img
 
 
-def get_image(filename, flip=False):
+def get_image(filename, flip=False, draw=True):
     has_face, bboxes, landmarks = get_central_face_attributes(filename)
     if not has_face:
         raise FaceNotFoundError(filename)
@@ -140,11 +140,12 @@ def get_image(filename, flip=False):
     img = transformer(img)
     img = img.to(device)
 
-    print('drawing bboxes: {}'.format(filename))
-    bboxes, landmarks = get_all_face_attributes(filename)
-    pic = cv.imread(filename)
-    pic = draw_bboxes(pic, bboxes, landmarks)
-    cv.imwrite(filename, pic)
+    if draw:
+        print('drawing bboxes: {}'.format(filename))
+        bboxes, landmarks = get_all_face_attributes(filename)
+        pic = cv.imread(filename)
+        pic = draw_bboxes(pic, bboxes, landmarks)
+        cv.imwrite(filename, pic)
 
     return img
 
@@ -235,8 +236,8 @@ def search(full_path):
 
 def get_feature(full_path):
     imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float)
-    imgs[0] = get_image(full_path)
-    imgs[1] = get_image(full_path, flip=True)
+    imgs[0] = get_image(full_path, draw=False)
+    imgs[1] = get_image(full_path, flip=True, draw=False)
     imgs = imgs.to(device)
 
     with torch.no_grad():
