@@ -128,13 +128,15 @@ def draw_bboxes(img, bounding_boxes, facial_landmarks=[]):
     return img
 
 
-def get_image(filename):
+def get_image(filename, flip=False):
     has_face, bboxes, landmarks = get_central_face_attributes(filename)
     if not has_face:
         raise FaceNotFoundError(filename)
 
     img = align_face(filename, landmarks)
     img = transforms.ToPILImage()(img)
+    if flip:
+        img = cv.flip(img, flipCode=1)
     img = transformer(img)
     img = img.to(device)
 
@@ -232,15 +234,15 @@ def search(full_path):
 
 
 def get_feature(full_path):
-    img = get_image(full_path)
-    imgs = torch.zeros([1, 3, 112, 112], dtype=torch.float)
-    imgs[0] = img
+    imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float)
+    imgs[0] = get_image(full_path)
+    imgs[1] = get_image(full_path, flip=True)
     imgs = imgs.to(device)
 
     with torch.no_grad():
         output = model(imgs)
 
-        feature = output[0].cpu().numpy()
+        feature = output[0].cpu().numpy() + output[1].cpu().numpy()
         x = feature / np.linalg.norm(feature)
 
     return x
