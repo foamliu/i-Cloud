@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<h1 class="mt-5 mb-2">文字识别（OCR）</h1>
+
+<p class="pt-1 pb-1">提供多种场景下精准的图像文字识别技术服务。</p>
+
+<form action="http://47.101.196.204:8080/process_ocr" method="POST" enctype="multipart/form-data">
+    <table class="table">
+        <tr>
+            <td>
+                <div class="container">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>上传图片</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn btn-primary btn-file">
+                                        浏览...<input type="file" id="imgInp" name="file">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                            <img id='img-upload' class="img-responsive"/>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="btn btn-success"/></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static', filename = 'image_upload.js') }}"></script>
+{% endblock scripts %}

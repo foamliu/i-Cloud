@@ -246,6 +246,16 @@ def process_tts_en():
     return render_template('result_tts.html', audiopath=audiopath, elapsed=elapsed)
 
 
+@app.route('/ocr', methods=['GET'])
+def ocr():
+    return render_template('ocr.html')
+
+
+@app.route('/process_ocr', methods=['POST'])
+def process_ocr():
+    return render_template('result_ocr.html')
+
+
 @app.route('/sdk')
 def sdk():
     return render_template('sdk.html')
