@@ -80,11 +80,12 @@ def face_attributes(full_path):
 
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
+    h, w = img.shape[:2]
 
     result = None
 
     if len(bboxes) > 0:
-        i = select_central_face((im_size, im_size), bboxes)
+        i = select_central_face((w, h), bboxes)
         bbox = bboxes[i]
         img = cv.imread(full_path)
         boxed = draw_bboxes(img, [bbox], [landmarks[i]])
