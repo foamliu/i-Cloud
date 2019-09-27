@@ -96,7 +96,7 @@ for k in waveglow.convinv:
 
 sampling_rate = 22050
 
-vocab_file = '../repo/tts-cn/vocab.json'
+vocab_file = 'repo/tts-cn/vocab.json'
 
 with open(vocab_file, 'r', encoding='utf-8') as file:
     data = json.load(file)
