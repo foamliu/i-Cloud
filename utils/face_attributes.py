@@ -66,15 +66,6 @@ def name2idx(name):
 
 def face_attributes(full_path):
     start = time.time()
-    # ensure_folder(STATIC_DIR)
-    # ensure_folder(UPLOAD_DIR)
-    # file = request.files['file']
-    # fn = secure_filename(file.filename)
-    # full_path = os.path.join(UPLOAD_DIR, fn)
-    # file.save(full_path)
-    # resize(full_path)
-    # print('full_path: ' + full_path)
-
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
 
@@ -115,7 +106,7 @@ def face_attributes(full_path):
         beauty = float('{0:.2f}'.format(beauty_out * 100))
         beauty_prob = float('{0:.4f}'.format(get_prob(beauty)))
 
-        # _, expression_out = expression_out.topk(1, 1, True, True)
+        _, expression_out = expression_out.topk(1, 1, True, True)
         _, gender_out = gender_out.topk(1, 1, True, True)
         _, glasses_out = glasses_out.topk(1, 1, True, True)
         _, race_out = race_out.topk(1, 1, True, True)
@@ -124,12 +115,10 @@ def face_attributes(full_path):
         glasses_out = glasses_out.cpu().numpy()
         race_out = race_out.cpu().numpy()
 
-        # expression = idx2name(int(expression_out[0, 0]), 'expression')
+        expression = idx2name(int(expression_out[0, 0]), 'expression')
         gender = idx2name(int(gender_out[0, 0]), 'gender')
         glasses = idx2name(int(glasses_out[0, 0]), 'glasses')
         race = idx2name(int(race_out[0, 0]), 'race')
-
-        expression = None
 
         result = {'age': age, 'pitch': pitch, 'roll': roll, 'yaw': yaw, 'beauty': beauty, 'beauty_prob': beauty_prob,
                   'expression': expression, 'gender': gender, 'glasses': glasses, 'race': race}

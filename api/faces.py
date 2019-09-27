@@ -1,7 +1,9 @@
 from flask import jsonify
 
+from utils.common import save_file
 from utils.face import face_verify, face_detect, face_search, face_feature
 from utils.face_attributes import face_attributes
+from utils.facial_expression import face_expression
 from . import api
 
 
@@ -32,9 +34,18 @@ def search():
 
 @api.route('/faces/attributes', methods=['POST'])
 def attributes():
-    result, elapsed, file_upload = face_attributes()
-    file_upload = file_upload.replace('static', '')
-    return jsonify({'result': result, 'elapsed': elapsed, 'file_upload': file_upload})
+    full_path = save_file()
+    result, elapsed, file_upload = face_attributes(full_path)
+    full_path = full_path.replace('static', '')
+    return jsonify({'result': result, 'elapsed': elapsed, 'full_path': full_path})
+
+
+@api.route('/faces/expression', methods=['POST'])
+def expression():
+    full_path = save_file()
+    has_face, emotion, elapsed = face_expression(full_path)
+    full_path = full_path.replace('static', '')
+    return jsonify({'emotion': emotion, 'elapsed': elapsed, 'full_path': full_path})
 
 
 @api.route('/faces/get_feature', methods=['POST'])
