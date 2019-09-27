@@ -59,9 +59,10 @@ def attributes():
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
     has_face, emotion, elapsed_0, full_path = face_expression()
+    full_path = full_path.replace(STATIC_DIR, '')
+
     if has_face:
         result, elapsed_1, full_path = face_attributes(full_path)
-        full_path = full_path.replace(STATIC_DIR, '')
 
         age = result['age']
         pitch = result['pitch']
