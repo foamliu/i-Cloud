@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from utils.match import match_video
+from utils.utils import match_video
 from . import api
 
 

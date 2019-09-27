@@ -3,7 +3,7 @@ import json
 import redis
 from flask import request
 
-from utils import md5_hash, normalize_mac
+from utils.utils import md5_hash, normalize_mac
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 

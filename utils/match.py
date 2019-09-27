@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 import ps_demo as ps
 from config import device, STATIC_DIR, UPLOAD_DIR, logger
 from models import resnet50
-from utils import ensure_folder, resize
+from utils.utils import ensure_folder, resize
 
 # image params
 im_size = 224

@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename
 from config import STATIC_DIR, UPLOAD_DIR, device, logger
 from models import FaceAttributeModel
 from mtcnn.detector import detect_faces
-from utils import ensure_folder, crop_image, transformer, select_central_face, draw_bboxes
+from utils.utils import ensure_folder, crop_image, transformer, select_central_face, draw_bboxes
 
 im_size = 224
 

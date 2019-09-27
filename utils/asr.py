@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 
 from config import device, STATIC_DIR, UPLOAD_DIR, logger
 from transformer.transformer import Transformer
-from utils import ensure_folder
+from utils.utils import ensure_folder
 
 checkpoint = 'repo/asr-cn/speech-transformer-cn.pt'
 logger.info('loading model: {}...'.format(checkpoint))

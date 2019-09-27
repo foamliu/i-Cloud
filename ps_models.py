@@ -25,8 +25,8 @@ class FrameDetectionModel(nn.Module):
 
 
 if __name__ == "__main__":
-    from utils import parse_args
-    import torch
+    from utils.utils import parse_args
+
     args = parse_args()
     model = FrameDetectionModel().to(device)
     # img=torch.Tensor(2,3,256,256)

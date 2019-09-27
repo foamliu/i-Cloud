@@ -91,7 +91,7 @@ model.eval()
 # waveglow.cuda().eval().half()
 # for k in waveglow.convinv:
 #     k.float()
-from utils.tts_cn import waveglow
+from utils.utils import waveglow
 
 sampling_rate = 22050
 

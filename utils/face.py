@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 
 from config import STATIC_DIR, UPLOAD_DIR
 from mtcnn.detector import detect_faces
-from utils import compare, ensure_folder, resize, draw_bboxes, search, get_feature
+from utils.utils import compare, ensure_folder, resize, draw_bboxes, search, get_feature
 
 
 def face_verify():
