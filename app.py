@@ -7,7 +7,7 @@ from flask import jsonify
 from flask import render_template
 from flask_bootstrap import Bootstrap
 
-from config import UPLOAD_FOLDER
+from config import UPLOAD_FOLDER, STATIC_DIR
 from utils.asr import do_recognize
 from utils.common import FaceNotFoundError
 from utils.face import face_detect, face_verify, face_search
@@ -60,7 +60,7 @@ def attributes():
 def process_attributes():
     emotion, elapsed_0, full_path = face_expression()
     result, elapsed_1, full_path = face_attributes(full_path)
-    # fn = os.path.join(UPLOAD_FOLDER, full_path)
+    full_path = full_path.replace(STATIC_DIR, '')
 
     pitch = 0.0
     roll = 0.0
