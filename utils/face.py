@@ -33,17 +33,8 @@ def face_verify():
     return is_same, prob, elapsed, fn_1, fn_2
 
 
-def face_detect():
+def face_detect(full_path):
     start = time.time()
-    ensure_folder(STATIC_DIR)
-    ensure_folder(UPLOAD_DIR)
-    file = request.files['file']
-    fn = secure_filename(file.filename)
-    full_path = os.path.join(UPLOAD_DIR, fn)
-    file.save(full_path)
-    # resize(full_path)
-    print('full_path: ' + full_path)
-
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
     num_faces = len(bboxes)
@@ -55,7 +46,7 @@ def face_detect():
 
     elapsed = time.time() - start
 
-    return num_faces, float(elapsed), str(fn), bboxes, landmarks
+    return num_faces, float(elapsed), bboxes, landmarks
 
 
 def face_search():

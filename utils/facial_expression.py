@@ -1,19 +1,16 @@
-import os
 import time
 
 import cv2 as cv
 import numpy as np
 import torch
 from PIL import Image
-from flask import request
 from torchvision import transforms
-from werkzeug.utils import secure_filename
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
-from config import STATIC_DIR, UPLOAD_DIR, device, logger
+from config import device, logger
 from models import FaceExpressionModel
 from mtcnn.detector import detect_faces
-from utils.common import ensure_folder, select_central_face
+from utils.common import select_central_face
 from utils.common import transformer
 
 im_size = 112
@@ -59,17 +56,8 @@ def get_central_face_attributes(full_path):
     return False, None, None
 
 
-def face_expression():
+def face_expression(full_path):
     start = time.time()
-    ensure_folder(STATIC_DIR)
-    ensure_folder(UPLOAD_DIR)
-    file = request.files['file']
-    fn = secure_filename(file.filename)
-    full_path = os.path.join(UPLOAD_DIR, fn)
-    file.save(full_path)
-    # resize(full_path)
-    print('full_path: ' + full_path)
-
     filename = full_path
     emotion = ''
     has_face, bboxes, landmarks = get_central_face_attributes(filename)
@@ -90,4 +78,4 @@ def face_expression():
         print(emotion)
     elapsed = time.time() - start
 
-    return has_face, emotion, float(elapsed), full_path
+    return has_face, emotion, float(elapsed)

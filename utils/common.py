@@ -1,16 +1,19 @@
 import hashlib
 import math
+import os
 import pickle
 
 import cv2 as cv
 import numpy as np
 import torch
 from PIL import Image
+from flask import request
 from scipy.stats import norm
 from torchvision import transforms
+from werkzeug.utils import secure_filename
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
-from config import image_h, image_w, device, logger
+from config import image_h, image_w, device, logger, STATIC_DIR, UPLOAD_DIR
 from models import resnet101
 from mtcnn.detector import detect_faces
 
@@ -289,6 +292,18 @@ def crop_image(img, bbox):
     # print('x1:{} y1:{} w:{} h:{}'.format(x1, y1, w, h))
     crop_img = img[y1:y2, x1:x2]
     return crop_img
+
+
+def save_file():
+    ensure_folder(STATIC_DIR)
+    ensure_folder(UPLOAD_DIR)
+    file = request.files['file']
+    fn = secure_filename(file.filename)
+    full_path = os.path.join(UPLOAD_DIR, fn)
+    file.save(full_path)
+    # resize(full_path)
+    print('full_path: ' + full_path)
+    return full_path
 
 
 if __name__ == "__main__":

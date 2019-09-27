@@ -9,7 +9,7 @@ from flask_bootstrap import Bootstrap
 
 from config import UPLOAD_FOLDER, STATIC_DIR
 from utils.asr import do_recognize
-from utils.common import FaceNotFoundError
+from utils.common import FaceNotFoundError, save_file
 from utils.face import face_detect, face_verify, face_search
 from utils.face_attributes import face_attributes
 from utils.facial_expression import face_expression
@@ -40,15 +40,18 @@ def detect():
 
 @app.route('/process_detect', methods=['POST'])
 def process_detect():
-    num_faces, elapsed, fn, _, _ = face_detect()
-    fn = os.path.join(UPLOAD_FOLDER, fn)
+    full_path = save_file()
+    num_faces, elapsed, _, _ = face_detect(full_path)
+
     if num_faces > 0:
         result = "图片中已检测到人脸。"
     else:
         result = "图片中没有检测到人类的脸。"
     num_faces = "人脸数量: {}".format(num_faces)
+    full_path = full_path.replace(STATIC_DIR, '')
     elapsed = "耗时: {:.4f} 秒".format(elapsed)
-    return render_template('result_detect.html', result=result, num_faces=num_faces, fn=fn, elapsed=elapsed)
+    return render_template('result_detect.html', result=result, num_faces=num_faces, full_path=full_path,
+                           elapsed=elapsed)
 
 
 @app.route('/attributes')
@@ -58,10 +61,11 @@ def attributes():
 
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
-    has_face, emotion, elapsed_0, full_path = face_expression()
+    full_path = save_file()
+    has_face, emotion, elapsed_0 = face_expression(full_path)
 
     if has_face:
-        result, elapsed_1, full_path = face_attributes(full_path)
+        result, elapsed_1 = face_attributes(full_path)
 
         age = result['age']
         pitch = result['pitch']

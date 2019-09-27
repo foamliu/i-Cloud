@@ -136,4 +136,4 @@ def face_attributes(full_path):
 
     elapsed = time.time() - start
 
-    return result, float(elapsed), str(full_path)
+    return result, float(elapsed)
