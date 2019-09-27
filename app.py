@@ -58,8 +58,8 @@ def attributes():
 
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
-    result, elapsed, fn = face_attributes()
     emotion = face_expression()
+    result, elapsed, fn = face_attributes()
     fn = os.path.join(UPLOAD_FOLDER, fn)
 
     pitch = 0.0
