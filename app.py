@@ -59,8 +59,8 @@ def attributes():
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
     emotion, elapsed_0, full_path = face_expression()
-    result, elapsed_1, fn = face_attributes(full_path)
-    fn = os.path.join(UPLOAD_FOLDER, fn)
+    result, elapsed_1, full_path = face_attributes(full_path)
+    # fn = os.path.join(UPLOAD_FOLDER, full_path)
 
     pitch = 0.0
     roll = 0.0
@@ -87,7 +87,7 @@ def process_attributes():
 
     elapsed = "耗时: {:.4f} 秒".format(elapsed_0 + elapsed_1)
     return render_template('result_attributes.html', result=result, comment=comment, pitch=pitch, roll=roll, yaw=yaw,
-                           fn=fn, elapsed=elapsed)
+                           full_path=full_path, elapsed=elapsed)
 
 
 @app.route('/', methods=['GET'])
