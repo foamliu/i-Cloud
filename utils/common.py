@@ -282,12 +282,12 @@ def crop_image(img, bbox):
     x2 = min(width - 1, x2)
     y2 = int(round(bbox[3]))
     y2 = min(height - 1, y2)
-    w = int(abs(x2 - x1))
-    h = int(abs(y2 - y1))
+    # w = int(abs(x2 - x1))
+    # h = int(abs(y2 - y1))
     # print(x1, y1, w, h)
     # print(img.shape)
     # print('x1:{} y1:{} w:{} h:{}'.format(x1, y1, w, h))
-    crop_img = img[y1:y1 + h, x1:x1 + w]
+    crop_img = img[y1:y2, x1:x2]
     return crop_img
 
 
