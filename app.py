@@ -9,13 +9,13 @@ from flask_bootstrap import Bootstrap
 
 from config import UPLOAD_FOLDER
 from utils import FaceNotFoundError
-from utils_asr import do_recognize
-from utils_face import face_detect, face_verify, face_search
-from utils_face_attributes import face_attributes
-from utils_match import match_image, match_video
-from utils_tag import search_tag
-from utils_tts_cn import do_synthesize_cn
-from utils_tts_en import do_synthesize_en
+from utils.asr import do_recognize
+from utils.face import face_detect, face_verify, face_search
+from utils.face_attributes import face_attributes
+from utils.match import match_image, match_video
+from utils.tag import search_tag
+from utils.tts_cn import do_synthesize_cn
+from utils.tts_en import do_synthesize_en
 
 bootstrap = Bootstrap()
 

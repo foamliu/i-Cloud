@@ -1,6 +1,6 @@
 from flask import jsonify
 
-from utils_asr import do_recognize
+from utils.asr import do_recognize
 from . import api
 
 

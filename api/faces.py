@@ -1,7 +1,7 @@
 from flask import jsonify
 
-from utils_face import face_verify, face_detect, face_search, face_feature
-from utils_face_attributes import face_attributes
+from utils.face import face_verify, face_detect, face_search, face_feature
+from utils.face_attributes import face_attributes
 from . import api
 
 
