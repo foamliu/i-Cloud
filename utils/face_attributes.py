@@ -89,10 +89,10 @@ def face_attributes():
         img = cv.imread(full_path)
         boxed = draw_bboxes(img, [bbox], [landmarks[i]])
         cv.imwrite(full_path, boxed)
-        print(img)
-        print(bbox)
+        # print(img)
+        # print(bbox)
         img = crop_image(img, bbox)
-        print(img)
+        # print(img)
         img = cv.resize(img, (im_size, im_size))
         img = transforms.ToPILImage()(img)
         img = transformer(img)
@@ -132,8 +132,7 @@ def face_attributes():
         glasses = idx2name(int(glasses_out[0, 0]), 'glasses')
         race = idx2name(int(race_out[0, 0]), 'race')
 
-        from utils.facial_expression import face_expression
-        expression = face_expression()
+        expression = None
 
         result = {'age': age, 'pitch': pitch, 'roll': roll, 'yaw': yaw, 'beauty': beauty, 'beauty_prob': beauty_prob,
                   'expression': expression, 'gender': gender, 'glasses': glasses, 'race': race}

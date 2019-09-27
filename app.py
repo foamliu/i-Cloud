@@ -12,6 +12,7 @@ from utils.asr import do_recognize
 from utils.common import FaceNotFoundError
 from utils.face import face_detect, face_verify, face_search
 from utils.face_attributes import face_attributes
+from utils.facial_expression import face_expression
 from utils.match import match_image, match_video
 from utils.tag import search_tag
 from utils.tts_cn import do_synthesize_cn
@@ -58,6 +59,7 @@ def attributes():
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
     result, elapsed, fn = face_attributes()
+    emotion = face_expression()
     fn = os.path.join(UPLOAD_FOLDER, fn)
 
     pitch = 0.0
@@ -71,12 +73,12 @@ def process_attributes():
         yaw = result['yaw']
         beauty = result['beauty']
         beauty_prob = result['beauty_prob']
-        expression = result['expression']
+        # expression = result['expression']
         gender = result['gender']
         glasses = result['glasses']
         # race = result['race']
         result = '年龄={} 性别={} 颜值={} 表情={} 眼镜={} pitch={} roll={} yaw={}  '.format(age, gender, beauty,
-                                                                                  expression, glasses,
+                                                                                  emotion, glasses,
                                                                                   pitch, roll, yaw)
         comment = '您的颜值超过了 {0:.2f} % 的人群'.format(beauty_prob * 100)
     else:
