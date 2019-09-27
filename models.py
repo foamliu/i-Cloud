@@ -344,7 +344,7 @@ class FaceExpressionModel(nn.Module):
         self.resnet = nn.Sequential(*modules)
         self.dropout = nn.Dropout(0.2)
         self.avgpool = nn.AvgPool2d(kernel_size=4)
-        self.fc = nn.Linear(2048, num_classes)
+        self.fc = nn.Linear(2048, 7)
         self.softmax = nn.Softmax(dim=-1)
 
     def forward(self, images):
