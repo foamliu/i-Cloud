@@ -58,8 +58,8 @@ def attributes():
 
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
-    emotion = face_expression()
-    result, elapsed, fn = face_attributes()
+    emotion, elapsed, full_path = face_expression()
+    result, elapsed, fn = face_attributes(full_path)
     fn = os.path.join(UPLOAD_FOLDER, fn)
 
     pitch = 0.0
@@ -77,7 +77,7 @@ def process_attributes():
         gender = result['gender']
         glasses = result['glasses']
         # race = result['race']
-        result = '年龄={} 性别={} 颜值={} 表情={} 眼镜={} pitch={} roll={} yaw={}  '.format(age, gender, beauty,
+        result = '年龄={} 性别={} 颜值={} 情感={} 眼镜={} pitch={} roll={} yaw={}  '.format(age, gender, beauty,
                                                                                   emotion, glasses,
                                                                                   pitch, roll, yaw)
         comment = '您的颜值超过了 {0:.2f} % 的人群'.format(beauty_prob * 100)

@@ -1,4 +1,5 @@
 import os
+import time
 
 import cv2 as cv
 import numpy as np
@@ -57,6 +58,7 @@ def get_central_face_attributes(full_path):
 
 
 def face_expression():
+    start = time.time()
     ensure_folder(STATIC_DIR)
     ensure_folder(UPLOAD_DIR)
     file = request.files['file']
@@ -82,5 +84,6 @@ def face_expression():
     pred = np.argmax(pred)
     emotion = class_names[pred]
     print(emotion)
+    elapsed = time.time() - start
 
-    return emotion
+    return emotion, float(elapsed), full_path

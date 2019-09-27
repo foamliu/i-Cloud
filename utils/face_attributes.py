@@ -67,16 +67,16 @@ def name2idx(name):
     return lookup_table[name]
 
 
-def face_attributes():
+def face_attributes(full_path):
     start = time.time()
-    ensure_folder(STATIC_DIR)
-    ensure_folder(UPLOAD_DIR)
-    file = request.files['file']
-    fn = secure_filename(file.filename)
-    full_path = os.path.join(UPLOAD_DIR, fn)
-    file.save(full_path)
+    # ensure_folder(STATIC_DIR)
+    # ensure_folder(UPLOAD_DIR)
+    # file = request.files['file']
+    # fn = secure_filename(file.filename)
+    # full_path = os.path.join(UPLOAD_DIR, fn)
+    # file.save(full_path)
     # resize(full_path)
-    print('full_path: ' + full_path)
+    # print('full_path: ' + full_path)
 
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
