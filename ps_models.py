@@ -25,7 +25,7 @@ class FrameDetectionModel(nn.Module):
 
 
 if __name__ == "__main__":
-    from utils.utils import parse_args
+    from utils.common import parse_args
 
     args = parse_args()
     model = FrameDetectionModel().to(device)

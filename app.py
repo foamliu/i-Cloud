@@ -8,14 +8,14 @@ from flask import render_template
 from flask_bootstrap import Bootstrap
 
 from config import UPLOAD_FOLDER
-from utils.utils import FaceNotFoundError
-from utils.utils import do_recognize
-from utils.utils import face_detect, face_verify, face_search
-from utils.utils import face_attributes
-from utils.utils import match_image, match_video
-from utils.utils import search_tag
-from utils.utils import do_synthesize_cn
-from utils.utils import do_synthesize_en
+from utils.common import FaceNotFoundError
+from utils.common import do_recognize
+from utils.common import face_detect, face_verify, face_search
+from utils.common import face_attributes
+from utils.common import match_image, match_video
+from utils.common import search_tag
+from utils.common import do_synthesize_cn
+from utils.common import do_synthesize_en
 
 bootstrap = Bootstrap()
 
