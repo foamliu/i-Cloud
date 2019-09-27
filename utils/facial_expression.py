@@ -56,6 +56,8 @@ def get_central_face_attributes(full_path):
         i = select_central_face(img.size, bounding_boxes)
         return True, [bounding_boxes[i]], [landmarks[i]]
 
+    return False, None, None
+
 
 def face_expression():
     start = time.time()
