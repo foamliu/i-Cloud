@@ -2,6 +2,7 @@ asr-cn    ,https://github.com/foamliu/Speech-Transformer/releases/download/v1.0/
 asr-cn    ,https://github.com/foamliu/Speech-Transformer/releases/download/v1.0/char_list.pkl
 attributes,https://github.com/foamliu/Face-Attributes/releases/download/v1.0/face-attributes.pt
 face      ,https://github.com/foamliu/InsightFace-v3/releases/download/v1.0/insight-face-v3.pt
+face      ,https://github.com/foamliu/Facial-Expression-Prediction-v2/releases/download/v1.0/facial_expression.pt
 match					,https://github.com/foamliu/Image-Matching/releases/download/v1.0/image-matching.pt
 tts-cn    ,https://github.com/foamliu/Tacotron2-CN/releases/download/v1.0/tacotron2-cn.pt
 tts-en    ,https://github.com/foamliu/Tacotron2/releases/download/v1.0/tacotron2-en.pt
