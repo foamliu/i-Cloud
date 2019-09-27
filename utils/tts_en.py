@@ -79,7 +79,7 @@ class HParams:
 
 
 config = HParams()
-checkpoint = 'repo/tts-en/tacotron2-en.pt'
+checkpoint = '../repo/tts-en/tacotron2-en.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = Tacotron2(config)
 model.load_state_dict(torch.load(checkpoint))
@@ -91,7 +91,7 @@ model.eval()
 # waveglow.cuda().eval().half()
 # for k in waveglow.convinv:
 #     k.float()
-from utils.common import waveglow
+from utils.tts_cn import waveglow
 
 sampling_rate = 22050
 
