@@ -1,18 +1,15 @@
-import os
 import time
 
 import cv2 as cv
 import torch
 from PIL import Image
-from flask import request
 from scipy.stats import norm
 from torchvision import transforms
-from werkzeug.utils import secure_filename
 
-from config import STATIC_DIR, UPLOAD_DIR, device, logger
+from config import device, logger
 from models import FaceAttributeModel
 from mtcnn.detector import detect_faces
-from utils.common import ensure_folder, crop_image, transformer, select_central_face, draw_bboxes
+from utils.common import crop_image, transformer, select_central_face, draw_bboxes
 
 im_size = 224
 
@@ -80,12 +77,11 @@ def face_attributes(full_path):
 
     img = Image.open(full_path).convert('RGB')
     bboxes, landmarks = detect_faces(img)
-    h, w = img.shape[:2]
 
     result = None
 
     if len(bboxes) > 0:
-        i = select_central_face((w, h), bboxes)
+        i = select_central_face(img.size, bboxes)
         bbox = bboxes[i]
         img = cv.imread(full_path)
         boxed = draw_bboxes(img, [bbox], [landmarks[i]])
