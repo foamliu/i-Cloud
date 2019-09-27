@@ -58,15 +58,11 @@ def attributes():
 
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
-    emotion, elapsed_0, full_path = face_expression()
-    result, elapsed_1, full_path = face_attributes(full_path)
-    full_path = full_path.replace(STATIC_DIR, '')
+    has_face, emotion, elapsed_0, full_path = face_expression()
+    if has_face:
+        result, elapsed_1, full_path = face_attributes(full_path)
+        full_path = full_path.replace(STATIC_DIR, '')
 
-    pitch = 0.0
-    roll = 0.0
-    yaw = 0.0
-
-    if result:
         age = result['age']
         pitch = result['pitch']
         roll = result['roll']
@@ -82,6 +78,10 @@ def process_attributes():
                                                                                   pitch, roll, yaw)
         comment = '您的颜值超过了 {0:.2f} % 的人群'.format(beauty_prob * 100)
     else:
+        pitch = 0.0
+        roll = 0.0
+        yaw = 0.0
+        elapsed_1 = 0
         result = '抱歉没有检测到人类的脸。'
         comment = ''
 

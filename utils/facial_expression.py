@@ -69,21 +69,23 @@ def face_expression():
     print('full_path: ' + full_path)
 
     filename = full_path
+    emotion = ''
     has_face, bboxes, landmarks = get_central_face_attributes(filename)
-    img = align_face(filename, landmarks)
-    img = img[..., ::-1]
-    img = transforms.ToPILImage()(img)
-    img = transformer(img)
-    img = torch.unsqueeze(img, dim=0)
-    img = img.to(device)
+    if has_face:
+        img = align_face(filename, landmarks)
+        img = img[..., ::-1]
+        img = transforms.ToPILImage()(img)
+        img = transformer(img)
+        img = torch.unsqueeze(img, dim=0)
+        img = img.to(device)
 
-    with torch.no_grad():
-        pred = model(img)[0]
+        with torch.no_grad():
+            pred = model(img)[0]
 
-    pred = pred.cpu().numpy()
-    pred = np.argmax(pred)
-    emotion = class_names[pred]
-    print(emotion)
+        pred = pred.cpu().numpy()
+        pred = np.argmax(pred)
+        emotion = class_names[pred]
+        print(emotion)
     elapsed = time.time() - start
 
-    return emotion, float(elapsed), full_path
+    return has_face, emotion, float(elapsed), full_path
