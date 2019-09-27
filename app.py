@@ -59,7 +59,6 @@ def attributes():
 @app.route('/process_attributes', methods=['POST'])
 def process_attributes():
     has_face, emotion, elapsed_0, full_path = face_expression()
-    full_path = full_path.replace(STATIC_DIR, '')
 
     if has_face:
         result, elapsed_1, full_path = face_attributes(full_path)
@@ -86,6 +85,7 @@ def process_attributes():
         result = '抱歉没有检测到人类的脸。'
         comment = ''
 
+    full_path = full_path.replace(STATIC_DIR, '')
     elapsed = "耗时: {:.4f} 秒".format(elapsed_0 + elapsed_1)
     return render_template('result_attributes.html', result=result, comment=comment, pitch=pitch, roll=roll, yaw=yaw,
                            full_path=full_path, elapsed=elapsed)
