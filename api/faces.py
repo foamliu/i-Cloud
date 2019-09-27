@@ -37,7 +37,7 @@ def attributes():
     full_path = save_file()
     result, elapsed, file_upload = face_attributes(full_path)
     full_path = full_path.replace('static', '')
-    return jsonify({'result': result, 'elapsed': elapsed, 'full_path': full_path})
+    return jsonify({'result': result, 'elapsed': elapsed, 'file_upload': full_path})
 
 
 @api.route('/faces/expression', methods=['POST'])
@@ -45,7 +45,7 @@ def expression():
     full_path = save_file()
     has_face, emotion, elapsed = face_expression(full_path)
     full_path = full_path.replace('static', '')
-    return jsonify({'emotion': emotion, 'elapsed': elapsed, 'full_path': full_path})
+    return jsonify({'emotion': emotion, 'elapsed': elapsed, 'file_upload': full_path})
 
 
 @api.route('/faces/get_feature', methods=['POST'])
