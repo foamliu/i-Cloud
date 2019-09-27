@@ -89,6 +89,8 @@ def face_attributes():
         img = cv.imread(full_path)
         boxed = draw_bboxes(img, [bbox], [landmarks[i]])
         cv.imwrite(full_path, boxed)
+        print(bbox)
+        print(img)
         img = crop_image(img, bbox)
         img = cv.resize(img, (im_size, im_size))
         img = transforms.ToPILImage()(img)
