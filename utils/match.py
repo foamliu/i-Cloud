@@ -46,7 +46,7 @@ class HParams:
 config = HParams()
 
 # model params
-checkpoint = '../repo/match/image-matching.pt'
+checkpoint = 'repo/match/image-matching.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = resnet50(config)
 model.load_state_dict(torch.load(checkpoint))
@@ -54,7 +54,7 @@ model = model.to(device)
 model.eval()
 
 # data params
-pickle_file = '../data/video_index.pkl'
+pickle_file = 'data/video_index.pkl'
 
 threshold = 25.50393648495902
 mu_0 = 46.1028

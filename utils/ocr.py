@@ -12,7 +12,7 @@ class HParams:
 
 config = HParams()
 
-checkpoint = '../repo/asr-cn/speech-transformer-cn.pt'
+checkpoint = 'repo/ocr/east.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = EastModel(config)
 model.load_state_dict(torch.load(checkpoint))

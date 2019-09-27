@@ -80,14 +80,14 @@ class HParams:
 
 
 config = HParams()
-checkpoint = '../repo/tts-cn/tacotron2-cn.pt'
+checkpoint = 'repo/tts-cn/tacotron2-cn.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = Tacotron2(config)
 model.load_state_dict(torch.load(checkpoint))
 model = model.to(device)
 model.eval()
 
-waveglow_path = '../waveglow_256channels.pt'
+waveglow_path = 'waveglow_256channels.pt'
 logger.info('loading model: {}...'.format(waveglow_path))
 waveglow = torch.load(waveglow_path)['model']
 waveglow.cuda().eval().half()

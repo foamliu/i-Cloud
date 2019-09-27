@@ -79,7 +79,7 @@ class HParams:
 
 
 config = HParams()
-checkpoint = '../repo/tts-en/tacotron2-en.pt'
+checkpoint = 'repo/tts-en/tacotron2-en.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = Tacotron2(config)
 model.load_state_dict(torch.load(checkpoint))
