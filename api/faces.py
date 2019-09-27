@@ -35,7 +35,7 @@ def search():
 @api.route('/faces/attributes', methods=['POST'])
 def attributes():
     full_path = save_file()
-    result, elapsed, file_upload = face_attributes(full_path)
+    result, elapsed = face_attributes(full_path)
     full_path = full_path.replace('static', '')
     return jsonify({'result': result, 'elapsed': elapsed, 'file_upload': full_path})
 
