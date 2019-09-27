@@ -16,7 +16,7 @@ from utils.common import ensure_folder, crop_image, transformer, select_central_
 
 im_size = 224
 
-checkpoint = '../repo/attributes/face-attributes.pt'
+checkpoint = 'repo/attributes/face-attributes.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = FaceAttributeModel()
 model.load_state_dict(torch.load(checkpoint))
