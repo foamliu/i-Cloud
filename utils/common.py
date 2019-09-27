@@ -273,10 +273,15 @@ def normalize_mac(mac):
 
 def crop_image(img, bbox):
     # print(bbox.shape)
+    height, width = img.shape[:2]
     x1 = int(round(bbox[0]))
+    x1 = max(0, x1)
     y1 = int(round(bbox[1]))
+    y1 = max(0, y1)
     x2 = int(round(bbox[2]))
+    x2 = min(width - 1, x2)
     y2 = int(round(bbox[3]))
+    y2 = min(height - 1, y2)
     w = int(abs(x2 - x1))
     h = int(abs(y2 - y1))
     # print(x1, y1, w, h)
