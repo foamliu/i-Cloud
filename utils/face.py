@@ -149,7 +149,7 @@ def get_image(filename, flip=False, draw=True):
     img = img.to(device)
 
     if draw:
-        print('drawing bboxes: {}'.format(filename))
+        logger.info('drawing bboxes: {}'.format(filename))
         bboxes, landmarks = get_all_face_attributes(filename)
         pic = cv.imread(filename)
         pic = draw_bboxes(pic, bboxes, landmarks)
@@ -159,8 +159,8 @@ def get_image(filename, flip=False, draw=True):
 
 
 def compare(fn_0, fn_1):
-    print('fn_0: ' + fn_0)
-    print('fn_1: ' + fn_1)
+    logger.info('fn_0: ' + fn_0)
+    logger.info('fn_1: ' + fn_1)
     img0 = get_image(fn_0)
     img1 = get_image(fn_1)
     imgs = torch.zeros([2, 3, 112, 112], dtype=torch.float)
@@ -179,9 +179,9 @@ def compare(fn_0, fn_1):
         theta = math.acos(cosine)
         theta = theta * 180 / math.pi
 
-    print('theta: ' + str(theta))
+    logger.info('theta: ' + str(theta))
     prob = get_prob(theta)
-    print('prob: ' + str(prob))
+    logger.info('prob: ' + str(prob))
     return prob, theta < threshold
 
 
@@ -213,18 +213,18 @@ def search(full_path):
 
     cosine = np.dot(features, x)
     cosine = np.clip(cosine, -1, 1)
-    print('cosine.shape: ' + str(cosine.shape))
+    logger.info('cosine.shape: ' + str(cosine.shape))
     max_index = int(np.argmax(cosine))
     max_value = cosine[max_index]
-    print('max_index: ' + str(max_index))
-    print('max_value: ' + str(max_value))
-    print('name: ' + names[max_index])
-    print('file: ' + files[max_index])
+    logger.info('max_index: ' + str(max_index))
+    logger.info('max_value: ' + str(max_value))
+    logger.info('name: ' + names[max_index])
+    logger.info('file: ' + files[max_index])
     theta = math.acos(max_value)
     theta = theta * 180 / math.pi
-    print('theta: ' + str(theta))
+    logger.info('theta: ' + str(theta))
     prob = get_prob(theta)
-    print('prob: ' + str(prob))
+    logger.info('prob: ' + str(prob))
 
     return names[max_index], prob, files[max_index]
 
@@ -293,7 +293,7 @@ def face_search():
     file_upload = os.path.join(UPLOAD_DIR, filename)
     file.save(file_upload)
     resize(file_upload)
-    print('file_upload: ' + file_upload)
+    logger.info('file_upload: ' + file_upload)
     name, prob, file_star = search(file_upload)
     elapsed = time.time() - start
     return name, prob, file_star, file_upload, float(elapsed)
@@ -311,14 +311,14 @@ def face_feature():
     file_upload = os.path.join(UPLOAD_DIR, filename)
     file.save(file_upload)
     resize(file_upload)
-    print('file_upload: ' + file_upload)
+    logger.info('file_upload: ' + file_upload)
     feature = get_feature(file_upload)
     elapsed = time.time() - start
     return feature, file_upload, float(elapsed)
 
 
 def extract(filename, folder_path):
-    print('Extracting {}...'.format(filename))
+    logger.info('Extracting {}...'.format(filename))
     zip_ref = zipfile.ZipFile(filename, 'r')
     zip_ref.extractall(folder_path)
     zip_ref.close()
@@ -379,6 +379,7 @@ def face_feature_batch(full_path=''):
                 feature_dict[files[i]] = feature.tolist()
 
     elapsed = time.time() - start
+    logger.info('batch done')
     return feature_dict, elapsed
 
 
