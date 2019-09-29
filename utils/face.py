@@ -345,7 +345,7 @@ def face_feature_batch(full_path=''):
             for idx in range(0, length):
                 i = start_idx + idx
                 filepath = files[i]
-                imgs_0[idx] = get_image(filepath, transformer, flip=False)
+                imgs_0[idx] = get_image(filepath, flip=False, draw=False)
 
             features_0 = model(imgs_0.to(device)).cpu().numpy()
 
@@ -353,7 +353,7 @@ def face_feature_batch(full_path=''):
             for idx in range(0, length):
                 i = start_idx + idx
                 filepath = files[i]
-                imgs_1[idx] = get_image(filepath, transformer, flip=True)
+                imgs_1[idx] = get_image(filepath, flip=True, draw=False)
 
             features_1 = model(imgs_1.to(device)).cpu().numpy()
 
