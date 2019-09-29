@@ -331,9 +331,18 @@ def face_feature_batch(full_path=''):
         extract(full_path, folder_path)
 
     files = [f for f in os.listdir(folder_path)]
+
+    filtered = []
+    for filename in files:
+        full_path = os.path.join(folder_path, filename)
+        img = Image.open(full_path).convert('RGB')
+        bounding_boxes, landmarks = detect_faces(img)
+        if len(bounding_boxes) > 0:
+            filtered.append(filename)
+    files = filtered
+
     file_count = len(files)
     batch_size = 128
-
     feature_dict = dict()
 
     with torch.no_grad():
