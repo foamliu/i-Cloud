@@ -2,6 +2,7 @@ import math
 import os
 import pickle
 import random
+import shutil
 import time
 import zipfile
 
@@ -326,8 +327,7 @@ def extract(filename, folder_path):
 def face_feature_batch(full_path=''):
     start = time.time()
     folder_path = 'static/batch'
-    os.rmdir(folder_path)
-    ensure_folder(folder_path)
+    shutil.rmtree(folder_path, ignore_errors=True)
     if full_path.lower().endswith('.zip'):
         extract(full_path, folder_path)
 
