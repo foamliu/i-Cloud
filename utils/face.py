@@ -20,7 +20,7 @@ from config import STATIC_DIR, UPLOAD_DIR
 from config import image_h, image_w, device, logger
 from models import resnet101
 from mtcnn.detector import detect_faces
-from utils.common import ensure_folder, resize
+from utils.common import ensure_folder, resize, AverageMeter
 
 data_transforms = {
     'train': transforms.Compose([
@@ -34,6 +34,8 @@ data_transforms = {
     ]),
 }
 transformer = data_transforms['val']
+
+times = AverageMeter()
 
 
 class HParams:
@@ -382,7 +384,9 @@ def face_feature_batch(full_path=''):
     elapsed_per_image = 0
     if file_count > 0:
         elapsed_per_image = elapsed / file_count
-    logger.info('batch done. {:.4f} seconds per image: '.format(elapsed_per_image))
+    times.update(elapsed_per_image, file_count)
+
+    logger.info('batch done. {:.4f}({:.4f}) seconds per image: '.format(times.val, times.avg))
     return feature_dict, elapsed
 
 
