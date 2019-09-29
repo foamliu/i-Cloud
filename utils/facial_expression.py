@@ -74,7 +74,7 @@ def face_expression(full_path):
         pred = pred.cpu().numpy()
         pred = np.argmax(pred)
         emotion = class_names[pred]
-        print(emotion)
+        logger.info(emotion)
     elapsed = time.time() - start
 
     return has_face, emotion, float(elapsed)

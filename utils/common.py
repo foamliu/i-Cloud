@@ -5,7 +5,7 @@ import cv2 as cv
 from flask import request
 from werkzeug.utils import secure_filename
 
-from config import STATIC_DIR, UPLOAD_DIR
+from config import STATIC_DIR, UPLOAD_DIR, logger
 
 
 def ensure_folder(folder):
@@ -58,7 +58,7 @@ def save_file():
     full_path = os.path.join(UPLOAD_DIR, fn)
     file.save(full_path)
     # resize(full_path)
-    print('full_path: ' + full_path)
+    logger.info('full_path: ' + full_path)
     return full_path
 
 
