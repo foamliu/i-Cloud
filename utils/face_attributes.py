@@ -9,7 +9,8 @@ from torchvision import transforms
 from config import device, logger
 from models import FaceAttributeModel
 from mtcnn.detector import detect_faces
-from utils.common import crop_image, transformer, select_central_face, draw_bboxes
+from utils.common import crop_image
+from utils.face import transformer, select_central_face, draw_bboxes
 
 im_size = 224
 
