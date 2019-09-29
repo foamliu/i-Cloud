@@ -9,8 +9,8 @@ from flask_bootstrap import Bootstrap
 
 from config import UPLOAD_FOLDER, STATIC_DIR
 from utils.asr import do_recognize
-from utils.common import FaceNotFoundError, save_file
-from utils.face import face_detect, face_verify, face_search
+from utils.common import save_file
+from utils.face import face_detect, face_verify, face_search, FaceNotFoundError
 from utils.face_attributes import face_attributes
 from utils.facial_expression import face_expression
 from utils.match import match_image, match_video
