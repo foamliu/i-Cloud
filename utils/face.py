@@ -382,7 +382,7 @@ def face_feature_batch(full_path=''):
     elapsed_per_image = 0
     if file_count > 0:
         elapsed_per_image = elapsed / file_count
-    logger.info('batch done. elapsed per image: {:.4f}'.format(elapsed_per_image))
+    logger.info('batch done. {:.4f} seconds per image: '.format(elapsed_per_image))
     return feature_dict, elapsed
 
 
