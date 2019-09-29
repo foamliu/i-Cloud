@@ -1,6 +1,7 @@
 import hashlib
 import os
 
+import cv2 as cv
 from flask import request
 from werkzeug.utils import secure_filename
 
@@ -59,3 +60,16 @@ def save_file():
     # resize(full_path)
     print('full_path: ' + full_path)
     return full_path
+
+
+def resize(filename):
+    img = cv.imread(filename)
+    h, w = img.shape[:2]
+    ratio_w = w / 1280
+    ratio_h = h / 720
+    if ratio_w > 1 or ratio_h > 1:
+        ratio = max(ratio_w, ratio_h)
+        new_w = int(w / ratio)
+        new_h = int(h / ratio)
+        img = cv.resize(img, (new_w, new_h))
+        cv.imwrite(filename, img)

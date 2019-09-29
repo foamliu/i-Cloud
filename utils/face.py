@@ -19,7 +19,7 @@ from config import STATIC_DIR, UPLOAD_DIR
 from config import image_h, image_w, device, logger
 from models import resnet101
 from mtcnn.detector import detect_faces
-from utils.common import ensure_folder
+from utils.common import ensure_folder, resize
 
 data_transforms = {
     'train': transforms.Compose([
@@ -155,19 +155,6 @@ def get_image(filename, flip=False, draw=True):
         cv.imwrite(filename, pic)
 
     return img
-
-
-def resize(filename):
-    img = cv.imread(filename)
-    h, w = img.shape[:2]
-    ratio_w = w / 1280
-    ratio_h = h / 720
-    if ratio_w > 1 or ratio_h > 1:
-        ratio = max(ratio_w, ratio_h)
-        new_w = int(w / ratio)
-        new_h = int(h / ratio)
-        img = cv.resize(img, (new_w, new_h))
-        cv.imwrite(filename, img)
 
 
 def compare(fn_0, fn_1):

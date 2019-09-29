@@ -10,7 +10,7 @@ from align_faces import get_reference_facial_points, warp_and_crop_face
 from config import device, logger
 from models import FaceExpressionModel
 from mtcnn.detector import detect_faces
-from utils.face import select_central_face
+from utils.face import select_central_face, transformer
 
 im_size = 112
 # class_names = ['Angry', 'Disgust', 'Fear', 'Happy', 'Sad', 'Surprise', 'Neutral']
