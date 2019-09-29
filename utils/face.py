@@ -326,6 +326,7 @@ def extract(filename, folder_path):
 def face_feature_batch(full_path=''):
     start = time.time()
     folder_path = 'static/batch'
+    os.rmdir(folder_path)
     ensure_folder(folder_path)
     if full_path.lower().endswith('.zip'):
         extract(full_path, folder_path)
@@ -374,7 +375,6 @@ def face_feature_batch(full_path=''):
                 feature = feature / np.linalg.norm(feature)
                 feature_dict[files[i]] = feature.tolist()
 
-    os.rmdir(folder_path)
     elapsed = time.time() - start
     return feature_dict, elapsed
 
