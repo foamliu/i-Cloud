@@ -365,6 +365,7 @@ def face_feature_batch(full_path=''):
                 feature = feature / np.linalg.norm(feature)
                 feature_dict[files[i]] = feature.tolist()
 
+    os.rmdir(folder_path)
     elapsed = time.time() - start
     return feature_dict, elapsed
 
