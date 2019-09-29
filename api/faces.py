@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from utils.common import save_file
-from utils.face import face_verify, face_detect, face_search, face_feature
+from utils.face import face_verify, face_detect, face_search, face_feature, face_feature_batch
 from utils.face_attributes import face_attributes
 from utils.facial_expression import face_expression
 from . import api
@@ -54,3 +54,10 @@ def get_feature():
     feature, file_upload, elapsed = face_feature()
     file_upload = file_upload.replace('static', '')
     return jsonify({'feature': feature.tolist(), 'elapsed': elapsed, 'file_upload': file_upload})
+
+
+@api.route('/faces/get_feature_batch', methods=['POST'])
+def get_feature_batch():
+    full_path = save_file()
+    feature_dict, elapsed = face_feature_batch(full_path)
+    return jsonify({'features': feature_dict, 'elapsed': elapsed})
