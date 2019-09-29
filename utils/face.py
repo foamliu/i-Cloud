@@ -324,8 +324,13 @@ def extract(filename, folder_path):
 
 
 def face_feature_batch(full_path=''):
+    start = time.time()
+    folder_path = 'static/batch'
+    ensure_folder(folder_path)
     if full_path.lower().endswith('.zip'):
-        extract(full_path, 'static/upload')
+        extract(full_path, folder_path)
+    elapsed = time.time() - start
+    return full_path, elapsed
 
 
 if __name__ == "__main__":
