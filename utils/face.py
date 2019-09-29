@@ -366,7 +366,7 @@ def face_feature_batch(full_path=''):
                 feature_dict[files[i]] = feature.tolist()
 
     elapsed = time.time() - start
-    return full_path, elapsed
+    return feature_dict, elapsed
 
 
 if __name__ == "__main__":
