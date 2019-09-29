@@ -10,3 +10,6 @@ if __name__ == '__main__':
     print(r.status_code)
     print(r.text)
     d = json.loads(r.text)
+    print(d['elapsed'])
+    features = d['features']
+    print(list(features.keys()))
