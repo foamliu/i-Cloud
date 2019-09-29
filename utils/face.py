@@ -337,9 +337,12 @@ def face_feature_batch(full_path=''):
     for filename in files:
         full_path = os.path.join(folder_path, filename)
         img = Image.open(full_path).convert('RGB')
-        bounding_boxes, landmarks = detect_faces(img)
-        if len(bounding_boxes) > 0:
-            filtered.append(filename)
+        try:
+            bounding_boxes, landmarks = detect_faces(img)
+            if len(bounding_boxes) > 0:
+                filtered.append(filename)
+        except Exception:
+            pass
     files = filtered
 
     file_count = len(files)
