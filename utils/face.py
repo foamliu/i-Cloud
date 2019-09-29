@@ -329,6 +329,40 @@ def face_feature_batch(full_path=''):
     ensure_folder(folder_path)
     if full_path.lower().endswith('.zip'):
         extract(full_path, folder_path)
+
+    files = [f for f in os.listdir(folder_path)]
+    file_count = len(files)
+    batch_size = 128
+
+    feature_dict = dict()
+
+    with torch.no_grad():
+        for start_idx in range(0, file_count, batch_size):
+            end_idx = min(file_count, start_idx + batch_size)
+            length = end_idx - start_idx
+
+            imgs_0 = torch.zeros([length, 3, 112, 112], dtype=torch.float)
+            for idx in range(0, length):
+                i = start_idx + idx
+                filepath = files[i]
+                imgs_0[idx] = get_image(filepath, transformer, flip=False)
+
+            features_0 = model(imgs_0.to(device)).cpu().numpy()
+
+            imgs_1 = torch.zeros([length, 3, 112, 112], dtype=torch.float)
+            for idx in range(0, length):
+                i = start_idx + idx
+                filepath = files[i]
+                imgs_1[idx] = get_image(filepath, transformer, flip=True)
+
+            features_1 = model(imgs_1.to(device)).cpu().numpy()
+
+            for idx in range(0, length):
+                i = start_idx + idx
+                feature = features_0[idx] + features_1[idx]
+                feature = feature / np.linalg.norm(feature)
+                feature_dict[files[i]] = feature.tolist()
+
     elapsed = time.time() - start
     return full_path, elapsed
 
