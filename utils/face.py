@@ -1,3 +1,4 @@
+import datetime
 import math
 import os
 import pickle
@@ -5,9 +6,7 @@ import random
 import shutil
 import time
 import zipfile
-import datetime
-import os
-import random
+
 import cv2 as cv
 import numpy as np
 import torch
@@ -395,7 +394,7 @@ def face_feature_batch(full_path=''):
     shutil.rmtree(folder_path, ignore_errors=True)
     times.update(elapsed_per_image, file_count)
 
-    logger.info('batch done. {:.4f}({:.4f}) seconds per image.'.format(times.val, times.avg))
+    logger.info('batch done: {:.4f}({:.4f}) seconds per image.'.format(times.val, times.avg))
     return feature_dict, elapsed
 
 
