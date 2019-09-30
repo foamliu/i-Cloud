@@ -395,7 +395,7 @@ def face_feature_batch(full_path=''):
     logger.info('file count: {}, start filtering...'.format(len(files)))
 
     filtered = []
-    for filename in files:
+    for filename in tqdm(files):
         full_path = os.path.join(folder_path, filename)
         try:
             img = Image.open(full_path).convert('RGB')
@@ -403,6 +403,8 @@ def face_feature_batch(full_path=''):
             if len(bounding_boxes) > 0:
                 filtered.append(filename)
         except ValueError:
+            pass
+        except OSError:
             pass
     files = filtered
 
