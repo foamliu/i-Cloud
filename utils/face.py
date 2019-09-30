@@ -164,6 +164,34 @@ def get_image(filename, flip=False, draw=True):
     return img
 
 
+def get_image_batch(filename, draw=True):
+    has_face, bboxes, landmarks = get_central_face_attributes(filename)
+    if not has_face:
+        raise FaceNotFoundError(filename)
+
+    img = align_face(filename, landmarks)
+
+    img_0 = img
+    img_1 = np.flip(img.copy(), 1)
+
+    img_0 = transforms.ToPILImage()(img_0)
+    img_0 = transformer(img_0)
+    img_0 = img_0.to(device)
+
+    img_1 = transforms.ToPILImage()(img_1)
+    img_1 = transformer(img_1)
+    img_1 = img_1.to(device)
+
+    if draw:
+        logger.info('drawing bboxes: {}'.format(filename))
+        bboxes, landmarks = get_all_face_attributes(filename)
+        pic = cv.imread(filename)
+        pic = draw_bboxes(pic, bboxes, landmarks)
+        cv.imwrite(filename, pic)
+
+    return img_0, img_1
+
+
 def compare(fn_0, fn_1):
     logger.info('fn_0: ' + fn_0)
     logger.info('fn_1: ' + fn_1)
@@ -365,7 +393,7 @@ def face_feature_batch(full_path=''):
     file_count = len(files)
     logger.info('images filtered, file count: ' + str(len(files)))
 
-    batch_size = 256
+    batch_size = 1024
     feature_dict = dict()
 
     with torch.no_grad():
@@ -373,22 +401,16 @@ def face_feature_batch(full_path=''):
             end_idx = min(file_count, start_idx + batch_size)
             length = end_idx - start_idx
 
-            imgs_0 = torch.zeros([length, 3, 112, 112], dtype=torch.float)
+            imgs_0 = torch.zeros([length, 3, 112, 112], dtype=torch.float, device=device)
+            imgs_1 = torch.zeros([length, 3, 112, 112], dtype=torch.float, device=device)
+
             for idx in range(0, length):
                 i = start_idx + idx
                 filepath = files[i]
                 filepath = os.path.join(folder_path, filepath)
-                imgs_0[idx] = get_image(filepath, flip=False, draw=False)
+                imgs_0[idx], imgs_1[idx] = get_image_batch(filepath, draw=False)
 
             features_0 = model(imgs_0.to(device)).cpu().numpy()
-
-            imgs_1 = torch.zeros([length, 3, 112, 112], dtype=torch.float)
-            for idx in range(0, length):
-                i = start_idx + idx
-                filepath = files[i]
-                filepath = os.path.join(folder_path, filepath)
-                imgs_1[idx] = get_image(filepath, flip=True, draw=False)
-
             features_1 = model(imgs_1.to(device)).cpu().numpy()
 
             for idx in range(0, length):
