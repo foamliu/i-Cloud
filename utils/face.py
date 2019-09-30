@@ -423,10 +423,10 @@ def face_feature_batch(full_path=''):
             features_1 = model(imgs_1.to(device)).cpu().numpy()
 
         for idx in range(0, length):
-            i = i * batch_size + idx
+            global_id = i * batch_size + idx
             feature = features_0[idx] + features_1[idx]
             feature = feature / np.linalg.norm(feature)
-            feature_dict[files[i]] = feature.tolist()
+            feature_dict[files[global_id]] = feature.tolist()
 
     logger.info('images processed')
     elapsed = time.time() - start
