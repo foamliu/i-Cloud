@@ -356,7 +356,7 @@ def extract(filename, folder_path):
     zip_ref = zipfile.ZipFile(filename, 'r')
     zip_ref.extractall(folder_path)
     zip_ref.close()
-    logger.info('file extracted: {}'.format(filename))
+    logger.info('files extracted to: {}'.format(folder_path))
     try:
         os.remove(filename)
     except OSError:
@@ -392,7 +392,7 @@ def face_feature_batch(full_path=''):
         extract(full_path, folder_path)
 
     files = [f for f in os.listdir(folder_path)]
-    logger.info('file count: ' + str(len(files)))
+    logger.info('file count: {}, start filtering...'.format(len(files)))
 
     filtered = []
     for filename in files:
@@ -407,7 +407,7 @@ def face_feature_batch(full_path=''):
     files = filtered
 
     file_count = len(files)
-    logger.info('images filtered, file count: ' + str(len(files)))
+    logger.info('filtered file count: {}, start processing...'.format(len(files)))
 
     batch_size = 256
     feature_dict = dict()
@@ -435,7 +435,7 @@ def face_feature_batch(full_path=''):
                 feature = feature / np.linalg.norm(feature)
                 feature_dict[files[i]] = feature.tolist()
 
-    logger.info('images processed')
+    # logger.info('images processed')
     elapsed = time.time() - start
 
     if file_count > 0:
