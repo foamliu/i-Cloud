@@ -326,6 +326,11 @@ def extract(filename, folder_path):
     zip_ref.extractall(folder_path)
     zip_ref.close()
 
+    try:
+        os.remove(filename)
+    except OSError:
+        pass
+
 
 def face_feature_batch(full_path=''):
     start = time.time()
