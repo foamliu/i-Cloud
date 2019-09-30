@@ -416,8 +416,8 @@ def face_feature_batch(full_path=''):
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     # Batches
-    for i in tqdm(range(len(data_loader))):
-        imgs_0, imgs_1 = data_loader[i]
+    outer_idx = 0
+    for imgs_0, imgs_1 in tqdm(range(len(data_loader))):
         length = imgs_0.size()[0]
 
         with torch.no_grad():
@@ -425,10 +425,11 @@ def face_feature_batch(full_path=''):
             features_1 = model(imgs_1.to(device)).cpu().numpy()
 
         for idx in range(0, length):
-            global_id = i * batch_size + idx
+            global_id = outer_idx * batch_size + idx
             feature = features_0[idx] + features_1[idx]
             feature = feature / np.linalg.norm(feature)
             feature_dict[files[global_id]] = feature.tolist()
+        outer_idx += 1
 
     logger.info('images processed')
     elapsed = time.time() - start
