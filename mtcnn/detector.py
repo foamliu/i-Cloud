@@ -25,9 +25,12 @@ def detect_faces(image, min_face_size=20.0,
 
     with torch.no_grad():
         # LOAD MODELS
-        pnet = PNet().to(device)
-        rnet = RNet().to(device)
-        onet = ONet().to(device)
+        # pnet = PNet().to(device)
+        # rnet = RNet().to(device)
+        # onet = ONet().to(device)
+        pnet = PNet()
+        rnet = RNet()
+        onet = ONet()
         onet.eval()
 
         # BUILD AN IMAGE PYRAMID
