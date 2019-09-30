@@ -391,7 +391,7 @@ def face_feature_batch(full_path=''):
         extract(full_path, folder_path)
 
     files = [f for f in os.listdir(folder_path)]
-    logger.info('file count: {}, start filtering...'.format(len(files)))
+    # logger.info('file count: {}, start filtering...'.format(len(files)))
 
     filtered = []
     for filename in files:
@@ -408,7 +408,7 @@ def face_feature_batch(full_path=''):
     files = filtered
 
     file_count = len(files)
-    logger.info('filtered file count: {}, start processing...'.format(len(files)))
+    # logger.info('filtered file count: {}, start processing...'.format(len(files)))
 
     batch_size = 256
     feature_dict = dict()
@@ -444,7 +444,7 @@ def face_feature_batch(full_path=''):
         times.update(elapsed_per_image, file_count)
     shutil.rmtree(folder_path, ignore_errors=True)
 
-    logger.info('batch done: {:.4f}({:.4f}) seconds per image.'.format(times.val, times.avg))
+    logger.info('batch({}) done: {:.4f}({:.4f}) seconds per image.'.format(len(files), times.val, times.avg))
     return feature_dict, elapsed
 
 
