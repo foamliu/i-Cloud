@@ -13,6 +13,7 @@ import torch
 from PIL import Image
 from flask import request
 from scipy.stats import norm
+from torch import nn
 from torchvision import transforms
 from werkzeug.utils import secure_filename
 
@@ -51,6 +52,7 @@ checkpoint = 'repo/face/insight-face-v3.pt'
 logger.info('loading model: {}...'.format(checkpoint))
 model = resnet101(config)
 model.load_state_dict(torch.load(checkpoint))
+model = nn.DataParallel(model)
 model = model.to(device)
 model.eval()
 
