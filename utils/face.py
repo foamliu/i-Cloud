@@ -92,19 +92,19 @@ def align_face(img_fn, facial5points):
 
 
 def get_central_face_attributes(full_path):
-    # try:
-    img = Image.open(full_path).convert('RGB')
-    bounding_boxes, landmarks = detect_faces(img)
+    try:
+        img = Image.open(full_path).convert('RGB')
+        bounding_boxes, landmarks = detect_faces(img)
 
-    if len(landmarks) > 0:
-        i = select_central_face(img.size, bounding_boxes)
-        return True, [bounding_boxes[i]], [landmarks[i]]
+        if len(landmarks) > 0:
+            i = select_central_face(img.size, bounding_boxes)
+            return True, [bounding_boxes[i]], [landmarks[i]]
+    except KeyboardInterrupt:
+        raise
+    except ValueError:
+        pass
 
-    # except KeyboardInterrupt:
-    #     raise
-    # except:
-    #     pass
-    # return False, None, None
+    return False, None, None
 
 
 def get_all_face_attributes(full_path):
