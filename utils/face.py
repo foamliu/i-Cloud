@@ -16,6 +16,7 @@ from scipy.stats import norm
 from torch import nn
 from torch.utils.data import Dataset
 from torchvision import transforms
+from tqdm import tqdm
 from werkzeug.utils import secure_filename
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
@@ -415,7 +416,8 @@ def face_feature_batch(full_path=''):
     data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     # Batches
-    for i, (imgs_0, imgs_1) in enumerate(data_loader):
+    for i in tqdm(range(len(data_loader))):
+        imgs_0, imgs_1 = data_loader[i]
         length = imgs_0.size()[0]
 
         with torch.no_grad():
