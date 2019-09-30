@@ -73,7 +73,7 @@ def crop_image(img, bbox):
 
 
 def save_file():
-    logger.info('request received')
+    # logger.info('request received')
     ensure_folder(STATIC_DIR)
     ensure_folder(UPLOAD_DIR)
     file = request.files['file']
