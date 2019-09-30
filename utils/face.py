@@ -366,7 +366,6 @@ class ArcFaceDataset(Dataset):
     def __init__(self, files, folder_path):
         self.files = files
         self.folder_path = folder_path
-        self.transformer = data_transforms['train']
 
     def __getitem__(self, i):
         filepath = self.files[i]
