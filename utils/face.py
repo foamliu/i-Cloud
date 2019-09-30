@@ -5,7 +5,9 @@ import random
 import shutil
 import time
 import zipfile
-
+import datetime
+import os
+import random
 import cv2 as cv
 import numpy as np
 import torch
@@ -329,6 +331,12 @@ def extract(filename, folder_path):
 def face_feature_batch(full_path=''):
     start = time.time()
     folder_path = 'static/batch'
+
+    rand = random.randint(1000, 9999)
+    subdir = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    subdir = '{}_{}'.format(subdir, rand)
+    folder_path = os.path.join(folder_path, subdir)
+
     shutil.rmtree(folder_path, ignore_errors=True)
     if full_path.lower().endswith('.zip'):
         extract(full_path, folder_path)
@@ -384,6 +392,7 @@ def face_feature_batch(full_path=''):
     elapsed_per_image = 0
     if file_count > 0:
         elapsed_per_image = elapsed / file_count
+    shutil.rmtree(folder_path, ignore_errors=True)
     times.update(elapsed_per_image, file_count)
 
     logger.info('batch done. {:.4f}({:.4f}) seconds per image.'.format(times.val, times.avg))
