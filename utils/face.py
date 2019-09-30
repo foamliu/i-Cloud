@@ -15,6 +15,7 @@ from flask import request
 from scipy.stats import norm
 from torch import nn
 from torchvision import transforms
+from tqdm import tqdm
 from werkzeug.utils import secure_filename
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
@@ -368,7 +369,7 @@ def face_feature_batch(full_path=''):
     feature_dict = dict()
 
     with torch.no_grad():
-        for start_idx in range(0, file_count, batch_size):
+        for start_idx in tqdm(range(0, file_count, batch_size)):
             end_idx = min(file_count, start_idx + batch_size)
             length = end_idx - start_idx
 
