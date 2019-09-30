@@ -417,7 +417,7 @@ def face_feature_batch(full_path=''):
 
     # Batches
     outer_idx = 0
-    for imgs_0, imgs_1 in tqdm(range(len(data_loader))):
+    for imgs_0, imgs_1 in tqdm(data_loader):
         length = imgs_0.size()[0]
 
         with torch.no_grad():
