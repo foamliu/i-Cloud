@@ -356,7 +356,7 @@ def face_feature_batch(full_path=''):
     files = filtered
 
     file_count = len(files)
-    batch_size = 128
+    batch_size = 256
     feature_dict = dict()
 
     with torch.no_grad():
