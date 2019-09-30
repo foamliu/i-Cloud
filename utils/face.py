@@ -430,11 +430,11 @@ def face_feature_batch(full_path=''):
 
     logger.info('images processed')
     elapsed = time.time() - start
-    elapsed_per_image = 0
+
     if file_count > 0:
         elapsed_per_image = elapsed / file_count
+        times.update(elapsed_per_image, file_count)
     shutil.rmtree(folder_path, ignore_errors=True)
-    times.update(elapsed_per_image, file_count)
 
     logger.info('batch done: {:.4f}({:.4f}) seconds per image.'.format(times.val, times.avg))
     return feature_dict, elapsed
