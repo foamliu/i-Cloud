@@ -14,8 +14,8 @@ from PIL import Image
 from flask import request
 from scipy.stats import norm
 from torch import nn
+from torch.utils.data import Dataset
 from torchvision import transforms
-from tqdm import tqdm
 from werkzeug.utils import secure_filename
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
@@ -362,6 +362,22 @@ def extract(filename, folder_path):
         pass
 
 
+class ArcFaceDataset(Dataset):
+    def __init__(self, files, folder_path):
+        self.files = files
+        self.folder_path = folder_path
+        self.transformer = data_transforms['train']
+
+    def __getitem__(self, i):
+        filepath = self.files[i]
+        filepath = os.path.join(self.folder_path, filepath)
+        img_0, img_1 = get_image_batch(filepath, draw=False)
+        return img_0, img_1
+
+    def __len__(self):
+        return len(self.samples)
+
+
 def face_feature_batch(full_path=''):
     start = time.time()
     folder_path = 'static/batch'
@@ -393,31 +409,25 @@ def face_feature_batch(full_path=''):
     file_count = len(files)
     logger.info('images filtered, file count: ' + str(len(files)))
 
-    batch_size = 1024
+    batch_size = 256
     feature_dict = dict()
 
-    with torch.no_grad():
-        for start_idx in tqdm(range(0, file_count, batch_size)):
-            end_idx = min(file_count, start_idx + batch_size)
-            length = end_idx - start_idx
+    dataset = ArcFaceDataset(files, folder_path)
+    data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
-            imgs_0 = torch.zeros([length, 3, 112, 112], dtype=torch.float, device=device)
-            imgs_1 = torch.zeros([length, 3, 112, 112], dtype=torch.float, device=device)
+    # Batches
+    for i, (imgs_0, imgs_1) in enumerate(data_loader):
+        length = imgs_0.size()[0]
 
-            for idx in range(0, length):
-                i = start_idx + idx
-                filepath = files[i]
-                filepath = os.path.join(folder_path, filepath)
-                imgs_0[idx], imgs_1[idx] = get_image_batch(filepath, draw=False)
-
+        with torch.no_grad():
             features_0 = model(imgs_0.to(device)).cpu().numpy()
             features_1 = model(imgs_1.to(device)).cpu().numpy()
 
-            for idx in range(0, length):
-                i = start_idx + idx
-                feature = features_0[idx] + features_1[idx]
-                feature = feature / np.linalg.norm(feature)
-                feature_dict[files[i]] = feature.tolist()
+        for idx in range(0, length):
+            i = i * batch_size + idx
+            feature = features_0[idx] + features_1[idx]
+            feature = feature / np.linalg.norm(feature)
+            feature_dict[files[i]] = feature.tolist()
 
     logger.info('images processed')
     elapsed = time.time() - start
