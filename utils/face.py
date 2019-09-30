@@ -16,6 +16,7 @@ from scipy.stats import norm
 from torch import nn
 from torch.utils.data import Dataset
 from torchvision import transforms
+from tqdm import tqdm
 from werkzeug.utils import secure_filename
 
 from align_faces import get_reference_facial_points, warp_and_crop_face
@@ -355,7 +356,7 @@ def extract(filename, folder_path):
     zip_ref = zipfile.ZipFile(filename, 'r')
     zip_ref.extractall(folder_path)
     zip_ref.close()
-    # logger.info('files extracted to: {}'.format(folder_path))
+    logger.info('files extracted to: {}'.format(folder_path))
     try:
         os.remove(filename)
     except OSError:
@@ -391,10 +392,10 @@ def face_feature_batch(full_path=''):
         extract(full_path, folder_path)
 
     files = [f for f in os.listdir(folder_path)]
-    # logger.info('file count: {}, start filtering...'.format(len(files)))
+    logger.info('file count: {}, start filtering...'.format(len(files)))
 
     filtered = []
-    for filename in files:
+    for filename in tqdm(files):
         full_path = os.path.join(folder_path, filename)
         try:
             img = Image.open(full_path).convert('RGB')
@@ -408,13 +409,13 @@ def face_feature_batch(full_path=''):
     files = filtered
 
     file_count = len(files)
-    # logger.info('filtered file count: {}, start processing...'.format(len(files)))
+    logger.info('filtered file count: {}, start processing...'.format(len(files)))
 
     batch_size = 256
     feature_dict = dict()
 
     with torch.no_grad():
-        for start_idx in range(0, file_count, batch_size):
+        for start_idx in tqdm(range(0, file_count, batch_size)):
             end_idx = min(file_count, start_idx + batch_size)
             length = end_idx - start_idx
 
