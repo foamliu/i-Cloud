@@ -412,24 +412,28 @@ def face_feature_batch(full_path=''):
     batch_size = 256
     feature_dict = dict()
 
-    dataset = ArcFaceDataset(files, folder_path)
-    data_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=4)
+    with torch.no_grad():
+        for start_idx in tqdm(range(0, file_count, batch_size)):
+            end_idx = min(file_count, start_idx + batch_size)
+            length = end_idx - start_idx
 
-    # Batches
-    outer_idx = 0
-    for imgs_0, imgs_1 in tqdm(data_loader):
-        length = imgs_0.size()[0]
+            imgs_0 = torch.zeros([length, 3, 112, 112], dtype=torch.float, device=device)
+            imgs_1 = torch.zeros([length, 3, 112, 112], dtype=torch.float, device=device)
 
-        with torch.no_grad():
+            for idx in range(0, length):
+                i = start_idx + idx
+                filepath = files[i]
+                filepath = os.path.join(folder_path, filepath)
+                imgs_0[idx], imgs_1[idx] = get_image_batch(filepath, draw=False)
+
             features_0 = model(imgs_0.to(device)).cpu().numpy()
             features_1 = model(imgs_1.to(device)).cpu().numpy()
 
-        for idx in range(0, length):
-            global_id = outer_idx * batch_size + idx
-            feature = features_0[idx] + features_1[idx]
-            feature = feature / np.linalg.norm(feature)
-            feature_dict[files[global_id]] = feature.tolist()
-        outer_idx += 1
+            for idx in range(0, length):
+                i = start_idx + idx
+                feature = features_0[idx] + features_1[idx]
+                feature = feature / np.linalg.norm(feature)
+                feature_dict[files[i]] = feature.tolist()
 
     logger.info('images processed')
     elapsed = time.time() - start
