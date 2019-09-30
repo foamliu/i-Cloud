@@ -375,7 +375,7 @@ class ArcFaceDataset(Dataset):
         return img_0, img_1
 
     def __len__(self):
-        return len(self.samples)
+        return len(self.files)
 
 
 def face_feature_batch(full_path=''):
