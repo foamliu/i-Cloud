@@ -83,7 +83,7 @@ def save_file():
     filename = '{}_{}{}'.format(name, rand, ext)
     full_path = os.path.join(UPLOAD_DIR, filename)
     file.save(full_path)
-    logger.info('file transferred, full_path: ' + full_path)
+    # logger.info('file transferred, full_path: ' + full_path)
     return full_path
 
 
