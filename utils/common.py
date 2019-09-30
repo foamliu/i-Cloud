@@ -1,10 +1,11 @@
 import hashlib
 import os
+import random
 
 import cv2 as cv
 from flask import request
 from werkzeug.utils import secure_filename
-import random
+
 from config import STATIC_DIR, UPLOAD_DIR, logger
 
 
@@ -77,9 +78,7 @@ def save_file():
     ensure_folder(UPLOAD_DIR)
     file = request.files['file']
     filename = secure_filename(file.filename)
-    tokens = filename.split('.')
-    name = tokens[0]
-    ext = tokens[1]
+    name, ext = os.path.splitext(filename)
     rand = random.randint(10000, 99999)
     filename = '{}_{}.{}'.format(name, rand, ext)
     full_path = os.path.join(UPLOAD_DIR, filename)
