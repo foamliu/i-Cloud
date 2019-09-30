@@ -72,6 +72,7 @@ def crop_image(img, bbox):
 
 
 def save_file():
+    logger.info('request received')
     ensure_folder(STATIC_DIR)
     ensure_folder(UPLOAD_DIR)
     file = request.files['file']
@@ -84,7 +85,7 @@ def save_file():
     full_path = os.path.join(UPLOAD_DIR, filename)
     file.save(full_path)
     # resize(full_path)
-    logger.info('full_path: ' + full_path)
+    logger.info('file transferred, full_path: ' + full_path)
     return full_path
 
 
