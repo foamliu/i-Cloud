@@ -80,7 +80,7 @@ def save_file():
     filename = secure_filename(file.filename)
     name, ext = os.path.splitext(filename)
     rand = random.randint(10000, 99999)
-    filename = '{}_{}.{}'.format(name, rand, ext)
+    filename = '{}_{}{}'.format(name, rand, ext)
     full_path = os.path.join(UPLOAD_DIR, filename)
     file.save(full_path)
     logger.info('file transferred, full_path: ' + full_path)
